@@ -136,11 +136,8 @@
       };
     </script>
 
-    <!-- Firebase SDK (Local Vite Module + CDN Fallback) -->
+    <!-- Firebase SDK (Authoritative Vite Module) -->
     <script type="module" src="/src/firebase-init.ts"></script>
-    <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-    <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
     <style>
       html {
@@ -397,6 +394,10 @@
 
       let db = null;
       function initQaDb() {
+        if (window.db) {
+          db = window.db;
+          return;
+        }
         if (typeof firebase === 'undefined') return;
         try {
           const app = firebase.apps && firebase.apps.length ? firebase.app() : firebase.initializeApp(firebaseConfig);

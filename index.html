@@ -252,11 +252,8 @@
       };
     </script>
 
-    <!-- Firebase Web SDK (Local Vite Bundle + CDN Fallback) -->
+    <!-- Firebase Web SDK (Authoritative Vite Bundle) -->
     <script type="module" src="/src/firebase-init.ts"></script>
-    <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-    <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
     <style>
       html {
@@ -1170,8 +1167,16 @@
       let db = null;
       let isFirebaseReady = false;
 
-      // Safe resilient Firebase Initializer (supports Vite local bundle & CDN fallback)
+      // Safe resilient Firebase Initializer (uses authoritative Vite bundle)
       function initFirebaseServices() {
+        if (window.auth && window.db) {
+          auth = window.auth;
+          db = window.db;
+          app = window.firebase ? (window.firebase.apps?.[0] || window.firebase.app()) : null;
+          isFirebaseReady = true;
+          setupAuthListener();
+          return true;
+        }
         if (typeof firebase === 'undefined') {
           return false;
         }
@@ -1747,21 +1752,28 @@
           submitBtn.textContent = 'Create Account →';
         });
 
-        // Google Auth Trigger (with iframe resilience)
+        // Google Auth Trigger (with iframe resilience and unified SDK provider)
         document.getElementById('google-auth-btn')?.addEventListener('click', () => {
           const errBox = document.getElementById('auth-error');
+          if (errBox) errBox.classList.add('hidden');
+
           if (!auth) {
             initFirebaseServices();
           }
-          if (!auth) {
+
+          const performSignIn = (typeof window.signInWithGoogle === 'function')
+            ? window.signInWithGoogle()
+            : (auth ? auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()) : null);
+
+          if (!performSignIn) {
             if (errBox) {
-              errBox.textContent = 'Auth service initializing. Click "Instant Client Portal Demo" below to test right now.';
+              errBox.textContent = 'Auth service initializing. Click "Instant Client Portal Demo" below to test immediately.';
               errBox.classList.remove('hidden');
             }
             return;
           }
-          const provider = new firebase.auth.GoogleAuthProvider();
-          auth.signInWithPopup(provider)
+
+          performSignIn
             .then((result) => {
               currentUser = result.user;
               closeAuthModal();
@@ -1770,9 +1782,15 @@
             })
             .catch((err) => {
               console.warn("Google Sign-In note:", err);
-              if (err.code === 'auth/popup-blocked' || err.code === 'auth/unauthorized-domain' || err.code === 'auth/operation-not-supported-in-this-environment') {
+              if (
+                err.code === 'auth/popup-blocked' ||
+                err.code === 'auth/unauthorized-domain' ||
+                err.code === 'auth/operation-not-supported-in-this-environment' ||
+                err.code === 'auth/cancelled-popup-request' ||
+                err.code === 'auth/argument-error'
+              ) {
                 if (errBox) {
-                  errBox.innerHTML = 'Google popup was restricted by iframe security. Use <b>Email/Password</b> or click <b>Instant Client Portal Demo</b> below.';
+                  errBox.innerHTML = 'Google popup restricted in iframe preview. Use <b>Email/Password</b> above or click <b>Instant Client Portal Demo</b> below.';
                   errBox.classList.remove('hidden');
                 }
               } else if (errBox) {
@@ -1950,7 +1968,7 @@
                 showToast("Project added to timeline queue", "success");
               })
               .finally(() => {
-                submitBtn.textContent = 'Transmit to Nomair's Timeline →';
+                submitBtn.textContent = "Transmit to Nomair's Timeline →";
               });
           } else {
             // Offline / local save
@@ -1964,7 +1982,7 @@
               statusEl?.classList.add('hidden');
               switchPortalTab('projects');
             }, 800);
-            submitBtn.textContent = 'Transmit to Nomair's Timeline →';
+            submitBtn.textContent = "Transmit to Nomair's Timeline →";
           }
         });
 
