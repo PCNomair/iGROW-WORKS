@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Host
+Host: https://igrow.now
+
+# Sitemaps
+Sitemap: https://igrow.now/sitemap.xml

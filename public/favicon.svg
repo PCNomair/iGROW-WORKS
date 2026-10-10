@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Neo-Brutalist Frame with Yellow Background & Heavy Black Border -->
+  <rect width="64" height="64" fill="#EDDD5A" rx="4" />
+  <rect x="2" y="2" width="60" height="60" fill="none" stroke="#000000" stroke-width="4" rx="2" />
+  <!-- Bold Brutalist Lettermark "iG" -->
+  <text x="32" y="44" font-family="'Anton', Impact, sans-serif" font-size="34" font-weight="900" fill="#000000" text-anchor="middle" letter-spacing="-1">iG</text>
+</svg>

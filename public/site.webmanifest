@@ -1,0 +1,17 @@
+{
+  "name": "iGROW WORKS | Post-Production & Video Editing",
+  "short_name": "iGROW WORKS",
+  "description": "Creative post-production studio led by director Nomair, specializing in visual storytelling, documentaries, drama, and narrative commercials.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#EDDD5A",
+  "theme_color": "#EDDD5A",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

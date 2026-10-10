@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Technical SEO Primary Meta Tags -->
+    <title>Q&amp;A | iGROW WORKS • Production Protocols &amp; Client Portal</title>
+    <meta name="description" content="Frequently asked questions about iGROW WORKS post-production, raw footage upload via our private client portal, turnaround times, and direction by Nomair." />
+    <meta name="keywords" content="video editing Q&A, client portal raw materials, post-production workflow, director Nomair, iGROW WORKS FAQ, documentary editing delivery" />
+    <meta name="author" content="Nomair" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="theme-color" content="#EDDD5A" />
+    <link rel="canonical" href="https://igrow.now/qa.html" />
+
+    <!-- Favicon & PWA Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- OpenGraph Social Cards -->
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="iGROW WORKS" />
+    <meta property="og:title" content="Q&amp;A | iGROW WORKS • Production Protocols &amp; Client Portal" />
+    <meta property="og:description" content="Explore our complete production workflow, raw materials delivery via our dedicated client portal, and directorial editing standards led by Nomair." />
+    <meta property="og:url" content="https://igrow.now/qa.html" />
+    <meta property="og:image" content="https://i.postimg.cc/mDYr617C/IMAGE-2026-10-09-19-10-00.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="iGROW WORKS Production Q&amp;A" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter / X Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@igrowworks" />
+    <meta name="twitter:creator" content="@igrowworks" />
+    <meta name="twitter:title" content="Q&amp;A | iGROW WORKS • Production Protocols &amp; Client Portal" />
+    <meta name="twitter:description" content="Explore our complete production workflow, raw materials delivery via our dedicated client portal, and directorial editing standards led by Nomair." />
+    <meta name="twitter:image" content="https://i.postimg.cc/mDYr617C/IMAGE-2026-10-09-19-10-00.jpg" />
+
+    <!-- Schema.org JSON-LD Structured Data for FAQPage & BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://igrow.now/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Q&A",
+              "item": "https://igrow.now/qa.html"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://igrow.now/qa.html#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "How do we send raw materials and receive finished projects?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "We operate our own dedicated private client portal for all registered accounts. You can securely upload raw footage, project assets, and briefs directly through the portal, and download finished high-fidelity 4K masters, color-graded timelines, and audio stems once completed."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Who directly directs and edits the projects?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Nomair directly leads creative direction and master video editing with over 500+ career projects completed. Marie Bu writes the story architectures and scripts, supported by a close-knit collective of talented assistant editors with zero agency middlemen."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is the typical project turnaround time?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Turnaround typically ranges from 3 to 7 business days depending on footage volume, visual complexity, and sound design demands. Priority fast-track timelines are available for active portal accounts."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What video genres and formats do you specialize in?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "We specialize in cinematic YouTube documentaries, narrative drama, high-converting commercial storytelling, episodic digital series, and high-retention video packaging."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How does the revision and feedback workflow function?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "We integrate frame-accurate video review tools and direct 1-on-1 dialogue with Nomair. Revisions are executed with directorial precision until every frame matches your vision."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              studio: '#EDDD5A',
+              'studio-light': '#F4E776',
+              jet: '#000000',
+            },
+            fontFamily: {
+              display: ['Anton', 'sans-serif'],
+              sans: ['"Space Grotesk"', 'sans-serif'],
+            }
+          }
+        }
+      };
+    </script>
+
+    <!-- Firebase SDK (v10 compat) -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+    <style>
+      html {
+        scroll-behavior: smooth;
+        background-color: #EDDD5A;
+        color: #000000;
+      }
+      ::selection {
+        background-color: #000000;
+        color: #EDDD5A;
+      }
+    </style>
+  </head>
+  <body class="bg-studio text-black font-sans min-h-screen selection:bg-black selection:text-studio flex flex-col justify-between">
+
+    <!-- TOP NAVIGATION -->
+    <header class="border-b-2 border-black px-4 sm:px-8 py-3.5 flex justify-between items-center bg-studio sticky top-0 z-40 backdrop-blur-xs">
+      <a href="/" class="font-display text-2xl tracking-tight text-black flex items-center gap-1.5 hover:opacity-80 transition-opacity">
+        <span>iGROW WORKS</span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-6 font-bold uppercase text-xs tracking-widest text-black" aria-label="Breadcrumb Navigation">
+        <a href="/" class="hover:underline underline-offset-4">← Return to Home</a>
+        <a href="/#about" class="hover:underline underline-offset-4">Nomair</a>
+        <a href="/#writer" class="hover:underline underline-offset-4">Marie Bu</a>
+        <a href="/#contact" class="hover:underline underline-offset-4">Contact</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <button id="nav-portal-btn" class="rounded-full border border-black px-4 py-1 text-xs font-bold uppercase bg-transparent hover:bg-black hover:text-studio transition-colors cursor-pointer">
+          PORTAL
+        </button>
+        <button id="nav-start-btn" class="rounded-full bg-black text-studio border border-black px-4 py-1 text-xs font-bold uppercase hover:bg-white hover:text-black transition-colors cursor-pointer">
+          Start a Project
+        </button>
+      </div>
+    </header>
+
+    <!-- MAIN EDITORIAL CONTENT -->
+    <main class="max-w-5xl mx-auto w-full px-4 sm:px-8 py-12 sm:py-16">
+      
+      <!-- HERO HEADER -->
+      <div class="border-b-2 border-black pb-8 mb-12">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="rounded-full border border-black px-3 py-0.5 text-[10px] font-bold uppercase bg-black text-studio">
+            PRODUCTION PROTOCOLS
+          </span>
+          <span class="text-xs font-mono font-bold uppercase tracking-wider text-black">
+            KNOWLEDGE BASE // Q&amp;A
+          </span>
+        </div>
+        <h1 class="font-display text-5xl sm:text-7xl lg:text-8xl uppercase tracking-tight text-black leading-none">
+          FREQUENTLY ASKED<br />QUESTIONS &amp; PROTOCOLS
+        </h1>
+        <p class="mt-4 text-base sm:text-xl font-medium text-black/85 max-w-2xl leading-relaxed">
+          Direct, transparent answers regarding our client portal, raw footage ingestion, editorial timelines, and creative direction with Nomair &amp; Marie Bu.
+        </p>
+      </div>
+
+      <!-- FAQ ACCORDION LIST -->
+      <div class="space-y-4">
+
+        <!-- ITEM 1: PORTAL INGEST & DELIVERY (REQUESTED BY USER) -->
+        <article class="border-2 border-black bg-studio p-5 sm:p-6 shadow-[4px_4px_0px_0px_#000000] hover:shadow-[6px_6px_0px_0px_#000000] transition-shadow">
+          <div class="flex items-start justify-between gap-4">
+            <span class="font-mono text-xs font-bold bg-black text-studio px-2 py-0.5 shrink-0">01</span>
+            <div class="flex-1">
+              <h2 class="font-display text-2xl sm:text-3xl uppercase tracking-tight text-black">
+                HOW DO WE DELIVER RAW MATERIALS AND RECEIVE FINISHED PROJECTS?
+              </h2>
+              <div class="mt-3 text-sm sm:text-base font-medium leading-relaxed text-black/90 space-y-3">
+                <p class="font-bold uppercase tracking-wide bg-black/5 p-3 border-l-4 border-black">
+                  ★ WE HAVE OUR DEDICATED PORTAL TO RECEIVE RAW MATERIALS AND RECEIVE FINISHED PROJECTS.
+                </p>
+                <p>
+                  Every registered account receives access to our secure client portal. Once logged in, you can upload multi-gigabyte raw camera footage, audio stems, and creative briefs directly to our high-speed cloud pipeline.
+                </p>
+                <p>
+                  When Nomair and our editorial team conclude editing, color grading, and sound mixing, your finished 4K masters, high-converting exports, and archive project files are received directly back into your private portal dashboard.
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- ITEM 2: CREATIVE TEAM & DIRECTION -->
+        <article class="border-2 border-black bg-studio p-5 sm:p-6 shadow-[4px_4px_0px_0px_#000000]">
+          <div class="flex items-start justify-between gap-4">
+            <span class="font-mono text-xs font-bold bg-black text-studio px-2 py-0.5 shrink-0">02</span>
+            <div class="flex-1">
+              <h2 class="font-display text-2xl sm:text-3xl uppercase tracking-tight text-black">
+                WHO DIRECTS AND EDITS MY VIDEO?
+              </h2>
+              <div class="mt-3 text-sm sm:text-base font-medium leading-relaxed text-black/90 space-y-2">
+                <p>
+                  Nomair personally leads directorial oversight and primary video editing, backed by more than 500+ mastered projects spanning documentaries, fiction drama, and commercial campaigns.
+                </p>
+                <p>
+                  Our lead writer Marie Bu writes narrative frameworks and tension curves. You communicate directly with the creatives shaping your film—zero agency account managers or bureaucracy.
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- ITEM 3: TURNAROUND & SCHEDULE -->
+        <article class="border-2 border-black bg-studio p-5 sm:p-6 shadow-[4px_4px_0px_0px_#000000]">
+          <div class="flex items-start justify-between gap-4">
+            <span class="font-mono text-xs font-bold bg-black text-studio px-2 py-0.5 shrink-0">03</span>
+            <div class="flex-1">
+              <h2 class="font-display text-2xl sm:text-3xl uppercase tracking-tight text-black">
+                WHAT IS THE EXPECTED TURNAROUND TIME?
+              </h2>
+              <div class="mt-3 text-sm sm:text-base font-medium leading-relaxed text-black/90 space-y-2">
+                <p>
+                  Standard turnarounds range from 3 to 7 business days, depending on footage length, multi-cam complexity, and audio design demands.
+                </p>
+                <p>
+                  Expedited and priority dispatch options can be requested directly inside the portal for time-sensitive releases.
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- ITEM 4: REVISIONS & NOTES -->
+        <article class="border-2 border-black bg-studio p-5 sm:p-6 shadow-[4px_4px_0px_0px_#000000]">
+          <div class="flex items-start justify-between gap-4">
+            <span class="font-mono text-xs font-bold bg-black text-studio px-2 py-0.5 shrink-0">04</span>
+            <div class="flex-1">
+              <h2 class="font-display text-2xl sm:text-3xl uppercase tracking-tight text-black">
+                HOW DO FRAME-BY-FRAME REVISIONS WORK?
+              </h2>
+              <div class="mt-3 text-sm sm:text-base font-medium leading-relaxed text-black/90 space-y-2">
+                <p>
+                  Every draft is delivered with timecode-accurate feedback integration. You can click any timestamp, leave a note, or sketch over the frame.
+                </p>
+                <p>
+                  Nomair reviews notes directly and addresses pacing, color grading, or pacing tweaks until the cut hits absolute cinematic perfection.
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- ITEM 5: PRODUCTION STACK -->
+        <article class="border-2 border-black bg-studio p-5 sm:p-6 shadow-[4px_4px_0px_0px_#000000]">
+          <div class="flex items-start justify-between gap-4">
+            <span class="font-mono text-xs font-bold bg-black text-studio px-2 py-0.5 shrink-0">05</span>
+            <div class="flex-1">
+              <h2 class="font-display text-2xl sm:text-3xl uppercase tracking-tight text-black">
+                WHAT EDITING AND COLOR SUITES DO YOU OPERATE?
+              </h2>
+              <div class="mt-3 text-sm sm:text-base font-medium leading-relaxed text-black/90 space-y-2">
+                <p>
+                  DaVinci Resolve Studio for world-class color science and mastering, Adobe Premiere Pro &amp; After Effects for dynamic editorial rhythm and motion graphics, and professional cinematic sound design pipelines.
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- BOTTOM CALL TO ACTION -->
+      <div class="mt-16 border-2 border-black bg-studio p-8 sm:p-12 text-center space-y-6">
+        <h3 class="font-display text-3xl sm:text-5xl uppercase tracking-tight text-black">
+          READY TO ELEVATE YOUR STORIES?
+        </h3>
+        <p class="text-base sm:text-lg font-medium text-black/90 max-w-xl mx-auto">
+          Start a direct project inquiry or sign in to access your private portal to begin transferring materials.
+        </p>
+        <div class="flex flex-wrap items-center justify-center gap-4">
+          <button id="cta-start-btn" class="rounded-full bg-black text-studio border-2 border-black px-8 py-3 font-display text-lg uppercase hover:bg-white hover:text-black transition-colors cursor-pointer">
+            START A PROJECT →
+          </button>
+          <a href="/" class="rounded-full bg-transparent text-black border-2 border-black px-8 py-3 font-display text-lg uppercase hover:bg-black hover:text-studio transition-colors inline-block">
+            ← BACK TO HOMEPAGE
+          </a>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- MINIMAL DUAL LINE FOOTER -->
+    <footer class="border-t-2 border-black bg-studio py-8 px-4 text-center select-none">
+      <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono uppercase text-black/80">
+        <div>© 2026 iGROW WORKS • ALL RIGHTS RESERVED</div>
+        <div>DIRECTED BY NOMAIR • WRITTEN BY MARIE BU</div>
+        <a href="/" class="font-bold underline hover:opacity-75">igrow.now</a>
+      </div>
+    </footer>
+
+    <!-- INQUIRY MODAL (DIRECT SCRIPT) -->
+    <div id="inquiry-modal" class="fixed inset-0 z-50 bg-black/75 hidden flex items-center justify-center p-4 overflow-y-auto">
+      <div class="bg-studio w-full max-w-lg border-2 border-black p-6 sm:p-8 relative my-8 shadow-[8px_8px_0px_0px_#000000]">
+        <button id="close-inquiry-btn" class="absolute top-4 right-4 font-mono text-xl font-bold hover:opacity-70 cursor-pointer">✕</button>
+        <div class="mb-4">
+          <span class="rounded-full border border-black px-3 py-0.5 text-[10px] font-bold uppercase bg-black text-studio">INQUIRY</span>
+          <h3 class="font-display text-3xl uppercase tracking-tight text-black mt-2">TALK WITH NOMAIR &amp; MARIE</h3>
+        </div>
+        <form id="direct-inquiry-form" class="space-y-4">
+          <div>
+            <label class="block text-xs font-bold uppercase mb-1">Your Name</label>
+            <input type="text" name="name" required class="w-full border-2 border-black px-3 py-2 bg-white text-black font-medium focus:outline-none" placeholder="Alex Morgan" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase mb-1">Email Address</label>
+            <input type="email" name="email" required class="w-full border-2 border-black px-3 py-2 bg-white text-black font-medium focus:outline-none" placeholder="alex@channel.com" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase mb-1">Project Details</label>
+            <textarea name="details" rows="3" required class="w-full border-2 border-black px-3 py-2 bg-white text-black font-medium focus:outline-none resize-none" placeholder="Tell us about your documentary, channel, or commercial..."></textarea>
+          </div>
+          <button type="submit" class="w-full rounded-full bg-black text-studio border-2 border-black py-3 font-display text-xl uppercase hover:bg-white hover:text-black transition-colors cursor-pointer">
+            SEND INQUIRY →
+          </button>
+          <div id="inquiry-status" class="hidden text-xs font-bold uppercase text-center p-2 border border-black"></div>
+        </form>
+      </div>
+    </div>
+
+    <!-- PORTAL AUTH MODAL -->
+    <div id="auth-modal" class="fixed inset-0 z-50 bg-black/75 hidden flex items-center justify-center p-4">
+      <div class="bg-studio w-full max-w-sm border-2 border-black p-6 relative shadow-[8px_8px_0px_0px_#000000]">
+        <button id="close-auth-btn" class="absolute top-4 right-4 font-mono text-xl font-bold hover:opacity-70 cursor-pointer">✕</button>
+        <div class="mb-4">
+          <span class="rounded-full border border-black px-2.5 py-0.5 text-[9px] font-bold uppercase bg-black text-studio">PORTAL</span>
+          <h3 class="font-display text-2xl uppercase tracking-tight text-black mt-1">CLIENT ACCESS</h3>
+          <p class="text-xs text-black/80 font-medium">Upload raw materials &amp; download finished masters.</p>
+        </div>
+        <div class="space-y-3">
+          <a href="/#portal" class="block text-center rounded-full bg-black text-studio border-2 border-black py-2.5 font-display text-base uppercase hover:bg-white hover:text-black transition-colors">
+            GO TO MAIN PORTAL →
+          </a>
+          <button id="auth-back-btn" class="w-full rounded-full bg-transparent text-black border border-black py-2 text-xs font-bold uppercase hover:bg-black hover:text-studio transition-colors cursor-pointer">
+            CLOSE
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPT LOGIC -->
+    <script>
+      const inquiryModal = document.getElementById('inquiry-modal');
+      const authModal = document.getElementById('auth-modal');
+
+      function openInquiry() { inquiryModal.classList.remove('hidden'); }
+      function closeInquiry() { inquiryModal.classList.add('hidden'); }
+      function openAuth() { authModal.classList.remove('hidden'); }
+      function closeAuth() { authModal.classList.add('hidden'); }
+
+      document.getElementById('nav-start-btn')?.addEventListener('click', openInquiry);
+      document.getElementById('cta-start-btn')?.addEventListener('click', openInquiry);
+      document.getElementById('close-inquiry-btn')?.addEventListener('click', closeInquiry);
+      inquiryModal?.addEventListener('click', (e) => { if (e.target === inquiryModal) closeInquiry(); });
+
+      document.getElementById('nav-portal-btn')?.addEventListener('click', openAuth);
+      document.getElementById('close-auth-btn')?.addEventListener('click', closeAuth);
+      document.getElementById('auth-back-btn')?.addEventListener('click', closeAuth);
+      authModal?.addEventListener('click', (e) => { if (e.target === authModal) closeAuth(); });
+
+      document.getElementById('direct-inquiry-form')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const status = document.getElementById('inquiry-status');
+        status.textContent = 'TRANSMITTING INQUIRY TO NOMAIR...';
+        status.classList.remove('hidden');
+        setTimeout(() => {
+          status.textContent = 'RECEIVED! WE WILL REPLY TO YOU SHORTLY.';
+          status.classList.add('bg-black', 'text-studio');
+          setTimeout(() => { closeInquiry(); }, 1800);
+        }, 800);
+      });
+    </script>
+  </body>
+</html>
