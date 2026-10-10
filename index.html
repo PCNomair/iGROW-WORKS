@@ -1608,8 +1608,10 @@
       document.getElementById('preloader')?.addEventListener('click', dismissPreloader);
 
       window.addEventListener('load', () => {
-        setTimeout(dismissPreloader, 1900);
+        setTimeout(dismissPreloader, 1200);
       });
+      // Safety fallback: ensure content is always revealed even if external assets take time
+      setTimeout(dismissPreloader, 2000);
 
       document.addEventListener('DOMContentLoaded', () => {
         updateAuthUI();
@@ -1617,7 +1619,7 @@
         // Modal listeners
         document.getElementById('close-auth-btn')?.addEventListener('click', closeAuthModal);
         document.getElementById('auth-modal')?.addEventListener('click', (e) => {
-          if (e.target.id === 'auth-modal') closeAuthModal();\n            closePortalModal();
+          if (e.target.id === 'auth-modal') closeAuthModal();
         });
 
         document.getElementById('close-portal-btn')?.addEventListener('click', closePortalModal);
@@ -2001,20 +2003,6 @@
           toggleGoldenRatio(e);
         });
 
-        // Contact Form
-        const contactForm = document.getElementById('contact-form');
-        contactForm?.addEventListener('submit', (e) => {
-          e.preventDefault();
-          const status = document.getElementById('contact-status');
-          if (status) {
-            status.classList.remove('hidden');
-            contactForm.reset();
-            setTimeout(() => {
-              status.classList.add('hidden');
-              closeInquiryModal();
-            }, 3000);
-          }
-        });
 
         // Careers Form
         const careersForm = document.getElementById('careers-form');

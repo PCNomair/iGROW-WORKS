@@ -1,5 +1,5 @@
 // iGROW WORKS Service Worker - Production PWA Offline & Cache Engine
-const CACHE_NAME = "igrow-works-v1";
+const CACHE_NAME = "igrow-works-v2";
 const PRECACHE_ASSETS = [
   "/",
   "/index.html",
