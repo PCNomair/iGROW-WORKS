@@ -945,7 +945,7 @@
         </div>
 
         <!-- Google Auth Section -->
-        <div class="space-y-2 mb-3">
+        <div class="mb-3">
           <button id="google-auth-btn" type="button" class="w-full border-2 border-black bg-white hover:bg-black hover:text-studio py-2.5 px-3 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2.5 transition-colors cursor-pointer shadow-[2px_2px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5">
             <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24">
               <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -954,15 +954,6 @@
               <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
             </svg>
             <span class="tracking-normal font-sans text-xs font-bold">تسجيل الدخول عبر Google (Continue with Google)</span>
-          </button>
-
-          <!-- 1-Click Direct Google Director Access -->
-          <button id="quick-google-user-btn" type="button" class="w-full bg-[#1a73e8]/10 hover:bg-[#1a73e8] hover:text-white text-[#1a73e8] border border-[#1a73e8]/40 py-2 px-2.5 text-[11px] font-bold flex items-center justify-between transition-colors cursor-pointer rounded-sm">
-            <span class="flex items-center gap-1.5">
-              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-              <span>دخول فوري بحساب غوغل: <strong class="font-mono">xaomi4386@gmail.com</strong></span>
-            </span>
-            <span class="text-[9px] bg-black text-studio px-1.5 py-0.5 font-mono uppercase">Director</span>
           </button>
         </div>
 
@@ -1168,7 +1159,7 @@
         messagingSenderId: "816469589424"
       };
 
-      const ADMIN_EMAIL = "xaomi4386@gmail.com";
+      const ADMIN_EMAIL = "nomair@igrow.now";
       const SESSION_STORAGE_KEY = "igrow_auth_session_user";
       const ACCOUNTS_STORAGE_KEY = "igrow_registered_accounts_db";
 
@@ -1876,20 +1867,7 @@
           submitBtn.textContent = 'Create Account →';
         });
 
-        // 1-Click Direct Google Director Access
-        document.getElementById('quick-google-user-btn')?.addEventListener('click', () => {
-          const gUser = {
-            uid: 'goog_admin_' + btoa(ADMIN_EMAIL.toLowerCase()).replace(/[^a-zA-Z0-9]/g, '').slice(0, 16),
-            email: ADMIN_EMAIL,
-            displayName: 'Director Nomair',
-            role: 'admin',
-            provider: 'google.com',
-            _isLocal: true
-          };
-          loginUser(gUser, "مرحباً يا مدير! تم تسجيل الدخول بحساب Google: " + ADMIN_EMAIL);
-        });
-
-        // Google Auth Trigger (Official Firebase Google SDK + seamless iframe handling)
+        // Google Auth Trigger (Official Firebase Google SDK + seamless iframe fallback)
         document.getElementById('google-auth-btn')?.addEventListener('click', async () => {
           const errBox = document.getElementById('auth-error');
           if (errBox) errBox.classList.add('hidden');
@@ -1929,13 +1907,13 @@
 
           if (!loggedIn) {
             // When running inside an iframe preview where popups are blocked,
-            // prompt the user cleanly so they can use their own Google account
+            // prompt cleanly for any Google / Gmail account
             const chosen = prompt(
-              "تسجيل الدخول بحساب Google:\n\nللدخول المباشر بحسابك (" + ADMIN_EMAIL + ") اضغط OK.\nأو اكتب بريد Gmail آخر للمتابعة:",
-              ADMIN_EMAIL
+              "تسجيل الدخول بحساب Google (Google Sign-In):\nأدخل بريدك الإلكتروني (Gmail) للمتابعة:",
+              ""
             );
-            if (chosen !== null) {
-              const clean = chosen.trim() || ADMIN_EMAIL;
+            if (chosen && chosen.trim()) {
+              const clean = chosen.trim();
               const isAdm = clean.toLowerCase() === ADMIN_EMAIL.toLowerCase();
               const gUser = {
                 uid: 'goog_' + btoa(clean.toLowerCase()).replace(/[^a-zA-Z0-9]/g, '').slice(0, 16),
