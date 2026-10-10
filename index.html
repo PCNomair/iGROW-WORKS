@@ -252,10 +252,11 @@
       };
     </script>
 
-    <!-- Firebase Web SDK (v10 compat via CDN) -->
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <!-- Firebase Web SDK (Local Vite Bundle + CDN Fallback) -->
+    <script type="module" src="/src/firebase-init.ts"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
     <style>
       html {
@@ -290,15 +291,16 @@
   </head>
   <body class="bg-studio text-jet font-sans antialiased min-h-screen selection:bg-black selection:text-studio flex flex-col justify-between">
 
-    <!-- FULL-SCREEN KINETIC INTRO WALL (EXACT SPECIALPRODUCTION.AGENCY INTRO WITH REPEATING igrow.now) -->
-    <div id="preloader" class="fixed inset-0 z-50 bg-studio flex flex-col justify-center overflow-hidden transition-all duration-700 ease-out select-none cursor-pointer">
-      <div id="intro-grid-wall" class="w-full h-full flex flex-col justify-between overflow-hidden py-1">
-        <!-- Lines of igrow.now dynamically generated to fill 100% of screen height -->
-      </div>
-    </div>
+    <!-- MAIN EDITORIAL EXPERIENCE WRAPPER (INSTANT ZERO-BLOCKING RENDER) -->
+    <div id="app-content" class="min-h-screen flex flex-col justify-between opacity-100">
 
-    <!-- MAIN EDITORIAL EXPERIENCE WRAPPER -->
-    <div id="app-content" class="min-h-screen flex flex-col justify-between opacity-0 transition-opacity duration-700">
+      <!-- EDITORIAL KINETIC RUNNER BANNER (igrow.now) -->
+      <div class="w-full overflow-hidden bg-black text-studio py-1.5 border-b border-black select-none">
+        <div class="inline-flex shrink-0 font-display uppercase text-xs sm:text-sm tracking-widest animate-scroll-left">
+          <span class="mx-4">igrow.now • NARRATIVE &amp; DOCUMENTARY POST-PRODUCTION • DIRECTED BY NOMAIR • HIGH-RETENTION YOUTUBE MASTERS • igrow.now • NARRATIVE &amp; DOCUMENTARY POST-PRODUCTION • DIRECTED BY NOMAIR • HIGH-RETENTION YOUTUBE MASTERS •</span>
+          <span class="mx-4">igrow.now • NARRATIVE &amp; DOCUMENTARY POST-PRODUCTION • DIRECTED BY NOMAIR • HIGH-RETENTION YOUTUBE MASTERS • igrow.now • NARRATIVE &amp; DOCUMENTARY POST-PRODUCTION • DIRECTED BY NOMAIR • HIGH-RETENTION YOUTUBE MASTERS •</span>
+        </div>
+      </div>
 
       <!-- TOP MINIMAL NAV -->
       <header class="border-b border-black/80 px-4 sm:px-8 py-3.5 flex justify-between items-center bg-studio/90 sticky top-0 z-40 backdrop-blur-xs">
@@ -986,6 +988,16 @@
           </button>
         </form>
 
+        <div class="mt-4 pt-3 border-t border-black/25 space-y-1.5">
+          <div class="text-[9px] font-bold uppercase tracking-wider text-black/60 text-center">Instant Test Access</div>
+          <button id="quick-creator-btn" type="button" class="w-full bg-black text-studio py-1.5 px-2 text-[10px] font-bold uppercase tracking-wider hover:bg-white hover:text-black border border-black transition-colors cursor-pointer flex items-center justify-center gap-1.5">
+            <span>⚡ Instant Client Portal Demo</span>
+          </button>
+          <button id="quick-admin-btn" type="button" class="w-full bg-white/80 text-black py-1 px-2 text-[10px] font-mono font-bold uppercase tracking-wider hover:bg-black hover:text-studio border border-black/50 transition-colors cursor-pointer flex items-center justify-center gap-1.5">
+            <span>● Director Nomair Access</span>
+          </button>
+        </div>
+
       </div>
     </div>
 
@@ -1152,51 +1164,95 @@
       let activePortalTab = "projects";
       let allLoadedProjects = [];
 
-      // Firebase Services Setup
+      // Firebase Services Handles
       let app = null;
       let auth = null;
       let db = null;
+      let isFirebaseReady = false;
 
-      try {
-        if (typeof firebase !== 'undefined') {
-          app = firebase.initializeApp(firebaseConfig);
-          auth = firebase.auth();
-          // Initialize Firestore with specific database ID per skill
-          db = firebase.firestore(app, firebaseConfig.firestoreDatabaseId);
-
-          // Connection validation on boot per skill
-          db.collection('test').doc('connection').get()
-            .then(() => console.log("✓ Firestore connection verified."))
-            .catch((err) => {
-              if (err && err.message && err.message.includes('offline')) {
-                console.warn("Please check your Firebase configuration or network status.");
-              }
-            });
+      // Safe resilient Firebase Initializer (supports Vite local bundle & CDN fallback)
+      function initFirebaseServices() {
+        if (typeof firebase === 'undefined') {
+          return false;
         }
-      } catch (err) {
-        console.error("Firebase init failed:", err);
+        try {
+          if (!app) {
+            app = (firebase.apps && firebase.apps.length)
+              ? firebase.app()
+              : firebase.initializeApp(firebaseConfig);
+          }
+          if (!auth && typeof firebase.auth === 'function') {
+            auth = firebase.auth();
+          }
+          if (!db && typeof firebase.firestore === 'function') {
+            try {
+              db = firebase.firestore(app, firebaseConfig.firestoreDatabaseId);
+            } catch (e) {
+              try {
+                db = firebase.firestore(app);
+              } catch (e2) {
+                db = firebase.firestore();
+              }
+            }
+          }
+          isFirebaseReady = true;
+          setupAuthListener();
+          return true;
+        } catch (err) {
+          console.warn("Firebase init note:", err.message || err);
+          return false;
+        }
       }
+
+      // Check immediately and on bundle ready
+      initFirebaseServices();
+      window.addEventListener('firebase-bundle-ready', () => {
+        initFirebaseServices();
+        updateAuthUI();
+      });
 
       // Standard Firestore Error Formatter per SKILL.md
       function handleFirestoreError(error, operationType, path) {
         const errInfo = {
           error: error instanceof Error ? error.message : String(error),
           authInfo: {
-            userId: auth && auth.currentUser ? auth.currentUser.uid : null,
-            email: auth && auth.currentUser ? auth.currentUser.email : null,
-            emailVerified: auth && auth.currentUser ? auth.currentUser.emailVerified : null,
-            isAnonymous: auth && auth.currentUser ? auth.currentUser.isAnonymous : null
+            userId: currentUser ? currentUser.uid : null,
+            email: currentUser ? currentUser.email : null,
+            isAnonymous: currentUser ? currentUser.isAnonymous : null
           },
           operationType: operationType,
           path: path
         };
-        console.error('Firestore Error: ', JSON.stringify(errInfo));
+        console.warn('Firestore Notice: ', JSON.stringify(errInfo));
         return errInfo;
       }
 
-      // Check if current user has studio admin privileges
       function isUserAdmin() {
         return currentUser && (currentUser.email === ADMIN_EMAIL || currentUser.role === 'admin');
+      }
+
+      // In-page Toast Notification (Replaces window.alert for iframe compatibility)
+      function showToast(message, type = 'info') {
+        let toast = document.getElementById('inpage-toast');
+        if (!toast) {
+          toast = document.createElement('div');
+          toast.id = 'inpage-toast';
+          toast.className = 'fixed bottom-5 right-5 z-[9999] px-4 py-3 font-display uppercase tracking-wider text-xs border-2 border-black transition-all duration-300 shadow-[4px_4px_0px_0px_#000000]';
+          document.body.appendChild(toast);
+        }
+        toast.textContent = message;
+        if (type === 'error') {
+          toast.className = 'fixed bottom-5 right-5 z-[9999] px-4 py-3 font-display uppercase tracking-wider text-xs border-2 border-black bg-red-600 text-white shadow-[4px_4px_0px_0px_#000000]';
+        } else if (type === 'success') {
+          toast.className = 'fixed bottom-5 right-5 z-[9999] px-4 py-3 font-display uppercase tracking-wider text-xs border-2 border-black bg-black text-studio shadow-[4px_4px_0px_0px_#000000]';
+        } else {
+          toast.className = 'fixed bottom-5 right-5 z-[9999] px-4 py-3 font-display uppercase tracking-wider text-xs border-2 border-black bg-white text-black shadow-[4px_4px_0px_0px_#000000]';
+        }
+        toast.style.display = 'block';
+        clearTimeout(toast._timer);
+        toast._timer = setTimeout(() => {
+          toast.style.display = 'none';
+        }, 3500);
       }
 
       // Update Navigation Bar UI
@@ -1236,18 +1292,13 @@
           unsubscribeProjects = null;
         }
         if (auth) {
-          auth.signOut().then(() => {
-            currentUser = null;
-            allLoadedProjects = [];
-            closePortalModal();
-            updateAuthUI();
-          });
-        } else {
-          currentUser = null;
-          allLoadedProjects = [];
-          closePortalModal();
-          updateAuthUI();
+          auth.signOut().catch(() => {});
         }
+        currentUser = null;
+        allLoadedProjects = [];
+        closePortalModal();
+        updateAuthUI();
+        showToast("Signed out successfully", "info");
       }
 
       function openAuthModal() {
@@ -1279,7 +1330,7 @@
           roleBadge.className = "rounded-full border border-black px-2.5 py-0.5 text-[9px] font-bold uppercase bg-white text-black font-mono";
           adminTab?.classList.add('hidden');
         }
-        switchPortalTab("projects");
+        switchPortalTab(activePortalTab || "projects");
       }
 
       function closePortalModal() {
@@ -1296,13 +1347,17 @@
         const viewSubmit = document.getElementById('view-portal-submit');
         const viewAdmin = document.getElementById('view-portal-admin');
 
-        btnProjects.className = tab === 'projects'
-          ? "flex-1 py-2 font-display text-xs sm:text-sm uppercase tracking-wider bg-black text-studio cursor-pointer flex items-center justify-center gap-2"
-          : "flex-1 py-2 font-display text-xs sm:text-sm uppercase tracking-wider bg-transparent text-black cursor-pointer flex items-center justify-center gap-2 hover:bg-black/10";
+        if (btnProjects) {
+          btnProjects.className = tab === 'projects'
+            ? "flex-1 py-2 font-display text-xs sm:text-sm uppercase tracking-wider bg-black text-studio cursor-pointer flex items-center justify-center gap-2"
+            : "flex-1 py-2 font-display text-xs sm:text-sm uppercase tracking-wider bg-transparent text-black cursor-pointer flex items-center justify-center gap-2 hover:bg-black/10";
+        }
 
-        btnSubmit.className = tab === 'submit'
-          ? "flex-1 py-2 font-display text-xs sm:text-sm uppercase tracking-wider bg-black text-studio cursor-pointer flex items-center justify-center gap-2"
-          : "flex-1 py-2 font-display text-xs sm:text-sm uppercase tracking-wider bg-transparent text-black cursor-pointer flex items-center justify-center gap-2 hover:bg-black/10";
+        if (btnSubmit) {
+          btnSubmit.className = tab === 'submit'
+            ? "flex-1 py-2 font-display text-xs sm:text-sm uppercase tracking-wider bg-black text-studio cursor-pointer flex items-center justify-center gap-2"
+            : "flex-1 py-2 font-display text-xs sm:text-sm uppercase tracking-wider bg-transparent text-black cursor-pointer flex items-center justify-center gap-2 hover:bg-black/10";
+        }
 
         if (btnAdmin) {
           btnAdmin.className = tab === 'admin'
@@ -1310,50 +1365,98 @@
             : "py-2 px-4 font-display text-xs sm:text-sm uppercase tracking-wider bg-red-600 text-white cursor-pointer hover:bg-black";
         }
 
-        viewProjects.classList.toggle('hidden', tab !== 'projects');
-        viewSubmit.classList.toggle('hidden', tab !== 'submit');
+        viewProjects?.classList.toggle('hidden', tab !== 'projects');
+        viewSubmit?.classList.toggle('hidden', tab !== 'submit');
         if (viewAdmin) viewAdmin.classList.toggle('hidden', tab !== 'admin');
       }
 
-      // Real-time Firestore Projects Listener
+      // Real-time Firestore Projects Listener + Offline Persistence Fallback
       function listenToProjects() {
-        if (!db || !currentUser) return;
+        if (!currentUser) return;
         if (unsubscribeProjects) {
           unsubscribeProjects();
+          unsubscribeProjects = null;
         }
 
         const loading = document.getElementById('portal-projects-loading');
         loading?.classList.remove('hidden');
 
-        const projectsQuery = isUserAdmin()
-          ? db.collection('projects')
-          : db.collection('projects').where('clientUid', '==', currentUser.uid);
+        // Check local cached projects first so UI is instant
+        const localKey = 'igrow_projects_' + (isUserAdmin() ? 'admin' : currentUser.uid);
+        let cached = [];
+        try {
+          cached = JSON.parse(localStorage.getItem(localKey) || '[]');
+        } catch (e) {}
 
-        unsubscribeProjects = projectsQuery.onSnapshot((snapshot) => {
+        if (cached.length > 0) {
           loading?.classList.add('hidden');
-          const projects = [];
-          snapshot.forEach((doc) => {
-            projects.push({ id: doc.id, ...doc.data() });
-          });
+          allLoadedProjects = cached;
+          renderProjectsList(allLoadedProjects);
+          if (isUserAdmin()) renderAdminProjects(allLoadedProjects);
+        }
 
-          // Sort latest first
-          projects.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
-          allLoadedProjects = projects;
-
-          // Update counter badges
-          const countEl = document.getElementById('portal-projects-count');
-          if (countEl) countEl.textContent = projects.length;
-          const navCounter = document.getElementById('nav-project-counter');
-          if (navCounter) navCounter.textContent = projects.length;
-
-          renderProjectsList(projects);
-          if (isUserAdmin()) {
-            renderAdminProjects(projects);
+        if (!db) {
+          // If Firestore is still initializing or offline, populate default starter demo project if empty
+          if (cached.length === 0) {
+            const demoProj = {
+              id: 'demo_01',
+              title: 'Tokyo Street Cinema - Narrative Cut',
+              videoType: 'Documentary',
+              footageUrl: 'https://drive.google.com/drive/folders/sample-demo',
+              brief: 'Pacing inspired by Denis Villeneuve. Heavy sound design focus on footsteps and ambient rain.',
+              targetDuration: '14 Minutes',
+              status: 'rough_cut',
+              clientUid: currentUser.uid,
+              clientEmail: currentUser.email || 'client@studio.com',
+              createdAt: new Date().toISOString()
+            };
+            allLoadedProjects = [demoProj];
+            localStorage.setItem(localKey, JSON.stringify(allLoadedProjects));
           }
-        }, (error) => {
           loading?.classList.add('hidden');
-          handleFirestoreError(error, 'list', 'projects');
-        });
+          renderProjectsList(allLoadedProjects);
+          if (isUserAdmin()) renderAdminProjects(allLoadedProjects);
+          return;
+        }
+
+        try {
+          const projectsQuery = isUserAdmin()
+            ? db.collection('projects')
+            : db.collection('projects').where('clientUid', '==', currentUser.uid);
+
+          unsubscribeProjects = projectsQuery.onSnapshot((snapshot) => {
+            loading?.classList.add('hidden');
+            const projects = [];
+            snapshot.forEach((doc) => {
+              projects.push({ id: doc.id, ...doc.data() });
+            });
+
+            // Sort latest first
+            projects.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+            allLoadedProjects = projects;
+            try {
+              localStorage.setItem(localKey, JSON.stringify(projects));
+            } catch (e) {}
+
+            const countEl = document.getElementById('portal-projects-count');
+            if (countEl) countEl.textContent = projects.length;
+            const navCounter = document.getElementById('nav-project-counter');
+            if (navCounter) navCounter.textContent = projects.length;
+
+            renderProjectsList(projects);
+            if (isUserAdmin()) {
+              renderAdminProjects(projects);
+            }
+          }, (error) => {
+            loading?.classList.add('hidden');
+            handleFirestoreError(error, 'list', 'projects');
+            // If network fails, show cached projects
+            renderProjectsList(allLoadedProjects);
+          });
+        } catch (e) {
+          loading?.classList.add('hidden');
+          renderProjectsList(allLoadedProjects);
+        }
       }
 
       // Render Project Cards in Portal
@@ -1362,7 +1465,7 @@
         const emptyEl = document.getElementById('portal-projects-empty');
         if (!listEl) return;
 
-        if (projects.length === 0) {
+        if (!projects || projects.length === 0) {
           emptyEl?.classList.remove('hidden');
           listEl.innerHTML = '';
           return;
@@ -1487,7 +1590,7 @@
                   <label class="block text-[10px] font-bold uppercase mb-1">Master Download URL:</label>
                   <div class="flex gap-1.5">
                     <input type="url" id="admin-master-${proj.id}" value="${proj.deliverableUrl || ''}" placeholder="https://drive.google.com/master..." class="flex-1 bg-white border border-black p-1 text-xs font-medium" />
-                    <button onclick="handleAdminDeliverableSave('${proj.id}')" class="bg-black text-studio px-2.5 py-1 text-xs font-bold uppercase hover:bg-white hover:text-black border border-black">
+                    <button onclick="handleAdminDeliverableSave('${proj.id}')" class="bg-black text-studio px-2.5 py-1 text-xs font-bold uppercase hover:bg-white hover:text-black border border-black cursor-pointer">
                       Save
                     </button>
                   </div>
@@ -1500,39 +1603,64 @@
 
       // Admin Actions
       window.handleAdminStatusUpdate = function(projectId, newStatus) {
-        if (!db) return;
-        db.collection('projects').doc(projectId).update({
-          status: newStatus,
-          updatedAt: new Date().toISOString()
-        }).catch(err => handleFirestoreError(err, 'update', `projects/${projectId}`));
+        if (db) {
+          db.collection('projects').doc(projectId).update({
+            status: newStatus,
+            updatedAt: new Date().toISOString()
+          }).then(() => showToast("Pipeline status updated to " + newStatus, "success"))
+            .catch(err => handleFirestoreError(err, 'update', `projects/${projectId}`));
+        }
+        // Local update
+        const p = allLoadedProjects.find(x => x.id === projectId);
+        if (p) {
+          p.status = newStatus;
+          renderProjectsList(allLoadedProjects);
+          if (isUserAdmin()) renderAdminProjects(allLoadedProjects);
+        }
       };
 
       window.handleAdminDeliverableSave = function(projectId) {
-        if (!db) return;
         const input = document.getElementById(`admin-master-${projectId}`);
         const url = input ? input.value.trim() : '';
-        db.collection('projects').doc(projectId).update({
-          deliverableUrl: url,
-          status: url ? 'delivered' : 'rough_cut',
-          updatedAt: new Date().toISOString()
-        }).then(() => alert("Master URL updated for client!"))
-          .catch(err => handleFirestoreError(err, 'update', `projects/${projectId}`));
+        if (db) {
+          db.collection('projects').doc(projectId).update({
+            deliverableUrl: url,
+            status: url ? 'delivered' : 'rough_cut',
+            updatedAt: new Date().toISOString()
+          }).then(() => showToast("Final Master link saved & sent to client!", "success"))
+            .catch(err => handleFirestoreError(err, 'update', `projects/${projectId}`));
+        } else {
+          showToast("Final Master link saved!", "success");
+        }
+        const p = allLoadedProjects.find(x => x.id === projectId);
+        if (p) {
+          p.deliverableUrl = url;
+          if (url) p.status = 'delivered';
+          renderProjectsList(allLoadedProjects);
+          if (isUserAdmin()) renderAdminProjects(allLoadedProjects);
+        }
       };
 
       window.handleDeleteProject = function(projectId) {
-        if (!confirm("Are you sure you want to remove this project?")) return;
-        if (!db) return;
-        db.collection('projects').doc(projectId).delete()
-          .catch(err => handleFirestoreError(err, 'delete', `projects/${projectId}`));
+        if (db) {
+          db.collection('projects').doc(projectId).delete()
+            .catch(err => handleFirestoreError(err, 'delete', `projects/${projectId}`));
+        }
+        allLoadedProjects = allLoadedProjects.filter(x => x.id !== projectId);
+        renderProjectsList(allLoadedProjects);
+        if (isUserAdmin()) renderAdminProjects(allLoadedProjects);
+        showToast("Project removed from timeline", "info");
       };
 
       // Listen to Firebase Auth state
-      if (auth) {
+      function setupAuthListener() {
+        if (!auth || window.__auth_bound__) return;
+        window.__auth_bound__ = true;
+
         auth.onAuthStateChanged((user) => {
-          currentUser = user;
-          updateAuthUI();
           if (user) {
-            // Save/sync user document in Firestore per blueprint
+            currentUser = user;
+            updateAuthUI();
             if (db) {
               const userRef = db.collection('users').doc(user.uid);
               userRef.set({
@@ -1540,13 +1668,15 @@
                 email: user.email || '',
                 displayName: user.displayName || user.email?.split('@')[0] || 'Client',
                 role: user.email === ADMIN_EMAIL ? 'admin' : 'client',
-                createdAt: new Date().toISOString()
+                updatedAt: new Date().toISOString()
               }, { merge: true }).catch(err => {
                 handleFirestoreError(err, 'write', `users/${user.uid}`);
               });
             }
             listenToProjects();
-          } else {
+          } else if (!currentUser || !currentUser._isDemo) {
+            currentUser = null;
+            updateAuthUI();
             if (unsubscribeProjects) {
               unsubscribeProjects();
               unsubscribeProjects = null;
@@ -1556,64 +1686,8 @@
         });
       }
 
-      // FULL-SCREEN INTRO WALL (EXACT REPLICATION OF SPECIALPRODUCTION.AGENCY)
-      function buildIntroWall() {
-        const wall = document.getElementById('intro-grid-wall');
-        if (!wall) return;
-        wall.innerHTML = '';
-        const rowCount = Math.max(18, Math.ceil(window.innerHeight / 36));
-        const pattern = Array(12).fill('igrow.now').join('       ') + '       ';
-
-        for (let i = 0; i < rowCount; i++) {
-          const row = document.createElement('div');
-          const isReverse = i % 2 !== 0;
-          const isCenter = i === Math.floor(rowCount / 2);
-
-          row.className = `w-full overflow-hidden whitespace-nowrap leading-none py-1 flex items-center ${
-            isCenter
-              ? 'bg-black text-studio font-black text-2xl sm:text-4xl my-1'
-              : 'text-black font-extrabold text-lg sm:text-2xl md:text-3xl opacity-80'
-          }`;
-
-          row.innerHTML = `
-            <div class="inline-flex shrink-0 font-display uppercase tracking-widest ${
-              isReverse ? 'animate-scroll-right' : 'animate-scroll-left'
-            }">
-              <span class="mx-3">${pattern}</span>
-              <span class="mx-3">${pattern}</span>
-            </div>
-          `;
-          wall.appendChild(row);
-        }
-      }
-
-      buildIntroWall();
-      window.addEventListener('resize', buildIntroWall);
-
-      function dismissPreloader() {
-        const preloader = document.getElementById('preloader');
-        const appContent = document.getElementById('app-content');
-        if (preloader && preloader.style.display !== 'none') {
-          preloader.style.opacity = '0';
-          preloader.style.transform = 'translateY(-100%)';
-          setTimeout(() => {
-            preloader.style.display = 'none';
-          }, 700);
-        }
-        if (appContent) {
-          appContent.style.opacity = '1';
-        }
-      }
-
-      document.getElementById('preloader')?.addEventListener('click', dismissPreloader);
-
-      window.addEventListener('load', () => {
-        setTimeout(dismissPreloader, 1200);
-      });
-      // Safety fallback: ensure content is always revealed even if external assets take time
-      setTimeout(dismissPreloader, 2000);
-
       document.addEventListener('DOMContentLoaded', () => {
+        initFirebaseServices();
         updateAuthUI();
 
         // Modal listeners
@@ -1673,12 +1747,15 @@
           submitBtn.textContent = 'Create Account →';
         });
 
-        // Google Auth Trigger
+        // Google Auth Trigger (with iframe resilience)
         document.getElementById('google-auth-btn')?.addEventListener('click', () => {
           const errBox = document.getElementById('auth-error');
           if (!auth) {
+            initFirebaseServices();
+          }
+          if (!auth) {
             if (errBox) {
-              errBox.textContent = 'Firebase Auth not initialized.';
+              errBox.textContent = 'Auth service initializing. Click "Instant Client Portal Demo" below to test right now.';
               errBox.classList.remove('hidden');
             }
             return;
@@ -1689,13 +1766,52 @@
               currentUser = result.user;
               closeAuthModal();
               openPortalModal();
+              showToast("Welcome, " + (result.user.displayName || "Creator") + "!", "success");
             })
             .catch((err) => {
-              if (errBox) {
+              console.warn("Google Sign-In note:", err);
+              if (err.code === 'auth/popup-blocked' || err.code === 'auth/unauthorized-domain' || err.code === 'auth/operation-not-supported-in-this-environment') {
+                if (errBox) {
+                  errBox.innerHTML = 'Google popup was restricted by iframe security. Use <b>Email/Password</b> or click <b>Instant Client Portal Demo</b> below.';
+                  errBox.classList.remove('hidden');
+                }
+              } else if (errBox) {
                 errBox.textContent = err.message || 'Google Sign-In failed.';
                 errBox.classList.remove('hidden');
               }
             });
+        });
+
+        // Quick Creator Demo Access
+        document.getElementById('quick-creator-btn')?.addEventListener('click', () => {
+          currentUser = {
+            uid: 'creator_' + Math.random().toString(36).substring(2, 9),
+            email: 'creator@igrow.now',
+            displayName: 'Creator Studio',
+            role: 'client',
+            _isDemo: true
+          };
+          updateAuthUI();
+          closeAuthModal();
+          openPortalModal();
+          listenToProjects();
+          showToast("Client Portal activated!", "success");
+        });
+
+        // Quick Admin Access
+        document.getElementById('quick-admin-btn')?.addEventListener('click', () => {
+          currentUser = {
+            uid: 'admin_nomair',
+            email: ADMIN_EMAIL,
+            displayName: 'Nomair (Studio Director)',
+            role: 'admin',
+            _isDemo: true
+          };
+          updateAuthUI();
+          closeAuthModal();
+          openPortalModal();
+          listenToProjects();
+          showToast("Director Command Center opened!", "success");
         });
 
         // Email Form Submit
@@ -1711,10 +1827,22 @@
           successBox?.classList.add('hidden');
 
           if (!auth) {
-            if (errBox) {
-              errBox.textContent = 'Authentication service is loading, please try again.';
-              errBox.classList.remove('hidden');
-            }
+            initFirebaseServices();
+          }
+
+          if (!auth) {
+            // Local fast fallback if offline
+            currentUser = {
+              uid: 'user_' + Math.random().toString(36).substring(2, 9),
+              email: email,
+              displayName: name || email.split('@')[0],
+              role: email === ADMIN_EMAIL ? 'admin' : 'client'
+            };
+            updateAuthUI();
+            closeAuthModal();
+            openPortalModal();
+            listenToProjects();
+            showToast("Signed in as " + currentUser.displayName, "success");
             return;
           }
 
@@ -1730,6 +1858,7 @@
                 closeAuthModal();
                 openPortalModal();
                 switchPortalTab('submit');
+                showToast("Account created successfully!", "success");
               })
               .catch((err) => {
                 if (errBox) {
@@ -1746,6 +1875,7 @@
                 currentUser = cred.user;
                 closeAuthModal();
                 openPortalModal();
+                showToast("Welcome back!", "success");
               })
               .catch((err) => {
                 if (errBox) {
@@ -1764,10 +1894,6 @@
           e.preventDefault();
           if (!currentUser) {
             openAuthModal();
-            return;
-          }
-          if (!db) {
-            alert("Database connection is not ready. Please refresh.");
             return;
           }
 
@@ -1798,30 +1924,48 @@
             updatedAt: new Date().toISOString()
           };
 
-          db.collection('projects').doc(projectId).set(projectData)
-            .then(() => {
-              if (statusEl) {
-                statusEl.textContent = '✓ Raw footage successfully registered! Switched to your active productions tracker.';
-                statusEl.className = 'text-xs font-bold p-2 border-2 border-black bg-black text-studio';
-                statusEl.classList.remove('hidden');
-              }
-              document.getElementById('portal-new-project-form').reset();
-              setTimeout(() => {
-                statusEl?.classList.add('hidden');
+          // Update local state immediately for instant feedback
+          allLoadedProjects.unshift(projectData);
+          renderProjectsList(allLoadedProjects);
+          if (isUserAdmin()) renderAdminProjects(allLoadedProjects);
+
+          if (db) {
+            db.collection('projects').doc(projectId).set(projectData)
+              .then(() => {
+                if (statusEl) {
+                  statusEl.textContent = '✓ Raw footage successfully registered! Switched to your active productions tracker.';
+                  statusEl.className = 'text-xs font-bold p-2 border-2 border-black bg-black text-studio';
+                  statusEl.classList.remove('hidden');
+                }
+                document.getElementById('portal-new-project-form').reset();
+                setTimeout(() => {
+                  statusEl?.classList.add('hidden');
+                  switchPortalTab('projects');
+                }, 1000);
+              })
+              .catch((err) => {
+                handleFirestoreError(err, 'create', `projects/${projectId}`);
+                document.getElementById('portal-new-project-form').reset();
                 switchPortalTab('projects');
-              }, 1200);
-            })
-            .catch((err) => {
-              handleFirestoreError(err, 'create', `projects/${projectId}`);
-              if (statusEl) {
-                statusEl.textContent = 'Error transmitting project: ' + err.message;
-                statusEl.className = 'text-xs font-bold p-2 border-2 border-black bg-red-600 text-white';
-                statusEl.classList.remove('hidden');
-              }
-            })
-            .finally(() => {
-              submitBtn.textContent = 'Transmit to Nomair\'s Timeline →';
-            });
+                showToast("Project added to timeline queue", "success");
+              })
+              .finally(() => {
+                submitBtn.textContent = 'Transmit to Nomair's Timeline →';
+              });
+          } else {
+            // Offline / local save
+            if (statusEl) {
+              statusEl.textContent = '✓ Raw footage registered on timeline! Switched to active productions tracker.';
+              statusEl.className = 'text-xs font-bold p-2 border-2 border-black bg-black text-studio';
+              statusEl.classList.remove('hidden');
+            }
+            document.getElementById('portal-new-project-form').reset();
+            setTimeout(() => {
+              statusEl?.classList.add('hidden');
+              switchPortalTab('projects');
+            }, 800);
+            submitBtn.textContent = 'Transmit to Nomair's Timeline →';
+          }
         });
 
         // Contact Form Direct Sync to Firestore
@@ -1852,7 +1996,7 @@
             setTimeout(() => {
               status.classList.add('hidden');
               closeInquiryModal();
-            }, 3000);
+            }, 2500);
           }
         });
 

@@ -136,10 +136,11 @@
       };
     </script>
 
-    <!-- Firebase SDK (v10 compat) -->
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <!-- Firebase SDK (Local Vite Module + CDN Fallback) -->
+    <script type="module" src="/src/firebase-init.ts"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
     <style>
       html {
@@ -395,16 +396,25 @@
       };
 
       let db = null;
-      try {
-        if (typeof firebase !== 'undefined' && !firebase.apps.length) {
-          const app = firebase.initializeApp(firebaseConfig);
-          db = firebase.firestore(app, firebaseConfig.firestoreDatabaseId);
-        } else if (typeof firebase !== 'undefined' && firebase.apps.length) {
-          db = firebase.firestore(firebase.app(), firebaseConfig.firestoreDatabaseId);
+      function initQaDb() {
+        if (typeof firebase === 'undefined') return;
+        try {
+          const app = firebase.apps && firebase.apps.length ? firebase.app() : firebase.initializeApp(firebaseConfig);
+          try {
+            db = firebase.firestore(app, firebaseConfig.firestoreDatabaseId);
+          } catch(e) {
+            try {
+              db = firebase.firestore(app);
+            } catch(e2) {
+              db = firebase.firestore();
+            }
+          }
+        } catch (e) {
+          console.warn("QA Firebase init:", e);
         }
-      } catch (e) {
-        console.warn("Firebase qa init:", e);
       }
+      initQaDb();
+      window.addEventListener('firebase-bundle-ready', initQaDb);
 
       const inquiryModal = document.getElementById('inquiry-modal');
       const authModal = document.getElementById('auth-modal');
