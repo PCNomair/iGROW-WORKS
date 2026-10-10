@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://igrow.now/</loc>
+    <lastmod>2026-10-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://igrow.now/nomair.jpg</image:loc>
+      <image:title>iGROW WORKS - Director Nomair</image:title>
+      <image:caption>Nomair - Director and Lead Video Editor at iGROW WORKS Post-Production Studio</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://igrow.now/marie.jpg</image:loc>
+      <image:title>iGROW WORKS - Marie Bu Lead Writer</image:title>
+      <image:caption>Marie Bu - Lead Screenwriter and Narrative Architect at iGROW WORKS</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://igrow.now/golden_ratio.jpg</image:loc>
+      <image:title>iGROW WORKS - Golden Ratio Cinematic Composition</image:title>
+      <image:caption>Cinematic visual geometry and dynamic symmetry composition overlay</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://igrow.now/qa.html</loc>
+    <lastmod>2026-10-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://igrow.now/#about</loc>
+    <lastmod>2026-10-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://igrow.now/#writer</loc>
+    <lastmod>2026-10-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://igrow.now/#contact</loc>
+    <lastmod>2026-10-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>

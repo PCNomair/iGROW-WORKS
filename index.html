@@ -222,6 +222,9 @@
       </style>
     </noscript>
 
+    <!-- Performance Preloads (Core Web Vitals & LCP Optimization) -->
+    <link rel="preload" href="/nomair.jpg" as="image" type="image/jpeg" fetchpriority="high" />
+    <link rel="preload" href="/golden_ratio.jpg" as="image" type="image/jpeg" />
     <!-- Google Fonts: Anton (Condensed Display), Space Grotesk (Geometry), Kaushan Script & Caveat (Handwritten Brush) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -469,6 +472,11 @@
                     <img
                       id="nomair-portrait-img"
                       src="/nomair.jpg"
+                      fetchpriority="high"
+                      loading="eager"
+                      decoding="async"
+                      width="450"
+                      height="800"
                       alt="Nomair - Director and Lead Video Editor at iGROW WORKS"
                       referrerpolicy="no-referrer"
                       class="w-full h-full object-cover object-top filter grayscale contrast-115 transition-opacity duration-700 ease-out group-hover/portrait:opacity-0"
@@ -478,6 +486,9 @@
                     <img
                       id="golden-ratio-img"
                       src="/golden_ratio.jpg"
+                      decoding="async"
+                      width="450"
+                      height="800"
                       alt="Nomair - Directorial Framing and Visual Language at iGROW WORKS"
                       referrerpolicy="no-referrer"
                       class="absolute inset-0 w-full h-full object-cover object-center filter contrast-115 opacity-0 group-hover/portrait:opacity-100 transition-opacity duration-700 ease-out"
@@ -684,6 +695,10 @@
                     <img
                       id="marie-portrait-img"
                       src="/marie.jpg"
+                      loading="lazy"
+                      decoding="async"
+                      width="400"
+                      height="500"
                       alt="Marie Bu - Lead Writer at iGROW WORKS"
                       referrerpolicy="no-referrer"
                       class="w-full h-full object-cover object-top filter grayscale contrast-110 group-hover/marie:grayscale-0 group-hover/marie:scale-102 transition-all duration-700 ease-out"
