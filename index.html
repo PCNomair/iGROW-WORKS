@@ -916,68 +916,72 @@
 
     </div>
 
-    <!-- 4. AUTH MODAL (MINIMALIST PORTAL) -->
-    <div id="auth-modal" class="fixed inset-0 z-50 bg-black/70 hidden flex items-center justify-center p-4">
-      <div class="bg-studio w-full max-w-sm border-2 border-black p-6 relative">
+    <!-- 4. AUTH MODAL (REAL FIREBASE CLIENT ACCESS) -->
+    <div id="auth-modal" class="fixed inset-0 z-50 bg-black/75 hidden flex items-center justify-center p-4">
+      <div class="bg-studio w-full max-w-sm border-2 border-black p-6 sm:p-7 relative shadow-[8px_8px_0px_0px_#000000]">
         
-        <button id="close-auth-btn" class="absolute top-4 right-4 w-7 h-7 border border-black flex items-center justify-center font-bold text-sm hover:bg-black hover:text-studio transition-colors">
+        <button id="close-auth-btn" class="absolute top-4 right-4 w-7 h-7 border border-black flex items-center justify-center font-bold text-sm hover:bg-black hover:text-studio transition-colors cursor-pointer">
           ✕
         </button>
 
         <div class="mb-4">
           <span class="rounded-full border border-black px-2.5 py-0.5 text-[9px] font-bold uppercase bg-black text-studio">
-            PORTAL
+            PORTAL ACCESS
           </span>
-          <h3 class="font-display text-2xl uppercase tracking-tight text-black mt-1" id="modal-title">
+          <h3 class="font-display text-2xl sm:text-3xl uppercase tracking-tight text-black mt-1" id="modal-title">
             SIGN IN
           </h3>
+          <p class="text-xs text-black/80 font-medium mt-0.5" id="modal-desc">
+            Access your private editing pipeline and submit footage.
+          </p>
         </div>
 
-        <div class="flex border border-black mb-4 bg-transparent">
-          <button id="tab-signin" class="flex-1 py-1.5 font-display text-xs uppercase tracking-wider bg-black text-studio">
+        <div class="flex border-2 border-black mb-4 bg-transparent">
+          <button id="tab-signin" class="flex-1 py-1.5 font-display text-xs uppercase tracking-wider bg-black text-studio cursor-pointer">
             SIGN IN
           </button>
-          <button id="tab-signup" class="flex-1 py-1.5 font-display text-xs uppercase tracking-wider bg-transparent text-black">
+          <button id="tab-signup" class="flex-1 py-1.5 font-display text-xs uppercase tracking-wider bg-transparent text-black cursor-pointer">
             CREATE ACCOUNT
           </button>
         </div>
 
         <!-- Google Auth -->
-        <button id="google-auth-btn" class="w-full border border-black bg-white hover:bg-black hover:text-studio py-2 px-3 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 mb-3 transition-colors">
-          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24">
+        <button id="google-auth-btn" type="button" class="w-full border-2 border-black bg-white hover:bg-black hover:text-studio py-2.5 px-3 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2.5 mb-3 transition-colors cursor-pointer">
+          <svg class="w-4 h-4" viewBox="0 0 24 24">
             <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
             <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
             <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
             <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
           </svg>
-          Google Sign-In
+          Continue with Google
         </button>
 
         <div class="relative flex py-1.5 items-center mb-3">
-          <div class="flex-grow border-t border-black/40"></div>
-          <span class="flex-shrink mx-2 text-[9px] font-bold uppercase text-black">OR EMAIL</span>
-          <div class="flex-grow border-t border-black/40"></div>
+          <div class="flex-grow border-t border-black/30"></div>
+          <span class="flex-shrink mx-2 text-[9px] font-bold uppercase text-black/70">OR EMAIL</span>
+          <div class="flex-grow border-t border-black/30"></div>
         </div>
 
-        <form id="email-auth-form" class="space-y-2.5">
+        <form id="email-auth-form" class="space-y-3">
           <div id="name-field-group" class="hidden">
-            <label class="block text-[10px] font-bold uppercase">Name</label>
-            <input type="text" id="auth-name" placeholder="Creator Name" class="w-full bg-white/70 border border-black p-2 text-xs font-bold text-black outline-none" />
+            <label class="block text-[10px] font-bold uppercase tracking-wider mb-1">Your Name / Channel</label>
+            <input type="text" id="auth-name" placeholder="e.g. Veritasium or Creator" class="w-full bg-white border-2 border-black p-2 text-xs font-bold text-black outline-none focus:ring-1 focus:ring-black" />
           </div>
 
           <div>
-            <label class="block text-[10px] font-bold uppercase">Email</label>
-            <input type="email" id="auth-email" required placeholder="you@channel.com" class="w-full bg-white/70 border border-black p-2 text-xs font-bold text-black outline-none" />
+            <label class="block text-[10px] font-bold uppercase tracking-wider mb-1">Email Address</label>
+            <input type="email" id="auth-email" required placeholder="you@channel.com" class="w-full bg-white border-2 border-black p-2 text-xs font-bold text-black outline-none focus:ring-1 focus:ring-black" />
           </div>
 
           <div>
-            <label class="block text-[10px] font-bold uppercase">Password</label>
-            <input type="password" id="auth-password" required placeholder="••••••••" class="w-full bg-white/70 border border-black p-2 text-xs font-bold text-black outline-none" />
+            <label class="block text-[10px] font-bold uppercase tracking-wider mb-1">Password</label>
+            <input type="password" id="auth-password" required minlength="6" placeholder="••••••••" class="w-full bg-white border-2 border-black p-2 text-xs font-bold text-black outline-none focus:ring-1 focus:ring-black" />
           </div>
 
-          <div id="auth-error" class="hidden bg-red-600 text-white p-2 text-[10px] font-bold"></div>
+          <div id="auth-error" class="hidden bg-red-600 text-white p-2 text-[11px] font-bold"></div>
+          <div id="auth-success" class="hidden bg-black text-studio p-2 text-[11px] font-bold"></div>
 
-          <button type="submit" id="auth-submit-btn" class="w-full bg-black text-studio py-2 font-display text-sm uppercase tracking-wider hover:bg-white hover:text-black border border-black transition-colors">
+          <button type="submit" id="auth-submit-btn" class="w-full bg-black text-studio py-2.5 font-display text-sm uppercase tracking-wider hover:bg-white hover:text-black border-2 border-black transition-colors cursor-pointer">
             Sign In →
           </button>
         </form>
@@ -985,45 +989,217 @@
       </div>
     </div>
 
-    <!-- SCRIPT LOGIC (FIREBASE & INTERACTIONS) -->
+    <!-- 5. CLIENT PORTAL & PRODUCTION TRACKER MODAL -->
+    <div id="portal-modal" class="fixed inset-0 z-50 bg-black/85 hidden flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+      <div class="bg-studio w-full max-w-4xl border-2 border-black p-4 sm:p-7 relative shadow-[10px_10px_0px_0px_#000000] max-h-[92vh] flex flex-col my-auto">
+        
+        <!-- Portal Header -->
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b-2 border-black pb-4 mb-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="rounded-full border border-black px-2.5 py-0.5 text-[9px] font-bold uppercase bg-black text-studio">
+                DIRECTOR NOMAIR'S PIPELINE
+              </span>
+              <span id="portal-role-badge" class="rounded-full border border-black px-2.5 py-0.5 text-[9px] font-bold uppercase bg-white text-black font-mono">
+                VERIFIED CLIENT
+              </span>
+            </div>
+            <h2 class="font-display text-2xl sm:text-4xl uppercase tracking-tight text-black mt-1">
+              iGROW CLIENT PORTAL
+            </h2>
+            <p class="text-xs text-black/80 font-medium">
+              Signed in as: <strong id="portal-user-email" class="font-mono text-black">loading...</strong>
+            </p>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <button id="portal-logout-btn" class="rounded-full border border-black px-3 py-1 text-xs font-bold uppercase hover:bg-black hover:text-studio transition-colors cursor-pointer">
+              Exit
+            </button>
+            <button id="close-portal-btn" class="w-8 h-8 border-2 border-black flex items-center justify-center font-bold text-base hover:bg-black hover:text-studio transition-colors cursor-pointer">
+              ✕
+            </button>
+          </div>
+        </div>
+
+        <!-- Portal Tabs Navigation -->
+        <div class="flex border-2 border-black mb-4 bg-white/50">
+          <button id="tab-portal-projects" class="flex-1 py-2 font-display text-xs sm:text-sm uppercase tracking-wider bg-black text-studio cursor-pointer flex items-center justify-center gap-2">
+            <span>ACTIVE PRODUCTIONS</span>
+            <span id="portal-projects-count" class="bg-studio text-black text-[10px] px-1.5 py-0.2 rounded-full font-mono">0</span>
+          </button>
+          <button id="tab-portal-submit" class="flex-1 py-2 font-display text-xs sm:text-sm uppercase tracking-wider bg-transparent text-black cursor-pointer flex items-center justify-center gap-2 hover:bg-black/10">
+            <span>+ SUBMIT RAW FOOTAGE</span>
+          </button>
+          <button id="tab-portal-admin" class="hidden py-2 px-4 font-display text-xs sm:text-sm uppercase tracking-wider bg-red-600 text-white cursor-pointer hover:bg-black">
+            <span>DIRECTOR ADMIN</span>
+          </button>
+        </div>
+
+        <!-- Portal View 1: Active Projects List -->
+        <div id="view-portal-projects" class="flex-1 overflow-y-auto space-y-4 pr-1">
+          <div id="portal-projects-loading" class="text-center py-10 font-display text-lg tracking-wider">
+            CONNECTING TO FIRESTORE PRODUCTION ENGINE...
+          </div>
+          
+          <div id="portal-projects-empty" class="hidden text-center py-12 border-2 border-dashed border-black/40 p-6 bg-white/40">
+            <h4 class="font-display text-2xl uppercase tracking-tight text-black mb-1">
+              NO ACTIVE PRODUCTIONS YET
+            </h4>
+            <p class="text-xs text-black/80 max-w-md mx-auto mb-4 font-medium">
+              Submit your cloud footage link (Google Drive, Dropbox, Frame.io) and creative brief to initiate editing with Nomair.
+            </p>
+            <button id="btn-empty-submit" class="rounded-full bg-black text-studio border border-black px-6 py-2 font-display text-sm uppercase tracking-wider hover:bg-white hover:text-black transition-colors cursor-pointer">
+              Submit Your First Project →
+            </button>
+          </div>
+
+          <div id="portal-projects-list" class="space-y-4">
+            <!-- Dynamic Project Cards rendered here -->
+          </div>
+        </div>
+
+        <!-- Portal View 2: Submit New Project Form -->
+        <div id="view-portal-submit" class="hidden flex-1 overflow-y-auto pr-1">
+          <form id="portal-new-project-form" class="space-y-3.5 bg-white/60 p-4 sm:p-6 border-2 border-black">
+            <div class="border-b border-black/20 pb-2 mb-2">
+              <h4 class="font-display text-xl uppercase tracking-tight text-black">
+                TRANSFER RAW FOOTAGE &amp; PRODUCTION BRIEF
+              </h4>
+              <p class="text-xs text-black/80">
+                Nomair and the iGROW editing team will review your files and queue them on the timeline.
+              </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block text-[10px] font-bold uppercase tracking-wider mb-1">Video / Episode Title *</label>
+                <input type="text" id="project-title" required placeholder="e.g. The Tokyo Story - Episode 4" class="w-full bg-white border-2 border-black p-2.5 text-xs font-bold text-black outline-none focus:ring-1 focus:ring-black" />
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold uppercase tracking-wider mb-1">Video Format / Genre *</label>
+                <select id="project-format" required class="w-full bg-white border-2 border-black p-2.5 text-xs font-bold text-black outline-none focus:ring-1 focus:ring-black">
+                  <option value="Documentary">Documentary / Narrative</option>
+                  <option value="YouTube Episode">High-Retention YouTube Episode</option>
+                  <option value="Commercial">Commercial / Brand Film</option>
+                  <option value="Social Reel">Cinematic Reel / Short-form</option>
+                  <option value="Music Video">Music Video / Artistic Cut</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block text-[10px] font-bold uppercase tracking-wider mb-1">Target Duration</label>
+                <input type="text" id="project-duration" placeholder="e.g. 12-15 Minutes or 60 Seconds" class="w-full bg-white border-2 border-black p-2.5 text-xs font-bold text-black outline-none focus:ring-1 focus:ring-black" />
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold uppercase tracking-wider mb-1">Raw Footage Cloud Link *</label>
+                <input type="url" id="project-footage-url" required placeholder="https://drive.google.com/... or Dropbox / Frame.io" class="w-full bg-white border-2 border-black p-2.5 text-xs font-bold text-black outline-none focus:ring-1 focus:ring-black" />
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[10px] font-bold uppercase tracking-wider mb-1">Creative Brief, Pacing &amp; Audio Notes</label>
+              <textarea id="project-brief" rows="3" placeholder="Specify pacing tone, sound design emphasis, color grade mood, or reference YouTube channels." class="w-full bg-white border-2 border-black p-2.5 text-xs font-bold text-black outline-none focus:ring-1 focus:ring-black"></textarea>
+            </div>
+
+            <div id="project-submit-status" class="hidden text-xs font-bold p-2 border-2 border-black"></div>
+
+            <div class="flex items-center gap-3 pt-2">
+              <button type="submit" id="btn-submit-project" class="flex-1 bg-black text-studio py-3 font-display text-sm sm:text-base uppercase tracking-wider hover:bg-white hover:text-black border-2 border-black transition-colors cursor-pointer">
+                Transmit to Nomair's Timeline →
+              </button>
+              <button type="button" id="btn-cancel-submit" class="border-2 border-black px-4 py-3 font-display text-xs uppercase hover:bg-black hover:text-studio transition-colors cursor-pointer">
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Portal View 3: Director Admin Control Room -->
+        <div id="view-portal-admin" class="hidden flex-1 overflow-y-auto space-y-4 pr-1">
+          <div class="bg-black text-studio p-3 border-2 border-black">
+            <span class="text-xs font-mono font-bold uppercase tracking-wider text-green-400">● DIRECTOR COMMAND CENTER</span>
+            <p class="text-xs font-sans mt-0.5">Review all client production requests, update pipeline stages, and attach finished master downloads.</p>
+          </div>
+          <div id="admin-projects-list" class="space-y-4">
+            <!-- All projects populated for admin -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SCRIPT LOGIC (FIREBASE & REAL CLIENT PORTAL ENGINE) -->
     <script>
-      // 4. FIREBASE CONFIGURATION (MANDATORY PLACEHOLDER)
+      // 1. FIREBASE PRODUCTION CREDENTIALS
       const firebaseConfig = {
-        apiKey: "YOUR_API_KEY",
-        authDomain: "YOUR_AUTH_DOMAIN",
-        projectId: "YOUR_PROJECT_ID",
-        storageBucket: "YOUR_STORAGE_BUCKET",
-        messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-        appId: "YOUR_APP_ID"
+        projectId: "gen-lang-client-0403544801",
+        appId: "1:816469589424:web:e5e7e375ff6f401b62aa75",
+        apiKey: "AIzaSyCj9wZQIjLDb-4rjVmV_Y-zI24-yULcGXA",
+        authDomain: "gen-lang-client-0403544801.firebaseapp.com",
+        firestoreDatabaseId: "ai-studio-igrowworksyoutub-dd6c0dd3-fe67-4698-a252-9d6b6c19be6b",
+        storageBucket: "gen-lang-client-0403544801.firebasestorage.app",
+        messagingSenderId: "816469589424"
       };
+
+      const ADMIN_EMAIL = "xaomi4386@gmail.com";
 
       let currentUser = null;
       let isSignUpMode = false;
-      let firebaseInitialized = false;
+      let unsubscribeProjects = null;
+      let activePortalTab = "projects";
+      let allLoadedProjects = [];
 
-      // Safe Firebase Init
+      // Firebase Services Setup
+      let app = null;
+      let auth = null;
+      let db = null;
+
       try {
-        if (typeof firebase !== 'undefined' && firebaseConfig.apiKey && firebaseConfig.apiKey !== "YOUR_API_KEY") {
-          firebase.initializeApp(firebaseConfig);
-          firebaseInitialized = true;
-          firebase.auth().onAuthStateChanged((user) => {
-            currentUser = user;
-            updateAuthUI();
-          });
-        } else {
-          const savedSession = localStorage.getItem('igrow_session');
-          if (savedSession) {
-            try {
-              currentUser = JSON.parse(savedSession);
-            } catch (e) {
-              currentUser = null;
-            }
-          }
+        if (typeof firebase !== 'undefined') {
+          app = firebase.initializeApp(firebaseConfig);
+          auth = firebase.auth();
+          // Initialize Firestore with specific database ID per skill
+          db = firebase.firestore(app, firebaseConfig.firestoreDatabaseId);
+
+          // Connection validation on boot per skill
+          db.collection('test').doc('connection').get()
+            .then(() => console.log("✓ Firestore connection verified."))
+            .catch((err) => {
+              if (err && err.message && err.message.includes('offline')) {
+                console.warn("Please check your Firebase configuration or network status.");
+              }
+            });
         }
       } catch (err) {
-        console.warn("Firebase notice:", err);
+        console.error("Firebase init failed:", err);
       }
 
+      // Standard Firestore Error Formatter per SKILL.md
+      function handleFirestoreError(error, operationType, path) {
+        const errInfo = {
+          error: error instanceof Error ? error.message : String(error),
+          authInfo: {
+            userId: auth && auth.currentUser ? auth.currentUser.uid : null,
+            email: auth && auth.currentUser ? auth.currentUser.email : null,
+            emailVerified: auth && auth.currentUser ? auth.currentUser.emailVerified : null,
+            isAnonymous: auth && auth.currentUser ? auth.currentUser.isAnonymous : null
+          },
+          operationType: operationType,
+          path: path
+        };
+        console.error('Firestore Error: ', JSON.stringify(errInfo));
+        return errInfo;
+      }
+
+      // Check if current user has studio admin privileges
+      function isUserAdmin() {
+        return currentUser && (currentUser.email === ADMIN_EMAIL || currentUser.role === 'admin');
+      }
+
+      // Update Navigation Bar UI
       function updateAuthUI() {
         const bar = document.getElementById('auth-profile-bar');
         if (!bar) return;
@@ -1031,16 +1207,22 @@
         if (currentUser) {
           const displayName = currentUser.displayName || currentUser.email?.split('@')[0] || "CREATOR";
           bar.innerHTML = `
-            <div class="flex items-center gap-2 rounded-full border border-black px-3 py-1 bg-black text-studio text-xs font-bold uppercase">
-              <span class="w-1.5 h-1.5 rounded-full bg-green-400"></span>
-              <span class="truncate max-w-[100px]">${displayName}</span>
-              <button id="logout-btn" class="ml-1 text-[10px] underline hover:text-white">Exit</button>
+            <div class="flex items-center gap-2">
+              <button id="open-portal-btn" class="flex items-center gap-2 rounded-full border border-black px-3.5 py-1.5 bg-black text-studio text-xs font-bold uppercase hover:bg-white hover:text-black transition-colors cursor-pointer">
+                <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+                <span>CLIENT PORTAL</span>
+                <span id="nav-project-counter" class="ml-1 bg-studio text-black text-[10px] px-1.5 py-0.2 rounded-full font-mono">${allLoadedProjects.length}</span>
+              </button>
+              <button id="logout-btn" title="Sign Out" class="rounded-full border border-black/40 px-2.5 py-1 text-[11px] font-bold uppercase hover:bg-black hover:text-studio transition-colors cursor-pointer">
+                EXIT
+              </button>
             </div>
           `;
+          document.getElementById('open-portal-btn')?.addEventListener('click', openPortalModal);
           document.getElementById('logout-btn')?.addEventListener('click', handleLogout);
         } else {
           bar.innerHTML = `
-            <button id="open-auth-btn" class="rounded-full border border-black px-4 py-1 text-xs font-bold uppercase hover:bg-black hover:text-studio transition-colors">
+            <button id="open-auth-btn" class="rounded-full border border-black px-4 py-1 text-xs font-bold uppercase hover:bg-black hover:text-studio transition-colors cursor-pointer">
               Sign In
             </button>
           `;
@@ -1049,15 +1231,21 @@
       }
 
       function handleLogout() {
-        if (firebaseInitialized && firebase.auth) {
-          firebase.auth().signOut().then(() => {
+        if (unsubscribeProjects) {
+          unsubscribeProjects();
+          unsubscribeProjects = null;
+        }
+        if (auth) {
+          auth.signOut().then(() => {
             currentUser = null;
-            localStorage.removeItem('igrow_session');
+            allLoadedProjects = [];
+            closePortalModal();
             updateAuthUI();
           });
         } else {
           currentUser = null;
-          localStorage.removeItem('igrow_session');
+          allLoadedProjects = [];
+          closePortalModal();
           updateAuthUI();
         }
       }
@@ -1065,10 +1253,307 @@
       function openAuthModal() {
         document.getElementById('auth-modal')?.classList.remove('hidden');
         document.getElementById('auth-error')?.classList.add('hidden');
+        document.getElementById('auth-success')?.classList.add('hidden');
       }
 
       function closeAuthModal() {
         document.getElementById('auth-modal')?.classList.add('hidden');
+      }
+
+      function openPortalModal() {
+        if (!currentUser) {
+          openAuthModal();
+          return;
+        }
+        document.getElementById('portal-modal')?.classList.remove('hidden');
+        document.getElementById('portal-user-email').textContent = currentUser.email || currentUser.displayName || 'Client';
+        
+        const roleBadge = document.getElementById('portal-role-badge');
+        const adminTab = document.getElementById('tab-portal-admin');
+        if (isUserAdmin()) {
+          roleBadge.textContent = "STUDIO DIRECTOR (ADMIN)";
+          roleBadge.className = "rounded-full border border-black px-2.5 py-0.5 text-[9px] font-bold uppercase bg-red-600 text-white font-mono";
+          adminTab?.classList.remove('hidden');
+        } else {
+          roleBadge.textContent = "VERIFIED CLIENT";
+          roleBadge.className = "rounded-full border border-black px-2.5 py-0.5 text-[9px] font-bold uppercase bg-white text-black font-mono";
+          adminTab?.classList.add('hidden');
+        }
+        switchPortalTab("projects");
+      }
+
+      function closePortalModal() {
+        document.getElementById('portal-modal')?.classList.add('hidden');
+      }
+
+      function switchPortalTab(tab) {
+        activePortalTab = tab;
+        const btnProjects = document.getElementById('tab-portal-projects');
+        const btnSubmit = document.getElementById('tab-portal-submit');
+        const btnAdmin = document.getElementById('tab-portal-admin');
+
+        const viewProjects = document.getElementById('view-portal-projects');
+        const viewSubmit = document.getElementById('view-portal-submit');
+        const viewAdmin = document.getElementById('view-portal-admin');
+
+        btnProjects.className = tab === 'projects'
+          ? "flex-1 py-2 font-display text-xs sm:text-sm uppercase tracking-wider bg-black text-studio cursor-pointer flex items-center justify-center gap-2"
+          : "flex-1 py-2 font-display text-xs sm:text-sm uppercase tracking-wider bg-transparent text-black cursor-pointer flex items-center justify-center gap-2 hover:bg-black/10";
+
+        btnSubmit.className = tab === 'submit'
+          ? "flex-1 py-2 font-display text-xs sm:text-sm uppercase tracking-wider bg-black text-studio cursor-pointer flex items-center justify-center gap-2"
+          : "flex-1 py-2 font-display text-xs sm:text-sm uppercase tracking-wider bg-transparent text-black cursor-pointer flex items-center justify-center gap-2 hover:bg-black/10";
+
+        if (btnAdmin) {
+          btnAdmin.className = tab === 'admin'
+            ? "py-2 px-4 font-display text-xs sm:text-sm uppercase tracking-wider bg-black text-studio cursor-pointer"
+            : "py-2 px-4 font-display text-xs sm:text-sm uppercase tracking-wider bg-red-600 text-white cursor-pointer hover:bg-black";
+        }
+
+        viewProjects.classList.toggle('hidden', tab !== 'projects');
+        viewSubmit.classList.toggle('hidden', tab !== 'submit');
+        if (viewAdmin) viewAdmin.classList.toggle('hidden', tab !== 'admin');
+      }
+
+      // Real-time Firestore Projects Listener
+      function listenToProjects() {
+        if (!db || !currentUser) return;
+        if (unsubscribeProjects) {
+          unsubscribeProjects();
+        }
+
+        const loading = document.getElementById('portal-projects-loading');
+        loading?.classList.remove('hidden');
+
+        const projectsQuery = isUserAdmin()
+          ? db.collection('projects')
+          : db.collection('projects').where('clientUid', '==', currentUser.uid);
+
+        unsubscribeProjects = projectsQuery.onSnapshot((snapshot) => {
+          loading?.classList.add('hidden');
+          const projects = [];
+          snapshot.forEach((doc) => {
+            projects.push({ id: doc.id, ...doc.data() });
+          });
+
+          // Sort latest first
+          projects.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+          allLoadedProjects = projects;
+
+          // Update counter badges
+          const countEl = document.getElementById('portal-projects-count');
+          if (countEl) countEl.textContent = projects.length;
+          const navCounter = document.getElementById('nav-project-counter');
+          if (navCounter) navCounter.textContent = projects.length;
+
+          renderProjectsList(projects);
+          if (isUserAdmin()) {
+            renderAdminProjects(projects);
+          }
+        }, (error) => {
+          loading?.classList.add('hidden');
+          handleFirestoreError(error, 'list', 'projects');
+        });
+      }
+
+      // Render Project Cards in Portal
+      function renderProjectsList(projects) {
+        const listEl = document.getElementById('portal-projects-list');
+        const emptyEl = document.getElementById('portal-projects-empty');
+        if (!listEl) return;
+
+        if (projects.length === 0) {
+          emptyEl?.classList.remove('hidden');
+          listEl.innerHTML = '';
+          return;
+        }
+
+        emptyEl?.classList.add('hidden');
+
+        const stageMap = {
+          'queued': { label: 'QUEUED IN INGEST', step: 1, color: 'bg-yellow-400' },
+          'ingest': { label: 'INGEST & SYNC', step: 2, color: 'bg-blue-400' },
+          'rough_cut': { label: 'ROUGH CUT REVIEW', step: 3, color: 'bg-purple-400' },
+          'color_sound': { label: 'COLOR & SOUND MIX', step: 4, color: 'bg-orange-400' },
+          'delivered': { label: 'FINAL MASTER READY', step: 5, color: 'bg-green-400' }
+        };
+
+        listEl.innerHTML = projects.map(proj => {
+          const stage = stageMap[proj.status] || stageMap['queued'];
+          const dateStr = proj.createdAt ? new Date(proj.createdAt).toLocaleDateString() : 'Active';
+
+          return `
+            <div class="border-2 border-black bg-white p-4 sm:p-5 relative shadow-[4px_4px_0px_0px_#000000]">
+              <div class="flex flex-wrap items-start justify-between gap-2 border-b border-black/15 pb-3 mb-3">
+                <div>
+                  <div class="flex items-center gap-2 mb-1">
+                    <span class="rounded-full border border-black px-2 py-0.5 text-[9px] font-bold uppercase ${stage.color} text-black font-mono">
+                      ${stage.label}
+                    </span>
+                    <span class="text-[10px] font-mono text-black/60 font-bold uppercase">
+                      ${proj.videoType || 'Documentary'} • ${dateStr}
+                    </span>
+                  </div>
+                  <h4 class="font-display text-xl sm:text-2xl uppercase tracking-tight text-black">
+                    ${proj.title}
+                  </h4>
+                </div>
+
+                <div class="flex items-center gap-2">
+                  <a href="${proj.footageUrl}" target="_blank" rel="noopener noreferrer" class="rounded-full border border-black px-3 py-1 text-[10px] font-bold uppercase bg-studio hover:bg-black hover:text-studio transition-colors inline-flex items-center gap-1">
+                    <span>Raw Files Link</span> ↗
+                  </a>
+                  <button onclick="handleDeleteProject('${proj.id}')" class="text-black/50 hover:text-red-600 text-xs font-bold uppercase cursor-pointer" title="Cancel/Delete Project">
+                    ✕
+                  </button>
+                </div>
+              </div>
+
+              <!-- Pipeline Progress Steps Bar -->
+              <div class="mb-3">
+                <div class="flex justify-between text-[9px] font-bold uppercase tracking-wider mb-1 font-mono text-black/70">
+                  <span class="${stage.step >= 1 ? 'text-black font-black' : ''}">1. Queued</span>
+                  <span class="${stage.step >= 2 ? 'text-black font-black' : ''}">2. Ingest</span>
+                  <span class="${stage.step >= 3 ? 'text-black font-black' : ''}">3. Rough Cut</span>
+                  <span class="${stage.step >= 4 ? 'text-black font-black' : ''}">4. Color/Sound</span>
+                  <span class="${stage.step >= 5 ? 'text-black font-black text-green-700' : ''}">5. Master</span>
+                </div>
+                <div class="w-full bg-black/10 h-2 border border-black overflow-hidden">
+                  <div class="h-full bg-black transition-all duration-500" style="width: ${(stage.step / 5) * 100}%"></div>
+                </div>
+              </div>
+
+              <!-- Project Notes -->
+              ${proj.brief ? `
+                <div class="text-xs text-black/85 font-medium mb-3 bg-studio/20 p-2.5 border border-black/20">
+                  <span class="font-bold uppercase text-[9px] block text-black/60 mb-0.5">Brief &amp; Instructions:</span>
+                  ${proj.brief}
+                </div>
+              ` : ''}
+
+              <!-- Deliverable Master Download (if available) -->
+              ${proj.deliverableUrl ? `
+                <div class="bg-black text-studio p-3 flex flex-wrap items-center justify-between gap-2 border border-black mt-2">
+                  <div>
+                    <span class="text-[10px] font-mono text-green-400 font-bold uppercase">✓ MASTER FILE READY FOR DOWNLOAD</span>
+                    <p class="text-xs font-bold">Director Nomair has packaged the final render.</p>
+                  </div>
+                  <a href="${proj.deliverableUrl}" target="_blank" rel="noopener noreferrer" class="rounded-full bg-studio text-black px-4 py-1.5 text-xs font-display uppercase tracking-wider hover:bg-white transition-colors">
+                    Download Final Master 📥
+                  </a>
+                </div>
+              ` : `
+                <div class="text-[10px] font-mono text-black/60 flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-yellow-500 animate-ping"></span>
+                  <span>Timeline active with Director Nomair. Final master will be linked here once rendering completes.</span>
+                </div>
+              `}
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Render Admin View for Studio Director
+      function renderAdminProjects(projects) {
+        const listEl = document.getElementById('admin-projects-list');
+        if (!listEl) return;
+
+        listEl.innerHTML = projects.map(proj => {
+          return `
+            <div class="border-2 border-black bg-white p-4 relative shadow-[4px_4px_0px_0px_#000000]">
+              <div class="flex flex-wrap items-start justify-between gap-2 mb-2">
+                <div>
+                  <h4 class="font-display text-lg uppercase tracking-tight text-black">${proj.title}</h4>
+                  <p class="text-xs font-mono text-black/70">Client: ${proj.clientEmail || proj.clientUid}</p>
+                </div>
+                <a href="${proj.footageUrl}" target="_blank" rel="noopener noreferrer" class="rounded-full border border-black px-3 py-1 text-xs font-bold uppercase bg-studio hover:bg-black hover:text-studio">
+                  Open Footage Files ↗
+                </a>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3 pt-3 border-t border-black/20">
+                <div>
+                  <label class="block text-[10px] font-bold uppercase mb-1">Update Status:</label>
+                  <select onchange="handleAdminStatusUpdate('${proj.id}', this.value)" class="w-full bg-studio/30 border border-black p-1.5 text-xs font-bold">
+                    <option value="queued" ${proj.status === 'queued' ? 'selected' : ''}>1. Queued</option>
+                    <option value="ingest" ${proj.status === 'ingest' ? 'selected' : ''}>2. Ingest & Sync</option>
+                    <option value="rough_cut" ${proj.status === 'rough_cut' ? 'selected' : ''}>3. Rough Cut</option>
+                    <option value="color_sound" ${proj.status === 'color_sound' ? 'selected' : ''}>4. Color & Sound</option>
+                    <option value="delivered" ${proj.status === 'delivered' ? 'selected' : ''}>5. Delivered / Master Ready</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label class="block text-[10px] font-bold uppercase mb-1">Master Download URL:</label>
+                  <div class="flex gap-1.5">
+                    <input type="url" id="admin-master-${proj.id}" value="${proj.deliverableUrl || ''}" placeholder="https://drive.google.com/master..." class="flex-1 bg-white border border-black p-1 text-xs font-medium" />
+                    <button onclick="handleAdminDeliverableSave('${proj.id}')" class="bg-black text-studio px-2.5 py-1 text-xs font-bold uppercase hover:bg-white hover:text-black border border-black">
+                      Save
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Admin Actions
+      window.handleAdminStatusUpdate = function(projectId, newStatus) {
+        if (!db) return;
+        db.collection('projects').doc(projectId).update({
+          status: newStatus,
+          updatedAt: new Date().toISOString()
+        }).catch(err => handleFirestoreError(err, 'update', `projects/${projectId}`));
+      };
+
+      window.handleAdminDeliverableSave = function(projectId) {
+        if (!db) return;
+        const input = document.getElementById(`admin-master-${projectId}`);
+        const url = input ? input.value.trim() : '';
+        db.collection('projects').doc(projectId).update({
+          deliverableUrl: url,
+          status: url ? 'delivered' : 'rough_cut',
+          updatedAt: new Date().toISOString()
+        }).then(() => alert("Master URL updated for client!"))
+          .catch(err => handleFirestoreError(err, 'update', `projects/${projectId}`));
+      };
+
+      window.handleDeleteProject = function(projectId) {
+        if (!confirm("Are you sure you want to remove this project?")) return;
+        if (!db) return;
+        db.collection('projects').doc(projectId).delete()
+          .catch(err => handleFirestoreError(err, 'delete', `projects/${projectId}`));
+      };
+
+      // Listen to Firebase Auth state
+      if (auth) {
+        auth.onAuthStateChanged((user) => {
+          currentUser = user;
+          updateAuthUI();
+          if (user) {
+            // Save/sync user document in Firestore per blueprint
+            if (db) {
+              const userRef = db.collection('users').doc(user.uid);
+              userRef.set({
+                uid: user.uid,
+                email: user.email || '',
+                displayName: user.displayName || user.email?.split('@')[0] || 'Client',
+                role: user.email === ADMIN_EMAIL ? 'admin' : 'client',
+                createdAt: new Date().toISOString()
+              }, { merge: true }).catch(err => {
+                handleFirestoreError(err, 'write', `users/${user.uid}`);
+              });
+            }
+            listenToProjects();
+          } else {
+            if (unsubscribeProjects) {
+              unsubscribeProjects();
+              unsubscribeProjects = null;
+            }
+            allLoadedProjects = [];
+          }
+        });
       }
 
       // FULL-SCREEN INTRO WALL (EXACT REPLICATION OF SPECIALPRODUCTION.AGENCY)
@@ -1131,102 +1616,241 @@
 
         // Modal listeners
         document.getElementById('close-auth-btn')?.addEventListener('click', closeAuthModal);
-        document.getElementById('pill-auth-btn')?.addEventListener('click', openAuthModal);
         document.getElementById('auth-modal')?.addEventListener('click', (e) => {
-          if (e.target.id === 'auth-modal') closeAuthModal();
+          if (e.target.id === 'auth-modal') closeAuthModal();\n            closePortalModal();
         });
 
-        // Tabs
+        document.getElementById('close-portal-btn')?.addEventListener('click', closePortalModal);
+        document.getElementById('portal-logout-btn')?.addEventListener('click', handleLogout);
+        document.getElementById('portal-modal')?.addEventListener('click', (e) => {
+          if (e.target.id === 'portal-modal') closePortalModal();
+        });
+
+        // Portal Tab buttons
+        document.getElementById('tab-portal-projects')?.addEventListener('click', () => switchPortalTab('projects'));
+        document.getElementById('tab-portal-submit')?.addEventListener('click', () => switchPortalTab('submit'));
+        document.getElementById('tab-portal-admin')?.addEventListener('click', () => switchPortalTab('admin'));
+        document.getElementById('btn-empty-submit')?.addEventListener('click', () => switchPortalTab('submit'));
+        document.getElementById('btn-cancel-submit')?.addEventListener('click', () => switchPortalTab('projects'));
+
+        // Start a project navbar button: direct to portal if authenticated, otherwise prompt auth
+        document.getElementById('nav-start-btn')?.addEventListener('click', () => {
+          if (currentUser) {
+            openPortalModal();
+            switchPortalTab('submit');
+          } else {
+            openAuthModal();
+          }
+        });
+
+        // Auth Tabs
         const tabSignIn = document.getElementById('tab-signin');
         const tabSignUp = document.getElementById('tab-signup');
         const modalTitle = document.getElementById('modal-title');
+        const modalDesc = document.getElementById('modal-desc');
         const nameGroup = document.getElementById('name-field-group');
         const submitBtn = document.getElementById('auth-submit-btn');
 
         tabSignIn?.addEventListener('click', () => {
           isSignUpMode = false;
-          tabSignIn.className = 'flex-1 py-1.5 font-display text-xs uppercase tracking-wider bg-black text-studio';
-          tabSignUp.className = 'flex-1 py-1.5 font-display text-xs uppercase tracking-wider bg-transparent text-black';
+          tabSignIn.className = 'flex-1 py-1.5 font-display text-xs uppercase tracking-wider bg-black text-studio cursor-pointer';
+          tabSignUp.className = 'flex-1 py-1.5 font-display text-xs uppercase tracking-wider bg-transparent text-black cursor-pointer';
           modalTitle.textContent = 'SIGN IN';
+          modalDesc.textContent = 'Access your private editing pipeline and submit footage.';
           nameGroup.classList.add('hidden');
           submitBtn.textContent = 'Sign In →';
         });
 
         tabSignUp?.addEventListener('click', () => {
           isSignUpMode = true;
-          tabSignUp.className = 'flex-1 py-1.5 font-display text-xs uppercase tracking-wider bg-black text-studio';
-          tabSignIn.className = 'flex-1 py-1.5 font-display text-xs uppercase tracking-wider bg-transparent text-black';
+          tabSignUp.className = 'flex-1 py-1.5 font-display text-xs uppercase tracking-wider bg-black text-studio cursor-pointer';
+          tabSignIn.className = 'flex-1 py-1.5 font-display text-xs uppercase tracking-wider bg-transparent text-black cursor-pointer';
           modalTitle.textContent = 'CREATE ACCOUNT';
+          modalDesc.textContent = 'Register to collaborate on narrative & documentary cuts.';
           nameGroup.classList.remove('hidden');
           submitBtn.textContent = 'Create Account →';
         });
 
-        // Google Auth
+        // Google Auth Trigger
         document.getElementById('google-auth-btn')?.addEventListener('click', () => {
-          if (firebaseInitialized && firebase.auth) {
-            const provider = new firebase.auth.GoogleAuthProvider();
-            firebase.auth().signInWithPopup(provider)
-              .then((result) => {
-                currentUser = result.user;
-                closeAuthModal();
-                updateAuthUI();
-              })
-              .catch((err) => {
-                const errBox = document.getElementById('auth-error');
-                if (errBox) {
-                  errBox.textContent = err.message;
-                  errBox.classList.remove('hidden');
-                }
-              });
-          } else {
-            currentUser = {
-              displayName: "CREATOR",
-              email: "creator@youtube.com",
-              uid: "demo_creator"
-            };
-            localStorage.setItem('igrow_session', JSON.stringify(currentUser));
-            closeAuthModal();
-            updateAuthUI();
+          const errBox = document.getElementById('auth-error');
+          if (!auth) {
+            if (errBox) {
+              errBox.textContent = 'Firebase Auth not initialized.';
+              errBox.classList.remove('hidden');
+            }
+            return;
           }
+          const provider = new firebase.auth.GoogleAuthProvider();
+          auth.signInWithPopup(provider)
+            .then((result) => {
+              currentUser = result.user;
+              closeAuthModal();
+              openPortalModal();
+            })
+            .catch((err) => {
+              if (errBox) {
+                errBox.textContent = err.message || 'Google Sign-In failed.';
+                errBox.classList.remove('hidden');
+              }
+            });
         });
 
         // Email Form Submit
         document.getElementById('email-auth-form')?.addEventListener('submit', (e) => {
           e.preventDefault();
-          const email = document.getElementById('auth-email').value;
+          const email = document.getElementById('auth-email').value.trim();
           const password = document.getElementById('auth-password').value;
-          const name = document.getElementById('auth-name').value;
+          const name = document.getElementById('auth-name').value.trim();
           const errBox = document.getElementById('auth-error');
+          const successBox = document.getElementById('auth-success');
 
-          if (firebaseInitialized && firebase.auth) {
-            const authPromise = isSignUpMode
-              ? firebase.auth().createUserWithEmailAndPassword(email, password)
-              : firebase.auth().signInWithEmailAndPassword(email, password);
+          errBox?.classList.add('hidden');
+          successBox?.classList.add('hidden');
 
-            authPromise
+          if (!auth) {
+            if (errBox) {
+              errBox.textContent = 'Authentication service is loading, please try again.';
+              errBox.classList.remove('hidden');
+            }
+            return;
+          }
+
+          submitBtn.textContent = 'Processing...';
+
+          if (isSignUpMode) {
+            auth.createUserWithEmailAndPassword(email, password)
               .then((cred) => {
-                if (isSignUpMode && name && cred.user.updateProfile) {
+                if (name && cred.user.updateProfile) {
                   cred.user.updateProfile({ displayName: name });
                 }
                 currentUser = cred.user;
                 closeAuthModal();
-                updateAuthUI();
+                openPortalModal();
+                switchPortalTab('submit');
               })
               .catch((err) => {
                 if (errBox) {
                   errBox.textContent = err.message;
                   errBox.classList.remove('hidden');
                 }
+              })
+              .finally(() => {
+                submitBtn.textContent = 'Create Account →';
               });
           } else {
-            currentUser = {
-              displayName: name || email.split('@')[0],
+            auth.signInWithEmailAndPassword(email, password)
+              .then((cred) => {
+                currentUser = cred.user;
+                closeAuthModal();
+                openPortalModal();
+              })
+              .catch((err) => {
+                if (errBox) {
+                  errBox.textContent = err.message;
+                  errBox.classList.remove('hidden');
+                }
+              })
+              .finally(() => {
+                submitBtn.textContent = 'Sign In →';
+              });
+          }
+        });
+
+        // Submit New Project Form inside Client Portal
+        document.getElementById('portal-new-project-form')?.addEventListener('submit', (e) => {
+          e.preventDefault();
+          if (!currentUser) {
+            openAuthModal();
+            return;
+          }
+          if (!db) {
+            alert("Database connection is not ready. Please refresh.");
+            return;
+          }
+
+          const title = document.getElementById('project-title').value.trim();
+          const videoType = document.getElementById('project-format').value;
+          const footageUrl = document.getElementById('project-footage-url').value.trim();
+          const brief = document.getElementById('project-brief').value.trim();
+          const targetDuration = document.getElementById('project-duration').value.trim();
+
+          const statusEl = document.getElementById('project-submit-status');
+          const submitBtn = document.getElementById('btn-submit-project');
+
+          submitBtn.textContent = 'Transmitting to Pipeline...';
+
+          const projectId = 'proj_' + Date.now();
+          const projectData = {
+            id: projectId,
+            clientUid: currentUser.uid,
+            clientEmail: currentUser.email || '',
+            clientName: currentUser.displayName || currentUser.email?.split('@')[0] || 'Client',
+            title: title,
+            videoType: videoType,
+            footageUrl: footageUrl,
+            brief: brief,
+            targetDuration: targetDuration,
+            status: 'queued',
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+          };
+
+          db.collection('projects').doc(projectId).set(projectData)
+            .then(() => {
+              if (statusEl) {
+                statusEl.textContent = '✓ Raw footage successfully registered! Switched to your active productions tracker.';
+                statusEl.className = 'text-xs font-bold p-2 border-2 border-black bg-black text-studio';
+                statusEl.classList.remove('hidden');
+              }
+              document.getElementById('portal-new-project-form').reset();
+              setTimeout(() => {
+                statusEl?.classList.add('hidden');
+                switchPortalTab('projects');
+              }, 1200);
+            })
+            .catch((err) => {
+              handleFirestoreError(err, 'create', `projects/${projectId}`);
+              if (statusEl) {
+                statusEl.textContent = 'Error transmitting project: ' + err.message;
+                statusEl.className = 'text-xs font-bold p-2 border-2 border-black bg-red-600 text-white';
+                statusEl.classList.remove('hidden');
+              }
+            })
+            .finally(() => {
+              submitBtn.textContent = 'Transmit to Nomair\'s Timeline →';
+            });
+        });
+
+        // Contact Form Direct Sync to Firestore
+        const contactForm = document.getElementById('contact-form');
+        contactForm?.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const name = document.getElementById('contact-name')?.value || '';
+          const email = document.getElementById('contact-email')?.value || '';
+          const message = document.getElementById('contact-message')?.value || '';
+          const status = document.getElementById('contact-status');
+
+          if (db && email && message) {
+            const inqId = 'inq_' + Date.now();
+            db.collection('inquiries').doc(inqId).set({
+              id: inqId,
+              name: name,
               email: email,
-              uid: "demo_" + Date.now()
-            };
-            localStorage.setItem('igrow_session', JSON.stringify(currentUser));
-            closeAuthModal();
-            updateAuthUI();
+              message: message,
+              createdAt: new Date().toISOString()
+            }).catch(err => {
+              handleFirestoreError(err, 'create', `inquiries/${inqId}`);
+            });
+          }
+
+          if (status) {
+            status.classList.remove('hidden');
+            contactForm.reset();
+            setTimeout(() => {
+              status.classList.add('hidden');
+              closeInquiryModal();
+            }, 3000);
           }
         });
 
@@ -1295,13 +1919,20 @@
             closeInquiryModal();
             closeCareersModal();
             closeAuthModal();
+            closePortalModal();
           }
         });
 
-        // Hash-based routing to scroll to #faq or #about
+        // Hash-based routing to scroll to #faq or #about or #portal
         function handleHashRouting() {
           if (window.location.hash === '#qa' || window.location.hash === '#faq') {
             document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' });
+          } else if (window.location.hash === '#portal') {
+            if (currentUser) {
+              openPortalModal();
+            } else {
+              openAuthModal();
+            }
           }
         }
         window.addEventListener('hashchange', handleHashRouting);
@@ -1414,6 +2045,16 @@
           e.preventDefault();
         }
       });
+    </script>
+      <!-- PWA Offline Service Worker Registration -->
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("/sw.js").catch(err => {
+            console.debug("Service Worker registration skipped:", err);
+          });
+        });
+      }
     </script>
   </body>
 </html>

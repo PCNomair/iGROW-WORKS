@@ -384,6 +384,28 @@
 
     <!-- SCRIPT LOGIC -->
     <script>
+      const firebaseConfig = {
+        projectId: "gen-lang-client-0403544801",
+        appId: "1:816469589424:web:e5e7e375ff6f401b62aa75",
+        apiKey: "AIzaSyCj9wZQIjLDb-4rjVmV_Y-zI24-yULcGXA",
+        authDomain: "gen-lang-client-0403544801.firebaseapp.com",
+        firestoreDatabaseId: "ai-studio-igrowworksyoutub-dd6c0dd3-fe67-4698-a252-9d6b6c19be6b",
+        storageBucket: "gen-lang-client-0403544801.firebasestorage.app",
+        messagingSenderId: "816469589424"
+      };
+
+      let db = null;
+      try {
+        if (typeof firebase !== 'undefined' && !firebase.apps.length) {
+          const app = firebase.initializeApp(firebaseConfig);
+          db = firebase.firestore(app, firebaseConfig.firestoreDatabaseId);
+        } else if (typeof firebase !== 'undefined' && firebase.apps.length) {
+          db = firebase.firestore(firebase.app(), firebaseConfig.firestoreDatabaseId);
+        }
+      } catch (e) {
+        console.warn("Firebase qa init:", e);
+      }
+
       const inquiryModal = document.getElementById('inquiry-modal');
       const authModal = document.getElementById('auth-modal');
 
@@ -405,6 +427,21 @@
       document.getElementById('direct-inquiry-form')?.addEventListener('submit', (e) => {
         e.preventDefault();
         const status = document.getElementById('inquiry-status');
+        const name = document.getElementById('inquiry-name')?.value || '';
+        const email = document.getElementById('inquiry-email')?.value || '';
+        const msg = document.getElementById('inquiry-msg')?.value || '';
+
+        if (db && email && msg) {
+          const inqId = 'inq_' + Date.now();
+          db.collection('inquiries').doc(inqId).set({
+            id: inqId,
+            name: name,
+            email: email,
+            message: msg,
+            createdAt: new Date().toISOString()
+          }).catch(console.error);
+        }
+
         status.textContent = 'TRANSMITTING INQUIRY TO NOMAIR...';
         status.classList.remove('hidden');
         setTimeout(() => {
@@ -412,6 +449,35 @@
           status.classList.add('bg-black', 'text-studio');
           setTimeout(() => { closeInquiry(); }, 1800);
         }, 800);
+      });
+    </script>
+      <!-- PWA Offline Service Worker Registration -->
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("/sw.js").catch(err => {
+            console.debug("Service Worker registration skipped:", err);
+          });
+        });
+      }
+    </script>
+      <!-- Image Protection & Modal Keyboard Shortcuts -->
+    <script>
+      document.addEventListener("contextmenu", function(e) {
+        if (e.target && e.target.tagName === "IMG") {
+          e.preventDefault();
+        }
+      });
+      document.addEventListener("dragstart", function(e) {
+        if (e.target && e.target.tagName === "IMG") {
+          e.preventDefault();
+        }
+      });
+      document.addEventListener("keydown", function(e) {
+        if (e.key === "Escape") {
+          document.getElementById("inquiry-modal")?.classList.add("hidden");
+          document.getElementById("auth-modal")?.classList.add("hidden");
+        }
       });
     </script>
   </body>

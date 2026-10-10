@@ -1,0 +1,95 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Default Deny Catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Health check / connection test doc
+    match /test/connection {
+      allow read: if true;
+    }
+
+    // Security Helpers
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email == 'xaomi4386@gmail.com' ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+
+    // User Validator
+    function isValidUser(data) {
+      return data.keys().hasAll(['uid', 'email', 'role']) &&
+             data.keys().hasOnly(['uid', 'email', 'displayName', 'role', 'createdAt']) &&
+             data.uid is string && data.uid == request.auth.uid &&
+             data.email is string && data.email.size() <= 128 &&
+             data.role in ['client', 'admin'] &&
+             (!('displayName' in data) || (data.displayName is string && data.displayName.size() <= 100));
+    }
+
+    // Project Validator
+    function isValidProject(data) {
+      return data.keys().hasAll(['id', 'clientUid', 'title', 'footageUrl', 'status']) &&
+             data.keys().hasOnly(['id', 'clientUid', 'clientEmail', 'clientName', 'title', 'videoType', 'footageUrl', 'brief', 'targetDuration', 'status', 'deliverableUrl', 'createdAt', 'updatedAt']) &&
+             data.id is string && data.id.size() <= 128 &&
+             data.clientUid is string && data.clientUid == request.auth.uid &&
+             data.title is string && data.title.size() > 0 && data.title.size() <= 200 &&
+             data.footageUrl is string && data.footageUrl.size() > 0 && data.footageUrl.size() <= 1000 &&
+             data.status in ['queued', 'ingest', 'rough_cut', 'color_sound', 'delivered'] &&
+             (!('brief' in data) || (data.brief is string && data.brief.size() <= 3000)) &&
+             (!('videoType' in data) || (data.videoType is string && data.videoType.size() <= 50)) &&
+             (!('targetDuration' in data) || (data.targetDuration is string && data.targetDuration.size() <= 50)) &&
+             (!('clientEmail' in data) || (data.clientEmail is string && data.clientEmail.size() <= 128)) &&
+             (!('clientName' in data) || (data.clientName is string && data.clientName.size() <= 100)) &&
+             (!('deliverableUrl' in data) || (data.deliverableUrl is string && data.deliverableUrl.size() <= 1000));
+    }
+
+    // Inquiry Validator
+    function isValidInquiry(data) {
+      return data.keys().hasAll(['id', 'email', 'message']) &&
+             data.keys().hasOnly(['id', 'name', 'email', 'message', 'createdAt']) &&
+             data.id is string && data.id.size() <= 128 &&
+             data.email is string && data.email.size() > 0 && data.email.size() <= 128 &&
+             data.message is string && data.message.size() > 0 && data.message.size() <= 2000 &&
+             (!('name' in data) || (data.name is string && data.name.size() <= 100));
+    }
+
+    // Collection: Users
+    match /users/{userId} {
+      allow get: if isSignedIn() && (request.auth.uid == userId || isAdmin());
+      allow list: if isAdmin();
+      allow create: if isSignedIn() && isValidId(userId) && request.auth.uid == userId && isValidUser(request.resource.data);
+      allow update: if isSignedIn() && isValidId(userId) && (request.auth.uid == userId || isAdmin()) && isValidUser(request.resource.data);
+      allow delete: if isAdmin();
+    }
+
+    // Collection: Projects
+    match /projects/{projectId} {
+      allow get: if isSignedIn() && isValidId(projectId) && (resource.data.clientUid == request.auth.uid || isAdmin());
+      allow list: if isSignedIn() && (resource.data.clientUid == request.auth.uid || isAdmin());
+      allow create: if isSignedIn() && isValidId(projectId) && isValidProject(request.resource.data);
+      allow update: if isSignedIn() && isValidId(projectId) && (
+        isAdmin() ||
+        (resource.data.clientUid == request.auth.uid && request.resource.data.clientUid == resource.data.clientUid && isValidProject(request.resource.data))
+      );
+      allow delete: if isSignedIn() && isValidId(projectId) && (resource.data.clientUid == request.auth.uid || isAdmin());
+    }
+
+    // Collection: Inquiries
+    match /inquiries/{inquiryId} {
+      allow create: if isValidId(inquiryId) && isValidInquiry(request.resource.data);
+      allow read, update, delete: if isAdmin();
+    }
+  }
+}

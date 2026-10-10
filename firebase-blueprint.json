@@ -1,0 +1,159 @@
+{
+  "entities": {
+    "user": {
+      "title": "User",
+      "description": "User profile representation for studio clients and admins",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Unique Firebase Auth user ID",
+          "maxLength": 128
+        },
+        "email": {
+          "type": "string",
+          "description": "User email address",
+          "maxLength": 128
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Display name or channel name of the client",
+          "maxLength": 100
+        },
+        "role": {
+          "type": "string",
+          "description": "Role of the user (client or admin)",
+          "enum": ["client", "admin"],
+          "maxLength": 20
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the user account was created"
+        }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "project": {
+      "title": "Project",
+      "description": "Post-production project submitted by client for editing, color grading, sound design",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Project identifier",
+          "maxLength": 128
+        },
+        "clientUid": {
+          "type": "string",
+          "description": "UID of the client who owns this project",
+          "maxLength": 128
+        },
+        "clientEmail": {
+          "type": "string",
+          "description": "Contact email of client",
+          "maxLength": 128
+        },
+        "clientName": {
+          "type": "string",
+          "description": "Name or YouTube channel name of client",
+          "maxLength": 100
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the video or episode",
+          "maxLength": 200
+        },
+        "videoType": {
+          "type": "string",
+          "description": "Format or genre: Documentary, Narrative, Commercial, YouTube Show, Reel",
+          "maxLength": 50
+        },
+        "footageUrl": {
+          "type": "string",
+          "description": "Cloud link to raw footage (Google Drive, Dropbox, Frame.io, WeTransfer)",
+          "maxLength": 1000
+        },
+        "brief": {
+          "type": "string",
+          "description": "Creative brief, pacing notes, music notes, references",
+          "maxLength": 3000
+        },
+        "targetDuration": {
+          "type": "string",
+          "description": "Estimated target duration (e.g. 10-15 min, 60s, feature)",
+          "maxLength": 50
+        },
+        "status": {
+          "type": "string",
+          "description": "Production pipeline stage",
+          "enum": ["queued", "ingest", "rough_cut", "color_sound", "delivered"],
+          "maxLength": 30
+        },
+        "deliverableUrl": {
+          "type": "string",
+          "description": "Link to preview or final master delivered by Nomair",
+          "maxLength": 1000
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Creation timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last updated timestamp"
+        }
+      },
+      "required": ["id", "clientUid", "title", "footageUrl", "status"]
+    },
+    "inquiry": {
+      "title": "Inquiry",
+      "description": "Direct inquiry transmitted from the public site to Director Nomair",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Inquiry identifier",
+          "maxLength": 128
+        },
+        "name": {
+          "type": "string",
+          "description": "Contact person name",
+          "maxLength": 100
+        },
+        "email": {
+          "type": "string",
+          "description": "Contact email",
+          "maxLength": 128
+        },
+        "message": {
+          "type": "string",
+          "description": "Project overview message",
+          "maxLength": 2000
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Submission timestamp"
+        }
+      },
+      "required": ["id", "email", "message"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "user",
+      "description": "User profile collection isolated per authenticated user"
+    },
+    "/projects/{projectId}": {
+      "schema": "project",
+      "description": "Client post-production project documents tracked through the studio pipeline"
+    },
+    "/inquiries/{inquiryId}": {
+      "schema": "inquiry",
+      "description": "Direct customer inquiries submitted to the studio"
+    }
+  }
+}
