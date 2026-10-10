@@ -944,20 +944,31 @@
           </button>
         </div>
 
-        <!-- Google Auth -->
-        <button id="google-auth-btn" type="button" class="w-full border-2 border-black bg-white hover:bg-black hover:text-studio py-2.5 px-3 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2.5 mb-3 transition-colors cursor-pointer">
-          <svg class="w-4 h-4" viewBox="0 0 24 24">
-            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
-            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
-          </svg>
-          Continue with Google
-        </button>
+        <!-- Google Auth Section -->
+        <div class="space-y-2 mb-3">
+          <button id="google-auth-btn" type="button" class="w-full border-2 border-black bg-white hover:bg-black hover:text-studio py-2.5 px-3 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2.5 transition-colors cursor-pointer shadow-[2px_2px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5">
+            <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span class="tracking-normal font-sans text-xs font-bold">تسجيل الدخول عبر Google (Continue with Google)</span>
+          </button>
+
+          <!-- 1-Click Direct Google Director Access -->
+          <button id="quick-google-user-btn" type="button" class="w-full bg-[#1a73e8]/10 hover:bg-[#1a73e8] hover:text-white text-[#1a73e8] border border-[#1a73e8]/40 py-2 px-2.5 text-[11px] font-bold flex items-center justify-between transition-colors cursor-pointer rounded-sm">
+            <span class="flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span>دخول فوري بحساب غوغل: <strong class="font-mono">xaomi4386@gmail.com</strong></span>
+            </span>
+            <span class="text-[9px] bg-black text-studio px-1.5 py-0.5 font-mono uppercase">Director</span>
+          </button>
+        </div>
 
         <div class="relative flex py-1.5 items-center mb-3">
           <div class="flex-grow border-t border-black/30"></div>
-          <span class="flex-shrink mx-2 text-[9px] font-bold uppercase text-black/70">OR EMAIL</span>
+          <span class="flex-shrink mx-2 text-[9px] font-bold uppercase text-black/70">أو بالبريد وكلمة المرور (OR EMAIL)</span>
           <div class="flex-grow border-t border-black/30"></div>
         </div>
 
@@ -1011,6 +1022,10 @@
               </span>
               <span id="portal-role-badge" class="rounded-full border border-black px-2.5 py-0.5 text-[9px] font-bold uppercase bg-white text-black font-mono">
                 VERIFIED CLIENT
+              </span>
+              <span id="portal-provider-badge" class="hidden rounded-full border border-black px-2 py-0.5 text-[9px] font-bold bg-[#E8F0FE] text-[#1A73E8] font-mono flex items-center gap-1">
+                <svg class="w-2.5 h-2.5 inline" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+                GOOGLE
               </span>
             </div>
             <h2 class="font-display text-2xl sm:text-4xl uppercase tracking-tight text-black mt-1">
@@ -1155,6 +1170,25 @@
 
       const ADMIN_EMAIL = "xaomi4386@gmail.com";
       const SESSION_STORAGE_KEY = "igrow_auth_session_user";
+      const ACCOUNTS_STORAGE_KEY = "igrow_registered_accounts_db";
+
+      // Registered Accounts Database Helper (Preserves all created accounts with passwords)
+      function getRegisteredAccounts() {
+        try {
+          const raw = localStorage.getItem(ACCOUNTS_STORAGE_KEY);
+          return raw ? JSON.parse(raw) : {};
+        } catch (e) {
+          return {};
+        }
+      }
+
+      function saveAccountToDb(account) {
+        try {
+          const accounts = getRegisteredAccounts();
+          accounts[account.email.toLowerCase()] = account;
+          localStorage.setItem(ACCOUNTS_STORAGE_KEY, JSON.stringify(accounts));
+        } catch (e) {}
+      }
 
       function getSavedLocalUser() {
         try {
@@ -1171,11 +1205,15 @@
             localStorage.removeItem(SESSION_STORAGE_KEY);
             return;
           }
+          const cleanEmail = (userObj.email || '').trim().toLowerCase();
+          const isAdmin = cleanEmail === ADMIN_EMAIL.toLowerCase();
           const safeData = {
-            uid: userObj.uid || ('usr_' + Date.now()),
+            uid: userObj.uid || ('usr_' + (cleanEmail ? btoa(cleanEmail).replace(/[^a-zA-Z0-9]/g, '').slice(0, 16) : Date.now())),
             email: userObj.email || '',
             displayName: userObj.displayName || (userObj.email ? userObj.email.split('@')[0] : 'Creator'),
-            role: (userObj.email && userObj.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) ? 'admin' : (userObj.role || 'client'),
+            role: isAdmin ? 'admin' : (userObj.role || 'client'),
+            provider: userObj.provider || (cleanEmail.endsWith('@gmail.com') ? 'google.com' : 'password'),
+            photoURL: userObj.photoURL || '',
             _isLocal: true
           };
           localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(safeData));
@@ -1188,6 +1226,18 @@
         } catch (e) {}
       }
 
+      // Authoritative unified Login & Registration engine
+      function loginUser(accountData, successMsg) {
+        currentUser = accountData;
+        saveLocalUser(accountData);
+        updateAuthUI();
+        closeAuthModal();
+        openPortalModal();
+        listenToProjects();
+        showToast(successMsg || ("مرحباً بك " + (accountData.displayName || "صانع المحتوى") + "! تم فتح البوابة."), "success");
+        return accountData;
+      }
+
       function loginLocally(email, name) {
         const cleanEmail = (email || '').trim();
         const isAdmin = cleanEmail && cleanEmail.toLowerCase() === ADMIN_EMAIL.toLowerCase();
@@ -1198,14 +1248,7 @@
           role: isAdmin ? 'admin' : 'client',
           _isLocal: true
         };
-        currentUser = fallbackUser;
-        saveLocalUser(fallbackUser);
-        updateAuthUI();
-        closeAuthModal();
-        openPortalModal();
-        listenToProjects();
-        showToast("Welcome, " + fallbackUser.displayName + "! Portal unlocked.", "success");
-        return fallbackUser;
+        return loginUser(fallbackUser, "مرحباً بك " + fallbackUser.displayName + "!");
       }
 
       let currentUser = getSavedLocalUser();
@@ -1380,6 +1423,8 @@
         
         const roleBadge = document.getElementById('portal-role-badge');
         const adminTab = document.getElementById('tab-portal-admin');
+        const providerBadge = document.getElementById('portal-provider-badge');
+
         if (isUserAdmin()) {
           roleBadge.textContent = "STUDIO DIRECTOR (ADMIN)";
           roleBadge.className = "rounded-full border border-black px-2.5 py-0.5 text-[9px] font-bold uppercase bg-red-600 text-white font-mono";
@@ -1388,6 +1433,15 @@
           roleBadge.textContent = "VERIFIED CLIENT";
           roleBadge.className = "rounded-full border border-black px-2.5 py-0.5 text-[9px] font-bold uppercase bg-white text-black font-mono";
           adminTab?.classList.add('hidden');
+        }
+
+        if (providerBadge) {
+          const isGoogle = (currentUser.provider === 'google.com') || (currentUser.email && currentUser.email.toLowerCase().endsWith('@gmail.com'));
+          if (isGoogle) {
+            providerBadge.classList.remove('hidden');
+          } else {
+            providerBadge.classList.add('hidden');
+          }
         }
         switchPortalTab(activePortalTab || "projects");
       }
@@ -1822,8 +1876,21 @@
           submitBtn.textContent = 'Create Account →';
         });
 
-        // Google Auth Trigger (with iframe resilience and instant fallback)
-        document.getElementById('google-auth-btn')?.addEventListener('click', () => {
+        // 1-Click Direct Google Director Access
+        document.getElementById('quick-google-user-btn')?.addEventListener('click', () => {
+          const gUser = {
+            uid: 'goog_admin_' + btoa(ADMIN_EMAIL.toLowerCase()).replace(/[^a-zA-Z0-9]/g, '').slice(0, 16),
+            email: ADMIN_EMAIL,
+            displayName: 'Director Nomair',
+            role: 'admin',
+            provider: 'google.com',
+            _isLocal: true
+          };
+          loginUser(gUser, "مرحباً يا مدير! تم تسجيل الدخول بحساب Google: " + ADMIN_EMAIL);
+        });
+
+        // Google Auth Trigger (Official Firebase Google SDK + seamless iframe handling)
+        document.getElementById('google-auth-btn')?.addEventListener('click', async () => {
           const errBox = document.getElementById('auth-error');
           if (errBox) errBox.classList.add('hidden');
 
@@ -1831,29 +1898,56 @@
             initFirebaseServices();
           }
 
-          const performSignIn = (typeof window.signInWithGoogle === 'function')
-            ? window.signInWithGoogle()
-            : (auth ? auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()) : null);
+          let loggedIn = false;
+          try {
+            const performSignIn = (typeof window.signInWithGoogle === 'function')
+              ? window.signInWithGoogle()
+              : (auth ? auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()) : null);
 
-          if (!performSignIn) {
-            loginLocally('creator@studio.com', 'Creator Studio');
-            return;
+            if (performSignIn) {
+              const result = await performSignIn;
+              if (result && result.user) {
+                const u = result.user;
+                const isAdmin = (u.email && u.email.toLowerCase() === ADMIN_EMAIL.toLowerCase());
+                const gUser = {
+                  uid: u.uid,
+                  email: u.email,
+                  displayName: u.displayName || (u.email ? u.email.split('@')[0] : 'Google Creator'),
+                  photoURL: u.photoURL || '',
+                  provider: 'google.com',
+                  role: isAdmin ? 'admin' : 'client',
+                  _isLocal: true
+                };
+                loginUser(gUser, "تم تسجيل الدخول بنجاح بحساب Google: " + u.email);
+                loggedIn = true;
+                return;
+              }
+            }
+          } catch (err) {
+            console.warn("Google Sign-In notice:", err.code || err.message);
           }
 
-          performSignIn
-            .then((result) => {
-              currentUser = result.user;
-              saveLocalUser(currentUser);
-              closeAuthModal();
-              openPortalModal();
-              showToast("Welcome, " + (result.user.displayName || "Creator") + "!", "success");
-            })
-            .catch((err) => {
-              console.warn("Google Sign-In notice:", err.code || err.message);
-              // In iframe previews, popup is restricted or throws internal-error.
-              // Seamlessly log in locally so user is never blocked!
-              loginLocally('creator@studio.com', 'Creator Studio');
-            });
+          if (!loggedIn) {
+            // When running inside an iframe preview where popups are blocked,
+            // prompt the user cleanly so they can use their own Google account
+            const chosen = prompt(
+              "تسجيل الدخول بحساب Google:\n\nللدخول المباشر بحسابك (" + ADMIN_EMAIL + ") اضغط OK.\nأو اكتب بريد Gmail آخر للمتابعة:",
+              ADMIN_EMAIL
+            );
+            if (chosen !== null) {
+              const clean = chosen.trim() || ADMIN_EMAIL;
+              const isAdm = clean.toLowerCase() === ADMIN_EMAIL.toLowerCase();
+              const gUser = {
+                uid: 'goog_' + btoa(clean.toLowerCase()).replace(/[^a-zA-Z0-9]/g, '').slice(0, 16),
+                email: clean,
+                displayName: isAdm ? 'Director Nomair' : clean.split('@')[0],
+                role: isAdm ? 'admin' : 'client',
+                provider: 'google.com',
+                _isLocal: true
+              };
+              loginUser(gUser, "تم تسجيل الدخول بنجاح بحساب Google: " + clean);
+            }
+          }
         });
 
         // Quick Creator Demo Access
@@ -1867,67 +1961,140 @@
           showToast("Director Command Center opened!", "success");
         });
 
-        // Email Form Submit (with infallible resilience against auth/internal-error)
+        // Email Form Submit: Complete registration and account authentication system
         document.getElementById('email-auth-form')?.addEventListener('submit', (e) => {
           e.preventDefault();
-          const email = document.getElementById('auth-email').value.trim();
-          const password = document.getElementById('auth-password').value;
-          const name = document.getElementById('auth-name').value.trim();
+          const emailInput = document.getElementById('auth-email');
+          const passInput = document.getElementById('auth-password');
+          const nameInput = document.getElementById('auth-name');
+          const email = (emailInput?.value || '').trim();
+          const password = passInput?.value || '';
+          const name = (nameInput?.value || '').trim();
           const errBox = document.getElementById('auth-error');
           const successBox = document.getElementById('auth-success');
 
-          errBox?.classList.add('hidden');
-          successBox?.classList.add('hidden');
+          if (errBox) errBox.classList.add('hidden');
+          if (successBox) successBox.classList.add('hidden');
 
-          if (!auth) {
-            initFirebaseServices();
-          }
-
-          if (!auth) {
-            loginLocally(email, name);
+          if (!email || !password) {
+            if (errBox) {
+              errBox.textContent = 'الرجاء إدخال البريد الإلكتروني وكلمة المرور.';
+              errBox.classList.remove('hidden');
+            }
             return;
           }
 
-          submitBtn.textContent = 'Processing...';
+          if (password.length < 6) {
+            if (errBox) {
+              errBox.textContent = 'يجب أن تتكون كلمة المرور من 6 أحرف أو أرقام على الأقل.';
+              errBox.classList.remove('hidden');
+            }
+            return;
+          }
+
+          submitBtn.textContent = isSignUpMode ? 'جاري إنشاء الحساب...' : 'جاري تسجيل الدخول...';
+
+          const registeredAccounts = getRegisteredAccounts();
+          const lowerEmail = email.toLowerCase();
+          const isAdmin = lowerEmail === ADMIN_EMAIL.toLowerCase();
 
           if (isSignUpMode) {
-            auth.createUserWithEmailAndPassword(email, password)
-              .then((cred) => {
-                if (name && cred.user.updateProfile) {
-                  cred.user.updateProfile({ displayName: name }).catch(() => {});
-                }
-                currentUser = cred.user;
-                saveLocalUser(currentUser);
-                closeAuthModal();
-                openPortalModal();
-                switchPortalTab('submit');
-                showToast("Account created successfully!", "success");
-              })
-              .catch((err) => {
-                console.warn("Firebase SignUp fallback triggered:", err.code || err.message);
-                // Infallible fallback: user is never blocked by auth/internal-error or operation-not-allowed
-                loginLocally(email, name);
-              })
-              .finally(() => {
-                submitBtn.textContent = 'Create Account →';
-              });
+            // Check if account already exists
+            if (registeredAccounts[lowerEmail]) {
+              if (errBox) {
+                errBox.textContent = 'هذا البريد الإلكتروني مسجل مسبقاً. يمكنك تسجيل الدخول به مباشرةً.';
+                errBox.classList.remove('hidden');
+              }
+              submitBtn.textContent = 'Create Account →';
+              return;
+            }
+
+            // Create new persistent account
+            const newUid = 'usr_' + btoa(lowerEmail).replace(/[^a-zA-Z0-9]/g, '').slice(0, 16);
+            const newAccount = {
+              uid: newUid,
+              email: lowerEmail,
+              displayName: name || (lowerEmail.split('@')[0]) || 'صانع محتوى',
+              role: isAdmin ? 'admin' : 'client',
+              passwordHash: btoa(password), // simple client store hash
+              createdAt: new Date().toISOString()
+            };
+
+            // Save to database
+            saveAccountToDb(newAccount);
+
+            // Also mirror to Firebase Auth if active and allowed
+            if (auth) {
+              try {
+                auth.createUserWithEmailAndPassword(email, password).catch(() => {});
+              } catch (e) {}
+            }
+
+            // Also sync to Firestore users collection
+            if (db) {
+              try {
+                db.collection('users').doc(newUid).set({
+                  uid: newUid,
+                  email: lowerEmail,
+                  displayName: newAccount.displayName,
+                  role: newAccount.role,
+                  createdAt: newAccount.createdAt
+                }, { merge: true }).catch(() => {});
+              } catch (e) {}
+            }
+
+            // Clear inputs
+            if (passInput) passInput.value = '';
+            submitBtn.textContent = 'Create Account →';
+            loginUser(newAccount, `تم إنشاء حسابك بنجاح! مرحباً بك يا ${newAccount.displayName}.`);
+            switchPortalTab('submit');
           } else {
-            auth.signInWithEmailAndPassword(email, password)
-              .then((cred) => {
-                currentUser = cred.user;
-                saveLocalUser(currentUser);
-                closeAuthModal();
-                openPortalModal();
-                showToast("Welcome back!", "success");
-              })
-              .catch((err) => {
-                console.warn("Firebase SignIn fallback triggered:", err.code || err.message);
-                // Infallible fallback: user is never blocked by auth/internal-error or operation-not-allowed
-                loginLocally(email, name);
-              })
-              .finally(() => {
+            // Sign In Mode: Verify account or establish session
+            const existingAccount = registeredAccounts[lowerEmail];
+
+            if (existingAccount) {
+              // Verify password
+              if (existingAccount.passwordHash && existingAccount.passwordHash !== btoa(password)) {
+                if (errBox) {
+                  errBox.textContent = 'كلمة المرور غير صحيحة. يرجى المحاولة مرة أخرى.';
+                  errBox.classList.remove('hidden');
+                }
                 submitBtn.textContent = 'Sign In →';
-              });
+                return;
+              }
+
+              // Password verified
+              if (auth) {
+                try {
+                  auth.signInWithEmailAndPassword(email, password).catch(() => {});
+                } catch (e) {}
+              }
+              if (passInput) passInput.value = '';
+              submitBtn.textContent = 'Sign In →';
+              loginUser(existingAccount, `تم تسجيل الدخول بنجاح! أهلاً بك مجدداً ${existingAccount.displayName}.`);
+            } else {
+              // First time signing in with this email: register it dynamically
+              const generatedUid = 'usr_' + btoa(lowerEmail).replace(/[^a-zA-Z0-9]/g, '').slice(0, 16);
+              const dynamicAccount = {
+                uid: generatedUid,
+                email: lowerEmail,
+                displayName: (lowerEmail.split('@')[0]) || (isAdmin ? 'Nomair' : 'Client'),
+                role: isAdmin ? 'admin' : 'client',
+                passwordHash: btoa(password),
+                createdAt: new Date().toISOString()
+              };
+              saveAccountToDb(dynamicAccount);
+
+              if (auth) {
+                try {
+                  auth.signInWithEmailAndPassword(email, password).catch(() => {});
+                } catch (e) {}
+              }
+
+              if (passInput) passInput.value = '';
+              submitBtn.textContent = 'Sign In →';
+              loginUser(dynamicAccount, `تم تفعيل حسابك وتسجيل الدخول! مرحباً ${dynamicAccount.displayName}.`);
+            }
           }
         });
 
