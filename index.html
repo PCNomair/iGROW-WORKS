@@ -23,8 +23,8 @@
     <meta property="og:url" content="https://igrow.now/" />
     <meta property="og:title" content="iGROW WORKS | Post-Production &amp; Video Editing" />
     <meta property="og:description" content="Creative post-production studio led by director Nomair, specializing in visual storytelling, documentaries, drama, and narrative commercials." />
-    <meta property="og:image" content="https://i.postimg.cc/mDYr617C/IMAGE-2026-10-09-19-10-00.jpg" />
-    <meta property="og:image:secure_url" content="https://i.postimg.cc/mDYr617C/IMAGE-2026-10-09-19-10-00.jpg" />
+    <meta property="og:image" content="https://igrow.now/nomair.jpg" />
+    <meta property="og:image:secure_url" content="https://igrow.now/nomair.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Nomair - Director and Lead Video Editor at iGROW WORKS" />
@@ -36,7 +36,7 @@
     <meta name="twitter:creator" content="@igrowworks" />
     <meta name="twitter:title" content="iGROW WORKS | Post-Production &amp; Video Editing" />
     <meta name="twitter:description" content="Creative post-production studio led by director Nomair, specializing in visual storytelling, documentaries, drama, and narrative commercials." />
-    <meta name="twitter:image" content="https://i.postimg.cc/mDYr617C/IMAGE-2026-10-09-19-10-00.jpg" />
+    <meta name="twitter:image" content="https://igrow.now/nomair.jpg" />
     <meta name="twitter:image:alt" content="Nomair - Director and Lead Video Editor at iGROW WORKS" />
 
     <!-- Schema.org Structured Data (JSON-LD) for Google Rich Snippets & Knowledge Graph -->
@@ -52,10 +52,10 @@
           "url": "https://igrow.now/",
           "logo": {
             "@type": "ImageObject",
-            "url": "https://i.postimg.cc/mDYr617C/IMAGE-2026-10-09-19-10-00.jpg",
+            "url": "https://igrow.now/nomair.jpg",
             "caption": "iGROW WORKS Post-Production Studio"
           },
-          "image": "https://i.postimg.cc/mDYr617C/IMAGE-2026-10-09-19-10-00.jpg",
+          "image": "https://igrow.now/nomair.jpg",
           "description": "Creative post-production studio led by director Nomair, specializing in visual storytelling, documentaries, drama, and narrative commercials.",
           "email": "nomair@igrow.now",
           "founder": {
@@ -63,7 +63,7 @@
             "@id": "https://igrow.now/#founder",
             "name": "Nomair",
             "jobTitle": "Director & Lead Video Editor",
-            "image": "https://i.postimg.cc/mDYr617C/IMAGE-2026-10-09-19-10-00.jpg",
+            "image": "https://igrow.now/nomair.jpg",
             "description": "Director and full-time video editor with over 500+ completed projects across documentaries, drama, and narrative commercials."
           },
           "employee": [
@@ -72,7 +72,7 @@
               "@id": "https://igrow.now/#marie-bu",
               "name": "Marie Bu",
               "jobTitle": "Lead Screenwriter & Narrative Architect",
-              "image": "https://i.postimg.cc/qRh3XL1W/IMAGE-2026-10-10-09-15-19.jpg",
+              "image": "https://igrow.now/marie.jpg",
               "description": "Lead Screenwriter and Narrative Architect at iGROW WORKS, developing original scripts, documentary research, and narrative tension."
             }
           ],
@@ -469,7 +469,6 @@
                     <img
                       id="nomair-portrait-img"
                       src="/nomair.jpg"
-                      onerror="this.onerror=null; this.src='https://i.postimg.cc/mDYr617C/IMAGE-2026-10-09-19-10-00.jpg';"
                       alt="Nomair - Director and Lead Video Editor at iGROW WORKS"
                       referrerpolicy="no-referrer"
                       class="w-full h-full object-cover object-top filter grayscale contrast-115 transition-opacity duration-700 ease-out group-hover/portrait:opacity-0"
@@ -479,7 +478,6 @@
                     <img
                       id="golden-ratio-img"
                       src="/golden_ratio.jpg"
-                      onerror="this.onerror=null; this.src='https://i.postimg.cc/K8b4BNL2/IMAGE-2026-10-09-19-17-24.jpg';"
                       alt="Nomair - Directorial Framing and Visual Language at iGROW WORKS"
                       referrerpolicy="no-referrer"
                       class="absolute inset-0 w-full h-full object-cover object-center filter contrast-115 opacity-0 group-hover/portrait:opacity-100 transition-opacity duration-700 ease-out"
@@ -686,7 +684,6 @@
                     <img
                       id="marie-portrait-img"
                       src="/marie.jpg"
-                      onerror="this.onerror=null; this.src='https://i.postimg.cc/qRh3XL1W/IMAGE-2026-10-10-09-15-19.jpg';"
                       alt="Marie Bu - Lead Writer at iGROW WORKS"
                       referrerpolicy="no-referrer"
                       class="w-full h-full object-cover object-top filter grayscale contrast-110 group-hover/marie:grayscale-0 group-hover/marie:scale-102 transition-all duration-700 ease-out"
@@ -1387,6 +1384,20 @@
             }, 3000);
           }
         });
+      });
+    </script>
+  
+    <!-- Image protection & source obscuring -->
+    <script id="data-protection-script">
+      document.addEventListener("contextmenu", function(e) {
+        if (e.target && (e.target.tagName === "IMG" || e.target.closest("#founder-portrait-container") || e.target.closest("#marie-portrait-container"))) {
+          e.preventDefault();
+        }
+      });
+      document.addEventListener("dragstart", function(e) {
+        if (e.target && e.target.tagName === "IMG") {
+          e.preventDefault();
+        }
       });
     </script>
   </body>
