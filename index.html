@@ -2010,7 +2010,10 @@
             console.error("Firebase Google Auth Details:", err);
             if (errBox) {
               const errCode = (err && err.code) ? err.code : 'unknown';
-              const errMsg = (err && err.message) ? err.message : String(err);
+              let errMsg = (err && err.message) ? err.message : String(err);
+              if (err && err.customData) {
+                errMsg += ' | data: ' + JSON.stringify(err.customData);
+              }
               errBox.textContent = `[${errCode}]: ${errMsg}`;
               errBox.classList.remove('hidden');
             }
