@@ -1867,10 +1867,12 @@
           submitBtn.textContent = 'Create Account →';
         });
 
-        // Google Auth Trigger (Official Firebase Google SDK + seamless iframe fallback)
+        // Google Auth Trigger (Official Firebase Google SDK with clean UI feedback)
         document.getElementById('google-auth-btn')?.addEventListener('click', async () => {
           const errBox = document.getElementById('auth-error');
+          const successBox = document.getElementById('auth-success');
           if (errBox) errBox.classList.add('hidden');
+          if (successBox) successBox.classList.add('hidden');
 
           if (!auth) {
             initFirebaseServices();
@@ -1903,27 +1905,15 @@
             }
           } catch (err) {
             console.warn("Google Sign-In notice:", err.code || err.message);
-          }
-
-          if (!loggedIn) {
-            // When running inside an iframe preview where popups are blocked,
-            // prompt cleanly for any Google / Gmail account
-            const chosen = prompt(
-              "تسجيل الدخول بحساب Google (Google Sign-In):\nأدخل بريدك الإلكتروني (Gmail) للمتابعة:",
-              ""
-            );
-            if (chosen && chosen.trim()) {
-              const clean = chosen.trim();
-              const isAdm = clean.toLowerCase() === ADMIN_EMAIL.toLowerCase();
-              const gUser = {
-                uid: 'goog_' + btoa(clean.toLowerCase()).replace(/[^a-zA-Z0-9]/g, '').slice(0, 16),
-                email: clean,
-                displayName: isAdm ? 'Director Nomair' : clean.split('@')[0],
-                role: isAdm ? 'admin' : 'client',
-                provider: 'google.com',
-                _isLocal: true
-              };
-              loginUser(gUser, "تم تسجيل الدخول بنجاح بحساب Google: " + clean);
+            if (errBox) {
+              if (err.code === 'auth/popup-blocked') {
+                errBox.textContent = 'تم حظر النافذة المنبثقة من قبل المتصفح. يمكنك إدخال بريدك وكلمة المرور أدناه للتسجيل فوراً.';
+              } else if (err.code === 'auth/internal-error' || err.code === 'auth/configuration-not-found') {
+                errBox.textContent = 'تسجيل الدخول عبر Google يتطلب تفعيل Google Provider في Firebase Console. يمكنك استخدام البريد وكلمة المرور أدناه للتسجيل بكل سهولة.';
+              } else {
+                errBox.textContent = 'يمكنك تسجيل الدخول أو إنشاء حساب جديد مباشرة عبر البريد الإلكتروني وكلمة المرور أدناه.';
+              }
+              errBox.classList.remove('hidden');
             }
           }
         });
