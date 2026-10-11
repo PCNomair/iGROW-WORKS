@@ -13,6 +13,9 @@
     <meta name="theme-color" content="#EDDD5A" />
     <link rel="canonical" href="https://igrow.now/qa.html" />
 
+    <!-- Google Search Console Site Verification -->
+    <meta name="google-site-verification" content="ngqvmFXZrCFhyzCv8Uaf6KOarwHNHa7cSpSekiav2NE" />
+
     <!-- Performance Preloads -->
     <link rel="preload" href="/nomair.jpg" as="image" type="image/jpeg" />
     <!-- Favicon & PWA Icons -->
@@ -324,9 +327,13 @@
 
     <!-- MINIMAL DUAL LINE FOOTER -->
     <footer class="border-t-2 border-black bg-studio py-8 px-4 text-center select-none">
-      <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono uppercase text-black/80">
+      <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono uppercase text-black/80">
         <div>© 2026 iGROW WORKS • ALL RIGHTS RESERVED</div>
-        <div>DIRECTED BY NOMAIR • WRITTEN BY MARIE BU</div>
+        <div class="flex items-center gap-4 text-[11px]">
+          <button id="open-terms-btn" class="hover:underline underline-offset-4 cursor-pointer">TERMS &amp; NDA (2026)</button>
+          <span class="text-black/30">·</span>
+          <button id="open-privacy-btn" class="hover:underline underline-offset-4 cursor-pointer">PRIVACY POLICY (2026)</button>
+        </div>
         <a href="/" class="font-bold underline hover:opacity-75">igrow.now</a>
       </div>
     </footer>
@@ -384,6 +391,123 @@
       </div>
     </div>
 
+    <!-- LEGAL & PRIVACY PROTOCOLS MODAL (STRICTLY 2026) -->
+    <div id="legal-modal" class="fixed inset-0 z-50 bg-black/75 hidden flex items-center justify-center p-4 overflow-y-auto">
+      <div class="bg-studio w-full max-w-2xl border-2 border-black p-6 sm:p-8 relative max-h-[90vh] overflow-y-auto shadow-[8px_8px_0px_0px_#000000]">
+        
+        <button id="close-legal-btn" class="absolute top-4 right-4 w-8 h-8 border-2 border-black bg-white flex items-center justify-center font-bold text-sm hover:bg-black hover:text-studio shadow-[2px_2px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer">
+          ✕
+        </button>
+
+        <div class="mb-5">
+          <span class="border-2 border-black px-2.5 py-0.5 font-mono text-[10px] font-bold uppercase bg-black text-studio tracking-wider shadow-[2px_2px_0px_0px_#000000]">
+            LEGAL PROTOCOLS // 2026
+          </span>
+          <h3 class="font-display text-2xl sm:text-3xl uppercase tracking-tight text-black mt-2">
+            STUDIO LEGAL &amp; PRIVACY STANDARDS
+          </h3>
+          <p class="text-xs font-mono text-black/80 mt-1">
+            EFFECTIVE CYCLE: 2026 • DIRECT LINE: <a href="mailto:nomair@igrow.now" class="underline font-bold">nomair@igrow.now</a>
+          </p>
+        </div>
+
+        <!-- Segmented Tab Controls -->
+        <div class="flex border-2 border-black mb-6 bg-transparent">
+          <button id="tab-legal-nda" class="flex-1 py-2 font-display text-xs sm:text-sm uppercase tracking-wider bg-black text-studio cursor-pointer">
+            TERMS &amp; FOOTAGE NDA (2026)
+          </button>
+          <button id="tab-legal-privacy" class="flex-1 py-2 font-display text-xs sm:text-sm uppercase tracking-wider bg-transparent text-black cursor-pointer">
+            PRIVACY POLICY (2026)
+          </button>
+        </div>
+
+        <!-- VIEW 1: TERMS & FOOTAGE NDA (2026) -->
+        <div id="view-legal-nda" class="space-y-4 text-xs sm:text-sm text-black/90 font-medium leading-relaxed">
+          
+          <div class="border-2 border-black bg-white p-4 space-y-1.5">
+            <span class="font-mono text-[10px] font-bold uppercase text-black/60 block">CLAUSE 01 // OWNERSHIP OF RAW ASSETS</span>
+            <h4 class="font-display text-base uppercase tracking-tight text-black">100% CLIENT INTELLECTUAL PROPERTY</h4>
+            <p>
+              All raw camera footage, audio stems, screenplays, concept outlines, and creative briefs uploaded to iGROW WORKS or provided to Director Nomair remain 100% the exclusive intellectual property of the client. iGROW WORKS asserts zero copyright claim over original raw assets.
+            </p>
+          </div>
+
+          <div class="border-2 border-black bg-white p-4 space-y-1.5">
+            <span class="font-mono text-[10px] font-bold uppercase text-black/60 block">CLAUSE 02 // NON-DISCLOSURE AGREEMENT (NDA)</span>
+            <h4 class="font-display text-base uppercase tracking-tight text-black">UNRELEASED FOOTAGE CONFIDENTIALITY</h4>
+            <p>
+              We enforce strict confidentiality on all unreleased documentary materials, narrative scripts, and rough assemblies. Client footage will never be leaked, distributed, or shared with third parties. No client project is ever published in studio showreels without prior explicit written authorization from the creator.
+            </p>
+          </div>
+
+          <div class="border-2 border-black bg-white p-4 space-y-1.5">
+            <span class="font-mono text-[10px] font-bold uppercase text-black/60 block">CLAUSE 03 // MASTER DELIVERABLES &amp; RIGHTS TRANSFER</span>
+            <h4 class="font-display text-base uppercase tracking-tight text-black">WORLDWIDE COMMERCIAL BROADCAST LICENSE</h4>
+            <p>
+              Upon milestone sign-off and final deliverable package transfer, all rendered 4K video exports, mastered color grades, and mixed audio tracks are transferred to the client with full, unrestricted worldwide commercial broadcast and distribution rights.
+            </p>
+          </div>
+
+          <div class="border-2 border-black bg-white p-4 space-y-1.5">
+            <span class="font-mono text-[10px] font-bold uppercase text-black/60 block">CLAUSE 04 // EDITORIAL PROCESS &amp; REVISIONS</span>
+            <h4 class="font-display text-base uppercase tracking-tight text-black">DIRECTORIAL CUT &amp; FEEDBACK PROTOCOL</h4>
+            <p>
+              Editorial assemblies are crafted directly under the creative direction of Nomair. Revisions are executed through our structured milestone pipeline (Ingest → Rough Cut → Color &amp; Sound → Master Delivery) to ensure precise artistic alignment.
+            </p>
+          </div>
+
+          <div class="border-t border-black/30 pt-3 flex justify-between items-center text-[11px] font-mono text-black/70">
+            <span>GOVERNING YEAR: <strong>2026</strong></span>
+            <span>CONTACT: <strong>nomair@igrow.now</strong></span>
+          </div>
+
+        </div>
+
+        <!-- VIEW 2: PRIVACY POLICY (2026) -->
+        <div id="view-legal-privacy" class="hidden space-y-4 text-xs sm:text-sm text-black/90 font-medium leading-relaxed">
+          
+          <div class="border-2 border-black bg-white p-4 space-y-1.5">
+            <span class="font-mono text-[10px] font-bold uppercase text-black/60 block">SECTION 01 // DATA COLLECTION</span>
+            <h4 class="font-display text-base uppercase tracking-tight text-black">MINIMAL &amp; PURPOSEFUL DATA INGESTION</h4>
+            <p>
+              iGROW WORKS only gathers details directly required to produce your film: your name, contact email address, YouTube channel URL, and project creative briefs.
+            </p>
+          </div>
+
+          <div class="border-2 border-black bg-white p-4 space-y-1.5">
+            <span class="font-mono text-[10px] font-bold uppercase text-black/60 block">SECTION 02 // ZERO COMMERCIAL SALE OF DATA</span>
+            <h4 class="font-display text-base uppercase tracking-tight text-black">NO BROKERAGE, NO MARKETING ADS</h4>
+            <p>
+              We do not sell, rent, monetize, or trade your contact information, channel metrics, or communication records to third-party data brokers or marketing platforms. All communication is strictly between you and Director Nomair.
+            </p>
+          </div>
+
+          <div class="border-2 border-black bg-white p-4 space-y-1.5">
+            <span class="font-mono text-[10px] font-bold uppercase text-black/60 block">SECTION 03 // STORAGE &amp; AUTHENTICATION</span>
+            <h4 class="font-display text-base uppercase tracking-tight text-black">ENCRYPTED PIPELINE STORAGE</h4>
+            <p>
+              Client portal authentication credentials and project records are secured using enterprise-grade Firebase database encryption. Cookies are utilized solely for session persistence, with zero advertising telemetry.
+            </p>
+          </div>
+
+          <div class="border-2 border-black bg-white p-4 space-y-1.5">
+            <span class="font-mono text-[10px] font-bold uppercase text-black/60 block">SECTION 04 // DATA DELETION &amp; EXPORT RIGHTS</span>
+            <h4 class="font-display text-base uppercase tracking-tight text-black">RIGHT TO ERASURE (GDPR / CCPA)</h4>
+            <p>
+              You maintain the absolute right to request immediate deletion of your project briefs, account credentials, or archived metadata at any time by emailing <a href="mailto:nomair@igrow.now" class="underline font-bold">nomair@igrow.now</a>.
+            </p>
+          </div>
+
+          <div class="border-t border-black/30 pt-3 flex justify-between items-center text-[11px] font-mono text-black/70">
+            <span>POLICY VERSION: <strong>2026</strong></span>
+            <span>DATA CONTROLLER: <strong>NOMAIR • iGROW WORKS</strong></span>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
     <!-- SCRIPT LOGIC -->
     <script>
       const firebaseConfig = {
@@ -438,6 +562,47 @@
       document.getElementById('close-auth-btn')?.addEventListener('click', closeAuth);
       document.getElementById('auth-back-btn')?.addEventListener('click', closeAuth);
       authModal?.addEventListener('click', (e) => { if (e.target === authModal) closeAuth(); });
+
+      // Legal Modal Controllers (2026)
+      const legalModal = document.getElementById('legal-modal');
+      const viewLegalNda = document.getElementById('view-legal-nda');
+      const viewLegalPrivacy = document.getElementById('view-legal-privacy');
+      const tabLegalNda = document.getElementById('tab-legal-nda');
+      const tabLegalPrivacy = document.getElementById('tab-legal-privacy');
+
+      function switchLegalTab(tab) {
+        if (tab === 'nda') {
+          viewLegalNda?.classList.remove('hidden');
+          viewLegalPrivacy?.classList.add('hidden');
+          tabLegalNda?.classList.remove('bg-transparent', 'text-black');
+          tabLegalNda?.classList.add('bg-black', 'text-studio');
+          tabLegalPrivacy?.classList.remove('bg-black', 'text-studio');
+          tabLegalPrivacy?.classList.add('bg-transparent', 'text-black');
+        } else {
+          viewLegalNda?.classList.add('hidden');
+          viewLegalPrivacy?.classList.remove('hidden');
+          tabLegalPrivacy?.classList.remove('bg-transparent', 'text-black');
+          tabLegalPrivacy?.classList.add('bg-black', 'text-studio');
+          tabLegalNda?.classList.remove('bg-black', 'text-studio');
+          tabLegalNda?.classList.add('bg-transparent', 'text-black');
+        }
+      }
+
+      function openLegalModal(initialTab = 'nda') {
+        switchLegalTab(initialTab);
+        legalModal?.classList.remove('hidden');
+      }
+
+      function closeLegalModal() {
+        legalModal?.classList.add('hidden');
+      }
+
+      tabLegalNda?.addEventListener('click', () => switchLegalTab('nda'));
+      tabLegalPrivacy?.addEventListener('click', () => switchLegalTab('privacy'));
+      document.getElementById('open-terms-btn')?.addEventListener('click', () => openLegalModal('nda'));
+      document.getElementById('open-privacy-btn')?.addEventListener('click', () => openLegalModal('privacy'));
+      document.getElementById('close-legal-btn')?.addEventListener('click', closeLegalModal);
+      legalModal?.addEventListener('click', (e) => { if (e.target === legalModal) closeLegalModal(); });
 
       document.getElementById('direct-inquiry-form')?.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -516,6 +681,7 @@
         if (e.key === "Escape") {
           document.getElementById("inquiry-modal")?.classList.add("hidden");
           document.getElementById("auth-modal")?.classList.add("hidden");
+          document.getElementById("legal-modal")?.classList.add("hidden");
         }
       });
     </script>
