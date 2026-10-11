@@ -265,39 +265,12 @@
         background-color: #000000;
         color: #EDDD5A;
       }
-      /* Full-screen intro grid wall animations */
-      @keyframes scrollLeft {
-        0% { transform: translateX(0%); }
-        100% { transform: translateX(-50%); }
-      }
-      @keyframes scrollRight {
-        0% { transform: translateX(-50%); }
-        100% { transform: translateX(0%); }
-      }
-      .animate-scroll-left {
-        display: flex;
-        width: 200%;
-        animation: scrollLeft 16s linear infinite;
-      }
-      .animate-scroll-right {
-        display: flex;
-        width: 200%;
-        animation: scrollRight 16s linear infinite;
-      }
     </style>
   </head>
   <body class="bg-studio text-jet font-sans antialiased min-h-screen selection:bg-black selection:text-studio flex flex-col justify-between">
 
     <!-- MAIN EDITORIAL EXPERIENCE WRAPPER (INSTANT ZERO-BLOCKING RENDER) -->
     <div id="app-content" class="min-h-screen flex flex-col justify-between opacity-100">
-
-      <!-- EDITORIAL KINETIC RUNNER BANNER (igrow.now) -->
-      <div class="w-full overflow-hidden bg-black text-studio py-1.5 border-b border-black select-none">
-        <div class="inline-flex shrink-0 font-display uppercase text-xs sm:text-sm tracking-widest animate-scroll-left">
-          <span class="mx-4">igrow.now • NARRATIVE &amp; DOCUMENTARY POST-PRODUCTION • DIRECTED BY NOMAIR • HIGH-RETENTION YOUTUBE MASTERS • igrow.now • NARRATIVE &amp; DOCUMENTARY POST-PRODUCTION • DIRECTED BY NOMAIR • HIGH-RETENTION YOUTUBE MASTERS •</span>
-          <span class="mx-4">igrow.now • NARRATIVE &amp; DOCUMENTARY POST-PRODUCTION • DIRECTED BY NOMAIR • HIGH-RETENTION YOUTUBE MASTERS • igrow.now • NARRATIVE &amp; DOCUMENTARY POST-PRODUCTION • DIRECTED BY NOMAIR • HIGH-RETENTION YOUTUBE MASTERS •</span>
-        </div>
-      </div>
 
       <!-- TOP MINIMAL NAV -->
       <header class="border-b border-black/80 px-4 sm:px-8 py-3.5 flex justify-between items-center bg-studio/90 sticky top-0 z-40 backdrop-blur-xs">
@@ -763,12 +736,8 @@
             </a>
           </div>
 
-          <!-- THE DUAL PARALLEL LINES SECTION (CLEANED: NO YOUTUBE / INSTAGRAM) -->
+          <!-- THE DUAL PARALLEL LINES SECTION (CAREERS & CREW) -->
           <div class="mt-8 pt-8 border-t-2 border-b-2 border-black py-8 flex flex-wrap items-center justify-center gap-4 sm:gap-6">
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="Connect with iGROW WORKS on LinkedIn" class="rounded-full border-2 border-black px-6 sm:px-8 py-2 font-display text-base sm:text-lg uppercase hover:bg-black hover:text-studio transition-colors inline-block">
-              LINKEDIN
-            </a>
-
             <span class="font-script text-2xl sm:text-4xl text-black -rotate-6 transform inline-block select-none" aria-hidden="true">
               Join Our Crew!
             </span>
@@ -972,9 +941,6 @@
           <div class="text-[9px] font-bold uppercase tracking-wider text-black/60 text-center">Instant Test Access</div>
           <button id="quick-creator-btn" type="button" class="w-full bg-black text-studio py-1.5 px-2 text-[10px] font-bold uppercase tracking-wider hover:bg-white hover:text-black border border-black transition-colors cursor-pointer flex items-center justify-center gap-1.5">
             <span>⚡ Instant Client Portal Demo</span>
-          </button>
-          <button id="quick-admin-btn" type="button" class="w-full bg-white/80 text-black py-1 px-2 text-[10px] font-mono font-bold uppercase tracking-wider hover:bg-black hover:text-studio border border-black/50 transition-colors cursor-pointer flex items-center justify-center gap-1.5">
-            <span>● Director Nomair Access</span>
           </button>
         </div>
 
@@ -1948,12 +1914,6 @@
         // Quick Creator Demo Access
         document.getElementById('quick-creator-btn')?.addEventListener('click', () => {
           loginLocally('creator@igrow.now', 'Creator Studio');
-        });
-
-        // Quick Admin Access
-        document.getElementById('quick-admin-btn')?.addEventListener('click', () => {
-          loginLocally(ADMIN_EMAIL, 'Nomair (Studio Director)');
-          showToast("Director Command Center opened!", "success");
         });
 
         // Email Form Submit: Complete registration and account authentication system
