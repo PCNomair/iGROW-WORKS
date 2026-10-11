@@ -53,6 +53,9 @@ try {
     throw new Error('Firebase Auth is not initialized yet.');
   }
   const provider = new firebase.auth.GoogleAuthProvider();
+  provider.setCustomParameters({
+    prompt: 'select_account'
+  });
   return auth.signInWithPopup(provider);
 };
 

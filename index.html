@@ -1977,12 +1977,18 @@
 
           let loggedIn = false;
           try {
-            // Use unified Google Auth helper from authoritative bundle
-            const signInFn = (typeof window.signInWithGoogle === 'function')
-              ? window.signInWithGoogle
-              : () => auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+            if (!firebase || !firebase.auth) {
+              throw new Error("Firebase SDK loading...");
+            }
+            const activeAuth = auth || firebase.auth();
+            const provider = new firebase.auth.GoogleAuthProvider();
+            provider.addScope('email');
+            provider.addScope('profile');
+            provider.setCustomParameters({
+              prompt: 'select_account'
+            });
 
-            const result = await signInFn();
+            const result = await activeAuth.signInWithPopup(provider);
 
             if (result && result.user) {
               const u = result.user;
@@ -2001,7 +2007,7 @@
               return;
             }
           } catch (err) {
-            console.error("Firebase Google Auth Error:", err);
+            console.error("Firebase Google Auth Details:", err);
             if (errBox) {
               const errCode = (err && err.code) ? err.code : 'unknown';
               const errMsg = (err && err.message) ? err.message : String(err);
