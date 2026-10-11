@@ -1977,38 +1977,42 @@
 
           let loggedIn = false;
           try {
-            const performSignIn = (typeof window.signInWithGoogle === 'function')
-              ? window.signInWithGoogle()
-              : (auth ? auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()) : null);
+            const provider = new firebase.auth.GoogleAuthProvider();
+            provider.addScope('profile');
+            provider.addScope('email');
 
-            if (performSignIn) {
-              const result = await performSignIn;
-              if (result && result.user) {
-                const u = result.user;
-                const isAdmin = (u.email && u.email.toLowerCase() === ADMIN_EMAIL.toLowerCase());
-                const gUser = {
-                  uid: u.uid,
-                  email: u.email,
-                  displayName: u.displayName || (u.email ? u.email.split('@')[0] : 'Google Creator'),
-                  photoURL: u.photoURL || '',
-                  provider: 'google.com',
-                  role: isAdmin ? 'admin' : 'client',
-                  _isLocal: true
-                };
-                loginUser(gUser, "تم تسجيل الدخول بنجاح بحساب Google: " + u.email);
-                loggedIn = true;
-                return;
-              }
+            const result = await auth.signInWithPopup(provider);
+
+            if (result && result.user) {
+              const u = result.user;
+              const isAdmin = (u.email && u.email.toLowerCase() === ADMIN_EMAIL.toLowerCase());
+              const gUser = {
+                uid: u.uid,
+                email: u.email,
+                displayName: u.displayName || (u.email ? u.email.split('@')[0] : 'Google Creator'),
+                photoURL: u.photoURL || '',
+                provider: 'google.com',
+                role: isAdmin ? 'admin' : 'client',
+                _isLocal: true
+              };
+              loginUser(gUser, "تم تسجيل الدخول بنجاح بحساب Google: " + u.email);
+              loggedIn = true;
+              return;
             }
           } catch (err) {
-            console.warn("Google Sign-In notice:", err.code || err.message);
+            console.error("Firebase Google Auth Error:", err);
             if (errBox) {
-              if (err.code === 'auth/popup-blocked') {
-                errBox.textContent = 'تم حظر النافذة المنبثقة من قبل المتصفح. يمكنك إدخال بريدك وكلمة المرور أدناه للتسجيل فوراً.';
-              } else if (err.code === 'auth/internal-error' || err.code === 'auth/configuration-not-found') {
-                errBox.textContent = 'تسجيل الدخول عبر Google يتطلب تفعيل Google Provider في Firebase Console. يمكنك استخدام البريد وكلمة المرور أدناه للتسجيل بكل سهولة.';
+              const errCode = err.code || 'unknown';
+              const errMsg = err.message || '';
+              
+              if (errCode === 'auth/popup-blocked') {
+                errBox.textContent = 'المتصفح حظر النافذة المنبثقة لـ Google. يرجى السماح بالنوافذ المنبثقة (Popups) أو التسجيل بالبريد أدناه.';
+              } else if (errCode === 'auth/unauthorized-domain') {
+                errBox.textContent = 'هذا النطاق غير مصرح به في Firebase. يرجى إضافة النطاق في Authorized Domains في لوحة Firebase.';
+              } else if (errCode === 'auth/internal-error') {
+                errBox.textContent = 'Firebase Internal Error (' + (errMsg || errCode) + '). يرجى التحقق من لوحة Firebase أو التسجيل المباشر بالبريد أدناه.';
               } else {
-                errBox.textContent = 'يمكنك تسجيل الدخول أو إنشاء حساب جديد مباشرة عبر البريد الإلكتروني وكلمة المرور أدناه.';
+                errBox.textContent = 'خطأ (' + errCode + '): ' + (errMsg || 'تعذر تسجيل الدخول عبر Google. يمكنك استخدام البريد وكلمة المرور أدناه.');
               }
               errBox.classList.remove('hidden');
             }
