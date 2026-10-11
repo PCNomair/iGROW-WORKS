@@ -273,25 +273,25 @@
     <div id="app-content" class="min-h-screen flex flex-col justify-between opacity-100">
 
       <!-- TOP MINIMAL NAV -->
-      <header class="border-b border-black/80 px-4 sm:px-8 py-3.5 flex justify-between items-center bg-studio/90 sticky top-0 z-40 backdrop-blur-xs">
-        <a href="#" class="font-display text-2xl tracking-tight text-black flex items-center gap-1.5">
+      <header class="border-b-2 border-black px-4 sm:px-8 py-3.5 flex justify-between items-center bg-studio sticky top-0 z-40">
+        <a href="#" class="font-display text-2xl tracking-tight text-black flex items-center gap-1.5 hover:opacity-80 transition-opacity">
           <span>iGROW WORKS</span>
         </a>
 
         <nav class="hidden md:flex items-center gap-6 font-bold uppercase text-xs tracking-widest text-black" aria-label="Main Navigation">
-          <a href="#about" class="hover:underline underline-offset-4">About</a>
-          <a href="/qa.html" class="hover:underline underline-offset-4">Q&amp;A</a>
-          <button id="nav-careers-btn" class="hover:underline underline-offset-4 uppercase font-bold cursor-pointer">Careers</button>
-          <button id="nav-inquiry-btn" class="hover:underline underline-offset-4 uppercase font-bold cursor-pointer">Contact</button>
+          <a href="#about" class="hover:underline underline-offset-6 decoration-2">About</a>
+          <a href="/qa.html" class="hover:underline underline-offset-6 decoration-2">Q&amp;A</a>
+          <button id="nav-careers-btn" class="hover:underline underline-offset-6 decoration-2 uppercase font-bold cursor-pointer">Careers</button>
+          <button id="nav-inquiry-btn" class="hover:underline underline-offset-6 decoration-2 uppercase font-bold cursor-pointer">Contact</button>
         </nav>
 
         <div class="flex items-center gap-3">
           <div id="auth-profile-bar">
-            <button id="open-auth-btn" class="rounded-full border border-black px-4 py-1 text-xs font-bold uppercase hover:bg-black hover:text-studio transition-colors">
+            <button id="open-auth-btn" class="border-2 border-black bg-white px-3.5 py-1 text-xs font-bold uppercase tracking-wider hover:bg-black hover:text-studio shadow-[2px_2px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer">
               Sign In
             </button>
           </div>
-          <button id="nav-start-btn" class="hidden sm:inline-block rounded-full bg-black text-studio border border-black px-4 py-1 text-xs font-bold uppercase hover:bg-white hover:text-black transition-colors cursor-pointer">
+          <button id="nav-start-btn" class="hidden sm:inline-block border-2 border-black bg-black text-studio px-4 py-1 text-xs font-bold uppercase tracking-wider hover:bg-white hover:text-black shadow-[2px_2px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer">
             Start a Project
           </button>
         </div>
@@ -303,44 +303,19 @@
         <!-- 1. HERO SECTION WITH MONUMENTAL iGROW & KINETIC HOVER EXPANSION -->
         <section id="hero" class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-8 pt-4 pb-16 flex flex-col justify-between">
         
-        <!-- MASSIVE MONUMENTAL TITLE: iGROW WITH HORIZONTAL OW ⇄ WO ANIMATION ON THE SAME LINE -->
-        <div class="w-full text-center my-6 sm:my-10 select-none cursor-pointer group flex justify-center items-center overflow-x-hidden">
-          <div class="inline-flex items-center justify-center flex-nowrap whitespace-nowrap leading-none transition-all duration-500">
-            
-            <!-- iGR -->
-            <span class="font-display text-[12vw] sm:text-[14vw] uppercase text-black font-extrabold inline-block tracking-tight">
-              iGR
-            </span>
-
-            <!-- OW (The Pivot Block on the same line) -->
-            <span class="font-display text-[12vw] sm:text-[14vw] uppercase text-black font-extrabold inline-flex items-center tracking-tight transition-all duration-300 group-hover:bg-black group-hover:text-studio px-1 sm:px-2 rounded-xs mx-0.5 sm:mx-1">
-              <span class="inline-block transition-transform duration-300 group-hover:-translate-x-0.5">O</span>
-              <span class="inline-block transition-transform duration-300 group-hover:translate-x-0.5">W</span>
-            </span>
-
-            <!-- HORIZONTAL EXPANSION ON THE EXACT SAME LINE (NOT STACKED, NEVER ON TOP OF EACH OTHER) -->
-            <div class="inline-flex items-center flex-nowrap overflow-hidden max-w-0 opacity-0 group-hover:max-w-[60vw] group-hover:opacity-100 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] whitespace-nowrap pl-1 sm:pl-2">
-              
-              <!-- WO (Mirrored Pivot Block on the exact same line) -->
-              <span class="font-display text-[12vw] sm:text-[14vw] uppercase bg-black text-studio font-extrabold px-1 sm:px-2 rounded-xs inline-flex items-center mx-0.5 sm:mx-1 tracking-tight">
-                <span>W</span><span>O</span>
-              </span>
-
-              <!-- RKS on the exact same line -->
-              <span class="font-display text-[12vw] sm:text-[14vw] uppercase text-black font-extrabold inline-block tracking-tight">
-                RKS
-              </span>
-
-            </div>
-
-          </div>
+        <!-- MASSIVE MONUMENTAL MINIMALIST BRUTALIST TITLE -->
+        <div class="w-full text-center my-8 sm:my-12 select-none flex justify-center items-center">
+          <h1 class="font-display text-[13vw] sm:text-[14vw] md:text-[15vw] uppercase text-black font-extrabold leading-[0.85] tracking-tight block m-0 p-0">
+            iGROW WORKS
+          </h1>
         </div>
 
-        <!-- BALANCED 3-COLUMN EDITORIAL PLACING (EXACT PLACING FROM REFERENCE) -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-12 pt-6 sm:pt-10 border-t-2 border-black items-start">
+        <!-- BALANCED 3-COLUMN EDITORIAL PLACING -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-12 pt-8 sm:pt-10 border-t-2 border-black items-start">
           
           <!-- Column 1: Core Scope -->
           <div class="space-y-2">
+            <span class="font-mono text-[10px] font-bold uppercase tracking-widest text-black/60 block">01 // DISCIPLINE</span>
             <h2 class="font-display text-xl sm:text-2xl uppercase tracking-tight text-black">
               CORE CAPABILITIES
             </h2>
@@ -353,6 +328,7 @@
 
           <!-- Column 2: Studio Overview & Mission -->
           <div class="space-y-2">
+            <span class="font-mono text-[10px] font-bold uppercase tracking-widest text-black/60 block">02 // MANIFESTO</span>
             <h3 class="font-display text-xl sm:text-2xl uppercase tracking-tight text-black">
               CORE PHILOSOPHY
             </h3>
@@ -363,13 +339,14 @@
 
           <!-- Column 3: Contact & Founder Details -->
           <div class="space-y-2 md:text-right">
+            <span class="font-mono text-[10px] font-bold uppercase tracking-widest text-black/60 block">03 // DIRECT LINE</span>
             <h3 class="font-display text-xl sm:text-2xl uppercase tracking-tight text-black">
               COLLABORATION
             </h3>
             <div class="font-sans font-bold text-xs sm:text-sm uppercase tracking-wide leading-relaxed text-black/90">
               NOMAIR<br />
               DIRECTOR<br />
-              nomair@igrow.now
+              <a href="mailto:nomair@igrow.now" class="hover:underline font-mono">nomair@igrow.now</a>
             </div>
             <div class="pt-2">
               <button id="open-inquiry-hero-btn" class="inline-block text-xs font-bold uppercase underline underline-offset-4 hover:text-black/70 cursor-pointer">
@@ -378,35 +355,6 @@
             </div>
           </div>
 
-        </div>
-
-        <!-- EDITORIAL PILLS ROW (EXACT REFERENCE STYLE) -->
-        <div class="mt-12 sm:mt-16 pt-8 border-t border-black/40 flex flex-wrap justify-center items-center gap-3 select-none">
-          <span class="text-xs uppercase font-bold tracking-wider mr-2">DIRECT ACCESS:</span>
-          
-          <a href="#about" class="rounded-full border border-black px-4 py-1 text-xs font-bold uppercase bg-transparent hover:bg-black hover:text-studio transition-colors">
-            NOMAIR (DIRECTOR)
-          </a>
-
-          <a href="#writer" class="rounded-full border border-black px-4 py-1 text-xs font-bold uppercase bg-transparent hover:bg-black hover:text-studio transition-colors">
-            MARIE BU (SCRIPT)
-          </a>
-
-          <a href="/qa.html" class="rounded-full border border-black px-4 py-1 text-xs font-bold uppercase bg-transparent hover:bg-black hover:text-studio transition-colors">
-            Q&amp;A
-          </a>
-
-          <button id="open-inquiry-pill-btn" class="rounded-full border border-black px-4 py-1 text-xs font-bold uppercase bg-black text-studio hover:bg-white hover:text-black transition-colors cursor-pointer">
-            START A PROJECT
-          </button>
-
-          <button id="open-careers-pill-btn" class="rounded-full border border-black px-4 py-1 text-xs font-bold uppercase bg-transparent hover:bg-black hover:text-studio transition-colors cursor-pointer">
-            CAREERS
-          </button>
-
-          <button id="pill-auth-btn" class="rounded-full border border-black px-4 py-1 text-xs font-bold uppercase bg-transparent hover:bg-black hover:text-studio transition-colors cursor-pointer">
-            PORTAL
-          </button>
         </div>
 
       </section>
@@ -546,11 +494,11 @@
             <!-- ABOUT DETAILS -->
             <div class="md:col-span-7 lg:col-span-8 space-y-6">
               
-              <div class="flex items-center gap-2">
-                <span class="rounded-full border border-black px-3 py-0.5 text-[10px] font-bold uppercase bg-black text-studio">
+              <div class="flex items-center gap-2.5">
+                <span class="border-2 border-black px-2.5 py-0.5 font-mono text-[10px] font-bold uppercase bg-black text-studio tracking-wider shadow-[2px_2px_0px_0px_#000000]">
                   FOUNDER
                 </span>
-                <span class="text-xs font-bold uppercase tracking-wider text-black">
+                <span class="text-xs font-mono font-bold uppercase tracking-wider text-black">
                   NOMAIR • DIRECTOR
                 </span>
               </div>
@@ -574,20 +522,35 @@
                 </p>
               </div>
 
-              <div class="pt-2 flex flex-wrap gap-2 text-xs font-bold uppercase">
-                <span class="rounded-full border border-black px-3.5 py-1">500+ CAREER PROJECTS MASTERED</span>
-                <span class="rounded-full border border-black px-3.5 py-1">DOCUMENTARIES &amp; DRAMA</span>
-                <span class="rounded-full border border-black px-3.5 py-1">NARRATIVE COMMERCIALS</span>
-                <span class="rounded-full border border-black px-3.5 py-1">SCRIPTWRITING &amp; DIRECTING</span>
-                <span class="rounded-full border border-black px-3.5 py-1 bg-black text-white flex items-center gap-1.5">
-                  <span class="inline-block w-1.5 h-1.5 rounded-full bg-studio animate-pulse"></span>
-                  COLLABORATIVE EDITING TEAM
-                </span>
-                <span class="rounded-full border border-black px-3.5 py-1">DIRECT 1-ON-1 COMMUNICATION</span>
+              <div class="pt-4 grid grid-cols-2 sm:grid-cols-3 gap-3 border-t-2 border-black font-mono text-xs uppercase">
+                <div class="border-l-2 border-black pl-3 py-1">
+                  <span class="text-black/60 block text-[10px]">CAREER MILESTONE</span>
+                  <strong class="font-bold text-black text-xs sm:text-sm">500+ CUTS MASTERED</strong>
+                </div>
+                <div class="border-l-2 border-black pl-3 py-1">
+                  <span class="text-black/60 block text-[10px]">SPECIALIZATION</span>
+                  <strong class="font-bold text-black text-xs sm:text-sm">DOCS &amp; DRAMA</strong>
+                </div>
+                <div class="border-l-2 border-black pl-3 py-1">
+                  <span class="text-black/60 block text-[10px]">COMMERCIAL</span>
+                  <strong class="font-bold text-black text-xs sm:text-sm">NARRATIVE SPOTS</strong>
+                </div>
+                <div class="border-l-2 border-black pl-3 py-1">
+                  <span class="text-black/60 block text-[10px]">DISCIPLINE</span>
+                  <strong class="font-bold text-black text-xs sm:text-sm">SCRIPT TO COLOR</strong>
+                </div>
+                <div class="border-l-2 border-black pl-3 py-1">
+                  <span class="text-black/60 block text-[10px]">COLLECTIVE</span>
+                  <strong class="font-bold text-black text-xs sm:text-sm">EDITING CREW</strong>
+                </div>
+                <div class="border-l-2 border-black pl-3 py-1">
+                  <span class="text-black/60 block text-[10px]">ACCESS</span>
+                  <strong class="font-bold text-black text-xs sm:text-sm">DIRECT 1-ON-1</strong>
+                </div>
               </div>
 
               <div class="pt-2">
-                <button id="open-inquiry-about-btn" class="rounded-full bg-black text-studio border-2 border-black px-6 py-2 text-xs sm:text-sm font-bold uppercase hover:bg-white hover:text-black transition-colors cursor-pointer">
+                <button id="open-inquiry-about-btn" class="border-2 border-black bg-black text-studio px-6 py-3 font-display text-xs sm:text-sm uppercase tracking-wider hover:bg-white hover:text-black shadow-[4px_4px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer">
                   TALK DIRECTLY WITH NOMAIR &amp; THE TEAM →
                 </button>
               </div>
@@ -598,10 +561,10 @@
 
           <!-- DIVIDER: THE DUAL CREATIVE PILLARS -->
           <div class="my-16 sm:my-20 border-t-2 border-black relative">
-            <div class="absolute left-1/2 -top-3.5 transform -translate-x-1/2 bg-studio px-4 py-0.5 border border-black text-[10px] sm:text-xs font-bold uppercase tracking-widest text-black flex items-center gap-2">
-              <span class="inline-block w-2 h-2 rounded-full bg-black"></span>
+            <div class="absolute left-1/2 -top-3.5 transform -translate-x-1/2 bg-studio px-4 py-1 border-2 border-black text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest text-black flex items-center gap-2 shadow-[2px_2px_0px_0px_#000000]">
+              <span class="inline-block w-2 h-2 bg-black"></span>
               PILLAR 02 // WRITING WITH HEART &amp; PURPOSE
-              <span class="inline-block w-2 h-2 rounded-full bg-black"></span>
+              <span class="inline-block w-2 h-2 bg-black"></span>
             </div>
           </div>
 
@@ -611,11 +574,11 @@
             <!-- ABOUT MARIE DETAILS (DESKTOP: LEFT SIDE) -->
             <div class="md:col-span-7 lg:col-span-8 space-y-6 order-2 md:order-1">
               
-              <div class="flex items-center gap-2">
-                <span class="rounded-full border border-black px-3 py-0.5 text-[10px] font-bold uppercase bg-black text-studio">
+              <div class="flex items-center gap-2.5">
+                <span class="border-2 border-black px-2.5 py-0.5 font-mono text-[10px] font-bold uppercase bg-black text-studio tracking-wider shadow-[2px_2px_0px_0px_#000000]">
                   STORYTELLER
                 </span>
-                <span class="text-xs font-bold uppercase tracking-wider text-black">
+                <span class="text-xs font-mono font-bold uppercase tracking-wider text-black">
                   MARIE BU • LEAD WRITER
                 </span>
               </div>
@@ -636,19 +599,35 @@
                 </p>
               </div>
 
-              <div class="pt-2 flex flex-wrap gap-2 text-xs font-bold uppercase">
-                <span class="rounded-full border border-black px-3.5 py-1">STORYTELLING WITH HEART</span>
-                <span class="rounded-full border border-black px-3.5 py-1">DEEP &amp; THOUGHTFUL RESEARCH</span>
-                <span class="rounded-full border border-black px-3.5 py-1">WARM, HONEST HOOKS</span>
-                <span class="rounded-full border border-black px-3.5 py-1">GENUINE EMOTIONAL FLOW</span>
-                <span class="rounded-full border border-black px-3.5 py-1 bg-black text-white flex items-center gap-1.5">
-                  <span class="inline-block w-1.5 h-1.5 rounded-full bg-studio animate-pulse"></span>
-                  MADE WITH CARE
-                </span>
+              <div class="pt-4 grid grid-cols-2 sm:grid-cols-3 gap-3 border-t-2 border-black font-mono text-xs uppercase">
+                <div class="border-l-2 border-black pl-3 py-1">
+                  <span class="text-black/60 block text-[10px]">ROLE</span>
+                  <strong class="font-bold text-black text-xs sm:text-sm">LEAD WRITER</strong>
+                </div>
+                <div class="border-l-2 border-black pl-3 py-1">
+                  <span class="text-black/60 block text-[10px]">METHOD</span>
+                  <strong class="font-bold text-black text-xs sm:text-sm">DEEP RESEARCH</strong>
+                </div>
+                <div class="border-l-2 border-black pl-3 py-1">
+                  <span class="text-black/60 block text-[10px]">PACING</span>
+                  <strong class="font-bold text-black text-xs sm:text-sm">EMOTIONAL FLOW</strong>
+                </div>
+                <div class="border-l-2 border-black pl-3 py-1">
+                  <span class="text-black/60 block text-[10px]">ATTENTION</span>
+                  <strong class="font-bold text-black text-xs sm:text-sm">HONEST HOOKS</strong>
+                </div>
+                <div class="border-l-2 border-black pl-3 py-1">
+                  <span class="text-black/60 block text-[10px]">PIPELINE</span>
+                  <strong class="font-bold text-black text-xs sm:text-sm">SYNCED TO CUT</strong>
+                </div>
+                <div class="border-l-2 border-black pl-3 py-1">
+                  <span class="text-black/60 block text-[10px]">RESULT</span>
+                  <strong class="font-bold text-black text-xs sm:text-sm">STORIES FELT</strong>
+                </div>
               </div>
 
               <div class="pt-2">
-                <button id="open-inquiry-marie-btn" class="rounded-full bg-black text-studio border-2 border-black px-6 py-2 text-xs sm:text-sm font-bold uppercase hover:bg-white hover:text-black transition-colors cursor-pointer">
+                <button id="open-inquiry-marie-btn" class="border-2 border-black bg-black text-studio px-6 py-3 font-display text-xs sm:text-sm uppercase tracking-wider hover:bg-white hover:text-black shadow-[4px_4px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer">
                   TALK WITH MARIE ABOUT YOUR STORY →
                 </button>
               </div>
@@ -728,22 +707,28 @@
 
           <!-- ACTION BUTTONS: START A PROJECT (OPENS FORM) & Q&A -->
           <div class="pt-2 flex flex-wrap justify-center gap-4">
-            <button id="open-inquiry-footer-btn" class="rounded-full bg-black text-studio border-2 border-black px-8 py-2.5 font-display text-base sm:text-lg uppercase hover:bg-white hover:text-black transition-colors cursor-pointer">
+            <button id="open-inquiry-footer-btn" class="border-2 border-black bg-black text-studio px-8 py-3 font-display text-base sm:text-lg uppercase tracking-wider hover:bg-white hover:text-black shadow-[4px_4px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer">
               START A PROJECT →
             </button>
-            <a href="/qa.html" id="footer-qa-btn" class="rounded-full bg-transparent text-black border-2 border-black px-8 py-2.5 font-display text-base sm:text-lg uppercase hover:bg-black hover:text-studio transition-colors inline-block cursor-pointer">
+            <a href="/qa.html" id="footer-qa-btn" class="border-2 border-black bg-white text-black px-8 py-3 font-display text-base sm:text-lg uppercase tracking-wider hover:bg-black hover:text-studio shadow-[4px_4px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 transition-all inline-block cursor-pointer">
               VIEW Q&amp;A
             </a>
           </div>
 
           <!-- THE DUAL PARALLEL LINES SECTION (CAREERS & CREW) -->
-          <div class="mt-8 pt-8 border-t-2 border-b-2 border-black py-8 flex flex-wrap items-center justify-center gap-4 sm:gap-6">
-            <span class="font-script text-2xl sm:text-4xl text-black -rotate-6 transform inline-block select-none" aria-hidden="true">
-              Join Our Crew!
-            </span>
+          <div class="mt-8 pt-8 border-t-2 border-b-2 border-black py-8 flex flex-col sm:flex-row items-center justify-between gap-6 text-left">
+            <div class="space-y-1">
+              <span class="font-mono text-[10px] font-bold uppercase tracking-widest text-black/60 block">CREATIVE OPPORTUNITY</span>
+              <div class="font-display text-2xl sm:text-4xl uppercase tracking-tight text-black">
+                JOIN OUR EDITING CREW
+              </div>
+              <p class="font-mono text-xs uppercase text-black/80 font-bold">
+                EDITORS · SOUND DESIGNERS · MOTION ARTISTS
+              </p>
+            </div>
 
-            <button id="open-careers-footer-btn" class="rounded-full border-2 border-black px-6 sm:px-8 py-2 font-display text-base sm:text-lg uppercase bg-black text-studio hover:bg-white hover:text-black transition-colors inline-block cursor-pointer">
-              CAREERS
+            <button id="open-careers-footer-btn" class="border-2 border-black px-8 py-3.5 font-display text-base uppercase bg-black text-studio hover:bg-white hover:text-black shadow-[4px_4px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer shrink-0">
+              CAREERS APPLICATION →
             </button>
           </div>
 
@@ -770,12 +755,12 @@
     <div id="inquiry-modal" class="fixed inset-0 z-50 bg-black/75 hidden flex items-center justify-center p-4 overflow-y-auto">
       <div class="bg-studio w-full max-w-lg border-2 border-black p-6 sm:p-8 relative max-h-[90vh] overflow-y-auto">
         
-        <button id="close-inquiry-btn" class="absolute top-4 right-4 w-8 h-8 border border-black flex items-center justify-center font-bold text-sm hover:bg-black hover:text-studio transition-colors cursor-pointer">
+        <button id="close-inquiry-btn" class="absolute top-4 right-4 w-8 h-8 border-2 border-black bg-white flex items-center justify-center font-bold text-sm hover:bg-black hover:text-studio shadow-[2px_2px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer">
           ✕
         </button>
 
         <div class="mb-5">
-          <span class="rounded-full border border-black px-3 py-0.5 text-[10px] font-bold uppercase bg-black text-studio">
+          <span class="border-2 border-black px-2.5 py-0.5 font-mono text-[10px] font-bold uppercase bg-black text-studio tracking-wider shadow-[2px_2px_0px_0px_#000000]">
             INQUIRY
           </span>
           <h3 class="font-display text-3xl uppercase tracking-tight text-black mt-2">
@@ -804,15 +789,20 @@
 
           <div>
             <label class="block text-xs font-bold uppercase tracking-wider mb-1">What can we help you solve?</label>
-            <textarea id="contact-msg" rows="3" placeholder="Documentary pacing, narrative fiction, commercial post-production, script development..." class="w-full bg-white/70 border-2 border-black p-2.5 font-medium text-black focus:outline-none focus:bg-white"></textarea>
+            <textarea id="contact-msg" rows="3" required placeholder="Documentary pacing, narrative fiction, commercial post-production, script development..." class="w-full bg-white/70 border-2 border-black p-2.5 font-medium text-black focus:outline-none focus:bg-white"></textarea>
           </div>
 
-          <button type="submit" class="w-full bg-black text-studio py-3 font-display text-lg uppercase tracking-wider hover:bg-white hover:text-black border-2 border-black transition-colors cursor-pointer">
-            Submit Channel Inquiry →
+          <div class="flex items-center justify-between text-[11px] font-mono text-black/80 pt-1">
+            <span>DIRECT RECIPIENT: <strong>nomair@igrow.now</strong></span>
+            <a id="contact-mailto-link" href="mailto:nomair@igrow.now?subject=iGROW%20WORKS%20Project%20Inquiry" class="underline hover:text-black font-bold">OPEN IN EMAIL CLIENT ↗</a>
+          </div>
+
+          <button type="submit" id="contact-submit-btn" class="w-full bg-black text-studio py-3 font-display text-lg uppercase tracking-wider hover:bg-white hover:text-black border-2 border-black transition-colors cursor-pointer">
+            Transmit Inquiry to nomair@igrow.now →
           </button>
 
           <div id="contact-status" class="hidden border-2 border-black bg-black text-studio p-3 text-center text-xs font-bold uppercase">
-            ✓ Received! Nomair will review your channel and reply shortly.
+            ✓ Received! Transmitted directly to nomair@igrow.now. Nomair will review your channel and reply shortly.
           </div>
         </form>
 
@@ -823,12 +813,12 @@
     <div id="careers-modal" class="fixed inset-0 z-50 bg-black/75 hidden flex items-center justify-center p-4 overflow-y-auto">
       <div class="bg-studio w-full max-w-lg border-2 border-black p-6 sm:p-8 relative max-h-[90vh] overflow-y-auto">
         
-        <button id="close-careers-btn" class="absolute top-4 right-4 w-8 h-8 border border-black flex items-center justify-center font-bold text-sm hover:bg-black hover:text-studio transition-colors cursor-pointer">
+        <button id="close-careers-btn" class="absolute top-4 right-4 w-8 h-8 border-2 border-black bg-white flex items-center justify-center font-bold text-sm hover:bg-black hover:text-studio shadow-[2px_2px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer">
           ✕
         </button>
 
         <div class="mb-5">
-          <span class="rounded-full border border-black px-3 py-0.5 text-[10px] font-bold uppercase bg-black text-studio">
+          <span class="border-2 border-black px-2.5 py-0.5 font-mono text-[10px] font-bold uppercase bg-black text-studio tracking-wider shadow-[2px_2px_0px_0px_#000000]">
             CAREERS
           </span>
           <h3 class="font-display text-3xl uppercase tracking-tight text-black mt-2">
@@ -870,12 +860,16 @@
             <textarea id="careers-msg" rows="2" placeholder="Tell us about the channels or projects you've worked on." class="w-full bg-white/70 border-2 border-black p-2.5 font-medium text-black focus:outline-none focus:bg-white"></textarea>
           </div>
 
-          <button type="submit" class="w-full bg-black text-studio py-3 font-display text-lg uppercase tracking-wider hover:bg-white hover:text-black border-2 border-black transition-colors cursor-pointer">
-            Submit Application →
+          <div class="text-[11px] font-mono text-black/80 pt-0.5">
+            <span>DIRECT RECIPIENT: <strong>nomair@igrow.now</strong></span>
+          </div>
+
+          <button type="submit" id="careers-submit-btn" class="w-full bg-black text-studio py-3 font-display text-lg uppercase tracking-wider hover:bg-white hover:text-black border-2 border-black transition-colors cursor-pointer">
+            Transmit Application to nomair@igrow.now →
           </button>
 
           <div id="careers-status" class="hidden border-2 border-black bg-black text-studio p-3 text-center text-xs font-bold uppercase">
-            ✓ Application received! Nomair will review your reel and get back to you.
+            ✓ Application received! Delivered to nomair@igrow.now. Nomair will review your reel and get back to you.
           </div>
         </form>
 
@@ -888,15 +882,15 @@
     <div id="auth-modal" class="fixed inset-0 z-50 bg-black/75 hidden flex items-center justify-center p-4">
       <div class="bg-studio w-full max-w-sm border-2 border-black p-6 sm:p-7 relative shadow-[8px_8px_0px_0px_#000000]">
         
-        <button id="close-auth-btn" class="absolute top-4 right-4 w-7 h-7 border border-black flex items-center justify-center font-bold text-sm hover:bg-black hover:text-studio transition-colors cursor-pointer">
+        <button id="close-auth-btn" class="absolute top-4 right-4 w-7 h-7 border-2 border-black bg-white flex items-center justify-center font-bold text-sm hover:bg-black hover:text-studio shadow-[2px_2px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer">
           ✕
         </button>
 
         <div class="mb-4">
-          <span class="rounded-full border border-black px-2.5 py-0.5 text-[9px] font-bold uppercase bg-black text-studio">
+          <span class="border-2 border-black px-2.5 py-0.5 font-mono text-[9px] font-bold uppercase bg-black text-studio tracking-wider shadow-[2px_2px_0px_0px_#000000]">
             PORTAL ACCESS
           </span>
-          <h3 class="font-display text-2xl sm:text-3xl uppercase tracking-tight text-black mt-1" id="modal-title">
+          <h3 class="font-display text-2xl sm:text-3xl uppercase tracking-tight text-black mt-1.5" id="modal-title">
             SIGN IN
           </h3>
           <p class="text-xs text-black/80 font-medium mt-0.5" id="modal-desc">
@@ -937,13 +931,6 @@
           </button>
         </form>
 
-        <div class="mt-4 pt-3 border-t border-black/25 space-y-1.5">
-          <div class="text-[9px] font-bold uppercase tracking-wider text-black/60 text-center">Instant Test Access</div>
-          <button id="quick-creator-btn" type="button" class="w-full bg-black text-studio py-1.5 px-2 text-[10px] font-bold uppercase tracking-wider hover:bg-white hover:text-black border border-black transition-colors cursor-pointer flex items-center justify-center gap-1.5">
-            <span>⚡ Instant Client Portal Demo</span>
-          </button>
-        </div>
-
       </div>
     </div>
 
@@ -964,12 +951,12 @@
         </div>
 
         <div class="flex items-center gap-3">
-          <div class="hidden md:flex items-center gap-2 border border-black/40 bg-white/70 px-3 py-1 rounded-full text-xs font-mono">
-            <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-            <span class="text-black/60">CLIENT:</span>
+          <div class="hidden md:flex items-center gap-2 border-2 border-black bg-white px-3 py-1 text-xs font-mono shadow-[2px_2px_0px_0px_#000000]">
+            <span class="w-2 h-2 bg-green-500 animate-pulse"></span>
+            <span class="text-black/60 font-bold">CLIENT:</span>
             <strong id="portal-user-email" class="text-black font-bold">Client</strong>
           </div>
-          <span id="portal-role-badge" class="border border-black px-2.5 py-1 text-[10px] font-bold uppercase bg-white text-black font-mono">
+          <span id="portal-role-badge" class="border-2 border-black px-2.5 py-1 text-[10px] font-bold uppercase bg-white text-black font-mono shadow-[2px_2px_0px_0px_#000000]">
             CLIENT ACCESS
           </span>
           <button id="portal-logout-btn" class="border-2 border-black px-3.5 py-1.5 text-xs font-bold uppercase hover:bg-black hover:text-studio transition-colors cursor-pointer bg-white shadow-[2px_2px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5">
@@ -985,7 +972,7 @@
             <div class="flex items-center gap-2 text-xs font-mono text-studio/80 uppercase">
               <span>DIRECTOR NOMAIR'S PRIVATE TIMELINE</span>
               <span>•</span>
-              <span id="portal-provider-badge" class="hidden text-green-400 font-bold">GOOGLE AUTHENTICATED</span>
+              <span class="text-green-400 font-bold">PIPELINE ACTIVE</span>
             </div>
             <h1 class="font-display text-3xl sm:text-5xl uppercase tracking-tight text-white leading-none">
               PRODUCTION COMMAND CENTER
@@ -1021,7 +1008,7 @@
           <div class="flex flex-wrap items-center gap-2">
             <button id="tab-portal-projects" class="py-2 px-5 font-display text-sm sm:text-base uppercase tracking-wider bg-black text-studio border-2 border-black cursor-pointer shadow-[3px_3px_0px_0px_#000000] flex items-center gap-2">
               <span>MY ACTIVE PRODUCTIONS</span>
-              <span id="portal-projects-count" class="bg-studio text-black text-xs px-2 py-0.5 rounded-full font-mono font-bold">0</span>
+              <span id="portal-projects-count" class="bg-studio text-black text-xs px-2 py-0.5 font-mono font-bold border border-black shadow-[1px_1px_0px_0px_#000000]">0</span>
             </button>
             <button id="tab-portal-submit" class="py-2 px-5 font-display text-sm sm:text-base uppercase tracking-wider bg-white text-black border-2 border-black hover:bg-black hover:text-studio transition-colors cursor-pointer shadow-[3px_3px_0px_0px_#000000] flex items-center gap-2">
               <span>+ SUBMIT RAW FOOTAGE</span>
@@ -1032,7 +1019,7 @@
           </div>
 
           <div class="text-xs font-mono text-black/70 flex items-center gap-2">
-            <span class="inline-block w-2 h-2 rounded-full bg-green-500"></span>
+            <span class="inline-block w-2 h-2 bg-green-500 animate-pulse"></span>
             <span>DIRECTOR TIMELINE ACTIVE</span>
           </div>
         </div>
@@ -1132,7 +1119,7 @@
         <div id="view-portal-admin" class="hidden space-y-6">
           <div class="bg-black text-studio p-6 border-2 border-black shadow-[6px_6px_0px_0px_#000000]">
             <div class="flex items-center gap-2 mb-1">
-              <span class="w-2.5 h-2.5 rounded-full bg-green-400 animate-pulse"></span>
+              <span class="w-2 h-2 bg-green-400 animate-pulse"></span>
               <span class="text-xs font-mono font-bold uppercase tracking-wider text-green-400">DIRECTOR PIPELINE CONTROL ROOM</span>
             </div>
             <h2 class="font-display text-3xl uppercase tracking-tight text-white">ALL CLIENT PRODUCTIONS</h2>
@@ -1220,8 +1207,7 @@
             uid: userObj.uid || ('usr_' + (cleanEmail ? btoa(cleanEmail).replace(/[^a-zA-Z0-9]/g, '').slice(0, 16) : Date.now())),
             email: userObj.email || '',
             displayName: userObj.displayName || (userObj.email ? userObj.email.split('@')[0] : 'Creator'),
-            role: isAdmin ? 'admin' : (userObj.role || 'client'),
-            provider: userObj.provider || (cleanEmail.endsWith('@gmail.com') ? 'google.com' : 'password'),
+            provider: userObj.provider || 'password',
             photoURL: userObj.photoURL || '',
             _isLocal: true
           };
@@ -1374,12 +1360,12 @@
           const displayName = currentUser.displayName || currentUser.email?.split('@')[0] || "CREATOR";
           bar.innerHTML = `
             <div class="flex items-center gap-2">
-              <button id="open-portal-btn" class="flex items-center gap-2 rounded-full border border-black px-3.5 py-1.5 bg-black text-studio text-xs font-bold uppercase hover:bg-white hover:text-black transition-colors cursor-pointer">
-                <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+              <button id="open-portal-btn" class="flex items-center gap-2 border-2 border-black px-3.5 py-1 bg-black text-studio text-xs font-bold uppercase hover:bg-white hover:text-black shadow-[2px_2px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer">
+                <span class="w-2 h-2 bg-green-400 animate-pulse"></span>
                 <span>CLIENT PORTAL</span>
-                <span id="nav-project-counter" class="ml-1 bg-studio text-black text-[10px] px-1.5 py-0.2 rounded-full font-mono">${allLoadedProjects.length}</span>
+                <span id="nav-project-counter" class="ml-1 bg-studio text-black text-[10px] px-1.5 py-0.5 font-mono font-bold border border-black">${allLoadedProjects.length}</span>
               </button>
-              <button id="logout-btn" title="Sign Out" class="rounded-full border border-black/40 px-2.5 py-1 text-[11px] font-bold uppercase hover:bg-black hover:text-studio transition-colors cursor-pointer">
+              <button id="logout-btn" title="Sign Out" class="border-2 border-black bg-white px-2.5 py-1 text-[11px] font-bold uppercase hover:bg-black hover:text-studio shadow-[2px_2px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer">
                 EXIT
               </button>
             </div>
@@ -1388,7 +1374,7 @@
           document.getElementById('logout-btn')?.addEventListener('click', handleLogout);
         } else {
           bar.innerHTML = `
-            <button id="open-auth-btn" class="rounded-full border border-black px-4 py-1 text-xs font-bold uppercase hover:bg-black hover:text-studio transition-colors cursor-pointer">
+            <button id="open-auth-btn" class="border-2 border-black bg-white px-3.5 py-1 text-xs font-bold uppercase tracking-wider hover:bg-black hover:text-studio shadow-[2px_2px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer">
               Sign In
             </button>
           `;
@@ -1467,14 +1453,7 @@
           adminTab?.classList.add('hidden');
         }
 
-        if (providerBadge) {
-          const isGoogle = (currentUser.provider === 'google.com') || (currentUser.email && currentUser.email.toLowerCase().endsWith('@gmail.com'));
-          if (isGoogle) {
-            providerBadge.classList.remove('hidden');
-          } else {
-            providerBadge.classList.add('hidden');
-          }
-        }
+
         updatePortalMetrics(allLoadedProjects);
         switchPortalTab(activePortalTab || "projects");
       }
@@ -1544,24 +1523,8 @@
         }
 
         if (!db) {
-          // If Firestore is still initializing or offline, populate default starter demo project if empty
-          if (cached.length === 0) {
-            const demoProj = {
-              id: 'demo_01',
-              title: 'Tokyo Street Cinema - Narrative Cut',
-              videoType: 'Documentary',
-              footageUrl: 'https://drive.google.com/drive/folders/sample-demo',
-              brief: 'Pacing inspired by Denis Villeneuve. Heavy sound design focus on footsteps and ambient rain.',
-              targetDuration: '14 Minutes',
-              status: 'rough_cut',
-              clientUid: currentUser.uid,
-              clientEmail: currentUser.email || 'client@studio.com',
-              createdAt: new Date().toISOString()
-            };
-            allLoadedProjects = [demoProj];
-            localStorage.setItem(localKey, JSON.stringify(allLoadedProjects));
-          }
           loading?.classList.add('hidden');
+          allLoadedProjects = cached;
           renderProjectsList(allLoadedProjects);
           if (isUserAdmin()) renderAdminProjects(allLoadedProjects);
           return;
@@ -1639,7 +1602,7 @@
               <div class="flex flex-wrap items-start justify-between gap-2 border-b border-black/15 pb-3 mb-3">
                 <div>
                   <div class="flex items-center gap-2 mb-1">
-                    <span class="rounded-full border border-black px-2 py-0.5 text-[9px] font-bold uppercase ${stage.color} text-black font-mono">
+                    <span class="border-2 border-black px-2 py-0.5 text-[9px] font-bold uppercase ${stage.color} text-black font-mono shadow-[1px_1px_0px_0px_#000000]">
                       ${stage.label}
                     </span>
                     <span class="text-[10px] font-mono text-black/60 font-bold uppercase">
@@ -1652,7 +1615,7 @@
                 </div>
 
                 <div class="flex items-center gap-2">
-                  <a href="${proj.footageUrl}" target="_blank" rel="noopener noreferrer" class="rounded-full border border-black px-3 py-1 text-[10px] font-bold uppercase bg-studio hover:bg-black hover:text-studio transition-colors inline-flex items-center gap-1">
+                  <a href="${proj.footageUrl}" target="_blank" rel="noopener noreferrer" class="border-2 border-black px-3 py-1 text-[10px] font-bold uppercase bg-studio hover:bg-black hover:text-studio shadow-[2px_2px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 transition-all inline-flex items-center gap-1">
                     <span>Raw Files Link</span> ↗
                   </a>
                   <button onclick="handleDeleteProject('${proj.id}')" class="text-black/50 hover:text-red-600 text-xs font-bold uppercase cursor-pointer" title="Cancel/Delete Project">
@@ -1690,13 +1653,13 @@
                     <span class="text-[10px] font-mono text-green-400 font-bold uppercase">✓ MASTER FILE READY FOR DOWNLOAD</span>
                     <p class="text-xs font-bold">Director Nomair has packaged the final render.</p>
                   </div>
-                  <a href="${proj.deliverableUrl}" target="_blank" rel="noopener noreferrer" class="rounded-full bg-studio text-black px-4 py-1.5 text-xs font-display uppercase tracking-wider hover:bg-white transition-colors">
+                  <a href="${proj.deliverableUrl}" target="_blank" rel="noopener noreferrer" class="border-2 border-black bg-studio text-black px-4 py-1.5 text-xs font-display uppercase tracking-wider hover:bg-white shadow-[2px_2px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 transition-all">
                     Download Final Master 📥
                   </a>
                 </div>
               ` : `
                 <div class="text-[10px] font-mono text-black/60 flex items-center gap-1.5">
-                  <span class="w-1.5 h-1.5 rounded-full bg-yellow-500 animate-ping"></span>
+                  <span class="w-1.5 h-1.5 bg-yellow-500 animate-ping"></span>
                   <span>Timeline active with Director Nomair. Final master will be linked here once rendering completes.</span>
                 </div>
               `}
@@ -1718,7 +1681,7 @@
                   <h4 class="font-display text-lg uppercase tracking-tight text-black">${proj.title}</h4>
                   <p class="text-xs font-mono text-black/70">Client: ${proj.clientEmail || proj.clientUid}</p>
                 </div>
-                <a href="${proj.footageUrl}" target="_blank" rel="noopener noreferrer" class="rounded-full border border-black px-3 py-1 text-xs font-bold uppercase bg-studio hover:bg-black hover:text-studio">
+                <a href="${proj.footageUrl}" target="_blank" rel="noopener noreferrer" class="border-2 border-black px-3 py-1 text-xs font-bold uppercase bg-studio hover:bg-black hover:text-studio shadow-[2px_2px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 transition-all">
                   Open Footage Files ↗
                 </a>
               </div>
@@ -1911,11 +1874,6 @@
           submitBtn.textContent = 'Create Account →';
         });
 
-        // Quick Creator Demo Access
-        document.getElementById('quick-creator-btn')?.addEventListener('click', () => {
-          loginLocally('creator@igrow.now', 'Creator Studio');
-        });
-
         // Email Form Submit: Complete registration and account authentication system
         document.getElementById('email-auth-form')?.addEventListener('submit', (e) => {
           e.preventDefault();
@@ -2088,6 +2046,39 @@
             updatedAt: new Date().toISOString()
           };
 
+          // Helper: Dispatch Email Notification directly to Nomair's verified address
+          const sendEmailNotificationToNomair = async (subject, payload) => {
+            try {
+              fetch('https://formsubmit.co/ajax/nomair@igrow.now', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                  _subject: subject,
+                  _template: 'table',
+                  _captcha: 'false',
+                  ...payload
+                })
+              }).catch(console.debug);
+            } catch (err) {
+              console.debug('Email notification dispatch notice:', err);
+            }
+          };
+
+          // Notify Director Nomair via email
+          sendEmailNotificationToNomair(`[PROJECT SUBMISSION] ${title} from ${projectData.clientEmail}`, {
+            Project_Title: title,
+            Genre: videoType,
+            Target_Duration: targetDuration || 'Unspecified',
+            Cloud_Footage_Link: footageUrl,
+            Creative_Brief: brief,
+            Client_Email: projectData.clientEmail,
+            Client_Name: projectData.clientName,
+            Submitted_At: new Date().toLocaleString()
+          });
+
           // Update local state immediately for instant feedback
           allLoadedProjects.unshift(projectData);
           renderProjectsList(allLoadedProjects);
@@ -2132,21 +2123,66 @@
           }
         });
 
-        // Contact Form Direct Sync to Firestore
+        // Contact Form Direct Sync to nomair@igrow.now & Firestore
         const contactForm = document.getElementById('contact-form');
+        
+        // Dynamically update mailto link as user types
+        const updateContactMailto = () => {
+          const name = document.getElementById('contact-name')?.value.trim() || '';
+          const email = document.getElementById('contact-email')?.value.trim() || '';
+          const ch = document.getElementById('contact-channel')?.value.trim() || '';
+          const msg = (document.getElementById('contact-msg')?.value || '').trim();
+          const subject = encodeURIComponent(`iGROW WORKS Project Inquiry - ${name || 'Creator'}`);
+          const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nChannel: ${ch}\n\nProject Scope:\n${msg}`);
+          const link = document.getElementById('contact-mailto-link');
+          if (link) link.href = `mailto:nomair@igrow.now?subject=${subject}&body=${body}`;
+        };
+        ['contact-name', 'contact-email', 'contact-channel', 'contact-msg'].forEach(id => {
+          document.getElementById(id)?.addEventListener('input', updateContactMailto);
+        });
+
         contactForm?.addEventListener('submit', (e) => {
           e.preventDefault();
-          const name = document.getElementById('contact-name')?.value || '';
-          const email = document.getElementById('contact-email')?.value || '';
-          const message = document.getElementById('contact-message')?.value || '';
+          const name = document.getElementById('contact-name')?.value.trim() || '';
+          const email = document.getElementById('contact-email')?.value.trim() || '';
+          const channel = document.getElementById('contact-channel')?.value.trim() || '';
+          const message = (document.getElementById('contact-msg')?.value || '').trim();
           const status = document.getElementById('contact-status');
+          const submitBtn = document.getElementById('contact-submit-btn');
 
+          if (submitBtn) {
+            submitBtn.textContent = 'Transmitting to nomair@igrow.now...';
+            submitBtn.disabled = true;
+          }
+
+          // 1. Dispatch Email directly to Nomair's inbox
+          try {
+            fetch('https://formsubmit.co/ajax/nomair@igrow.now', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+              body: JSON.stringify({
+                _subject: `Direct Channel Inquiry from ${name} (${email}) - iGROW WORKS`,
+                _template: 'table',
+                _captcha: 'false',
+                Client_Name: name,
+                Client_Email: email,
+                YouTube_Channel: channel || 'N/A',
+                Inquiry_Scope: message,
+                Submitted_At: new Date().toLocaleString()
+              })
+            }).catch(console.debug);
+          } catch(err) {
+            console.debug(err);
+          }
+
+          // 2. Persist to Firestore inquiries collection
           if (db && email && message) {
             const inqId = 'inq_' + Date.now();
             db.collection('inquiries').doc(inqId).set({
               id: inqId,
               name: name,
               email: email,
+              channel: channel,
               message: message,
               createdAt: new Date().toISOString()
             }).catch(err => {
@@ -2155,12 +2191,17 @@
           }
 
           if (status) {
+            status.textContent = '✓ Transmitted directly to nomair@igrow.now. We will review your channel and reply shortly.';
             status.classList.remove('hidden');
             contactForm.reset();
             setTimeout(() => {
               status.classList.add('hidden');
               closeInquiryModal();
-            }, 2500);
+              if (submitBtn) {
+                submitBtn.textContent = 'Transmit Inquiry to nomair@igrow.now →';
+                submitBtn.disabled = false;
+              }
+            }, 3000);
           }
         });
 
@@ -2204,7 +2245,6 @@
         document.getElementById('nav-inquiry-btn')?.addEventListener('click', openInquiryModal);
         document.getElementById('nav-start-btn')?.addEventListener('click', openInquiryModal);
         document.getElementById('open-inquiry-hero-btn')?.addEventListener('click', openInquiryModal);
-        document.getElementById('open-inquiry-pill-btn')?.addEventListener('click', openInquiryModal);
         document.getElementById('open-inquiry-about-btn')?.addEventListener('click', openInquiryModal);
         document.getElementById('open-inquiry-marie-btn')?.addEventListener('click', openInquiryModal);
         document.getElementById('open-inquiry-faq-btn')?.addEventListener('click', openInquiryModal);
@@ -2216,7 +2256,6 @@
 
         // Careers open & close buttons
         document.getElementById('nav-careers-btn')?.addEventListener('click', openCareersModal);
-        document.getElementById('open-careers-pill-btn')?.addEventListener('click', openCareersModal);
         document.getElementById('open-careers-footer-btn')?.addEventListener('click', openCareersModal);
         document.getElementById('close-careers-btn')?.addEventListener('click', closeCareersModal);
         document.getElementById('careers-modal')?.addEventListener('click', (e) => {
@@ -2312,17 +2351,68 @@
         });
 
 
-        // Careers Form
+        // Careers Form Dispatch to nomair@igrow.now & Firestore
         const careersForm = document.getElementById('careers-form');
         careersForm?.addEventListener('submit', (e) => {
           e.preventDefault();
+          const name = document.getElementById('careers-name')?.value.trim() || '';
+          const email = document.getElementById('careers-email')?.value.trim() || '';
+          const reel = document.getElementById('careers-reel')?.value.trim() || '';
+          const role = document.getElementById('careers-role')?.value || '';
+          const msg = document.getElementById('careers-msg')?.value.trim() || '';
           const status = document.getElementById('careers-status');
+          const submitBtn = document.getElementById('careers-submit-btn');
+
+          if (submitBtn) {
+            submitBtn.textContent = 'Transmitting application...';
+            submitBtn.disabled = true;
+          }
+
+          // 1. Dispatch Email notification directly to Nomair
+          try {
+            fetch('https://formsubmit.co/ajax/nomair@igrow.now', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+              body: JSON.stringify({
+                _subject: `[CREW APPLICATION] ${name} (${role}) - iGROW WORKS`,
+                _template: 'table',
+                _captcha: 'false',
+                Applicant_Name: name,
+                Applicant_Email: email,
+                Target_Role: role,
+                Showreel_Portfolio: reel,
+                Background_Notes: msg,
+                Submitted_At: new Date().toLocaleString()
+              })
+            }).catch(console.debug);
+          } catch (err) {
+            console.debug(err);
+          }
+
+          // 2. Persist application to Firestore inquiries collection
+          if (db && email) {
+            const inqId = 'career_' + Date.now();
+            db.collection('inquiries').doc(inqId).set({
+              id: inqId,
+              name: name,
+              email: email,
+              channel: reel,
+              message: `[CREW APPLICATION: ${role}] Portfolio: ${reel} | Notes: ${msg}`,
+              createdAt: new Date().toISOString()
+            }).catch(err => console.debug('Firestore career save:', err));
+          }
+
           if (status) {
+            status.textContent = '✓ Application received! Delivered to nomair@igrow.now. Nomair will review your reel and get back to you.';
             status.classList.remove('hidden');
             careersForm.reset();
             setTimeout(() => {
               status.classList.add('hidden');
               closeCareersModal();
+              if (submitBtn) {
+                submitBtn.textContent = 'Transmit Application to nomair@igrow.now →';
+                submitBtn.disabled = false;
+              }
             }, 3000);
           }
         });

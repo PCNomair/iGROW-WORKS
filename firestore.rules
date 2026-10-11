@@ -58,11 +58,12 @@ service cloud.firestore {
     // Inquiry Validator
     function isValidInquiry(data) {
       return data.keys().hasAll(['id', 'email', 'message']) &&
-             data.keys().hasOnly(['id', 'name', 'email', 'message', 'createdAt']) &&
+             data.keys().hasOnly(['id', 'name', 'email', 'channel', 'message', 'createdAt']) &&
              data.id is string && data.id.size() <= 128 &&
              data.email is string && data.email.size() > 0 && data.email.size() <= 128 &&
-             data.message is string && data.message.size() > 0 && data.message.size() <= 2000 &&
-             (!('name' in data) || (data.name is string && data.name.size() <= 100));
+             data.message is string && data.message.size() > 0 && data.message.size() <= 3000 &&
+             (!('name' in data) || (data.name is string && data.name.size() <= 100)) &&
+             (!('channel' in data) || (data.channel is string && data.channel.size() <= 300));
     }
 
     // Collection: Users

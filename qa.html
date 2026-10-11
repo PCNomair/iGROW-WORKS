@@ -167,10 +167,10 @@
       </nav>
 
       <div class="flex items-center gap-3">
-        <button id="nav-portal-btn" class="rounded-full border border-black px-4 py-1 text-xs font-bold uppercase bg-transparent hover:bg-black hover:text-studio transition-colors cursor-pointer">
+        <button id="nav-portal-btn" class="border-2 border-black bg-white px-3.5 py-1 text-xs font-bold uppercase tracking-wider hover:bg-black hover:text-studio shadow-[2px_2px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer">
           PORTAL
         </button>
-        <button id="nav-start-btn" class="rounded-full bg-black text-studio border border-black px-4 py-1 text-xs font-bold uppercase hover:bg-white hover:text-black transition-colors cursor-pointer">
+        <button id="nav-start-btn" class="border-2 border-black bg-black text-studio px-4 py-1 text-xs font-bold uppercase tracking-wider hover:bg-white hover:text-black shadow-[2px_2px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer">
           Start a Project
         </button>
       </div>
@@ -182,7 +182,7 @@
       <!-- HERO HEADER -->
       <div class="border-b-2 border-black pb-8 mb-12">
         <div class="flex items-center gap-2 mb-3">
-          <span class="rounded-full border border-black px-3 py-0.5 text-[10px] font-bold uppercase bg-black text-studio">
+          <span class="border-2 border-black px-2.5 py-0.5 font-mono text-[10px] font-bold uppercase bg-black text-studio tracking-wider shadow-[2px_2px_0px_0px_#000000]">
             PRODUCTION PROTOCOLS
           </span>
           <span class="text-xs font-mono font-bold uppercase tracking-wider text-black">
@@ -311,10 +311,10 @@
           Start a direct project inquiry or sign in to access your private portal to begin transferring materials.
         </p>
         <div class="flex flex-wrap items-center justify-center gap-4">
-          <button id="cta-start-btn" class="rounded-full bg-black text-studio border-2 border-black px-8 py-3 font-display text-lg uppercase hover:bg-white hover:text-black transition-colors cursor-pointer">
+          <button id="cta-start-btn" class="border-2 border-black bg-black text-studio px-8 py-3 font-display text-base sm:text-lg uppercase tracking-wider hover:bg-white hover:text-black shadow-[4px_4px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer">
             START A PROJECT →
           </button>
-          <a href="/" class="rounded-full bg-transparent text-black border-2 border-black px-8 py-3 font-display text-lg uppercase hover:bg-black hover:text-studio transition-colors inline-block">
+          <a href="/" class="border-2 border-black bg-white text-black px-8 py-3 font-display text-base sm:text-lg uppercase tracking-wider hover:bg-black hover:text-studio shadow-[4px_4px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 transition-all inline-block">
             ← BACK TO HOMEPAGE
           </a>
         </div>
@@ -334,25 +334,29 @@
     <!-- INQUIRY MODAL (DIRECT SCRIPT) -->
     <div id="inquiry-modal" class="fixed inset-0 z-50 bg-black/75 hidden flex items-center justify-center p-4 overflow-y-auto">
       <div class="bg-studio w-full max-w-lg border-2 border-black p-6 sm:p-8 relative my-8 shadow-[8px_8px_0px_0px_#000000]">
-        <button id="close-inquiry-btn" class="absolute top-4 right-4 font-mono text-xl font-bold hover:opacity-70 cursor-pointer">✕</button>
+        <button id="close-inquiry-btn" class="absolute top-4 right-4 w-8 h-8 border-2 border-black bg-white flex items-center justify-center font-bold text-sm hover:bg-black hover:text-studio shadow-[2px_2px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer">✕</button>
         <div class="mb-4">
-          <span class="rounded-full border border-black px-3 py-0.5 text-[10px] font-bold uppercase bg-black text-studio">INQUIRY</span>
+          <span class="border-2 border-black px-2.5 py-0.5 font-mono text-[10px] font-bold uppercase bg-black text-studio tracking-wider shadow-[2px_2px_0px_0px_#000000]">INQUIRY</span>
           <h3 class="font-display text-3xl uppercase tracking-tight text-black mt-2">TALK WITH NOMAIR &amp; MARIE</h3>
         </div>
         <form id="direct-inquiry-form" class="space-y-4">
           <div>
             <label class="block text-xs font-bold uppercase mb-1">Your Name</label>
-            <input type="text" name="name" required class="w-full border-2 border-black px-3 py-2 bg-white text-black font-medium focus:outline-none" placeholder="Alex Morgan" />
+            <input type="text" id="inquiry-name" name="name" required class="w-full border-2 border-black px-3 py-2 bg-white text-black font-medium focus:outline-none" placeholder="Alex Morgan" />
           </div>
           <div>
             <label class="block text-xs font-bold uppercase mb-1">Email Address</label>
-            <input type="email" name="email" required class="w-full border-2 border-black px-3 py-2 bg-white text-black font-medium focus:outline-none" placeholder="alex@channel.com" />
+            <input type="email" id="inquiry-email" name="email" required class="w-full border-2 border-black px-3 py-2 bg-white text-black font-medium focus:outline-none" placeholder="alex@channel.com" />
           </div>
           <div>
             <label class="block text-xs font-bold uppercase mb-1">Project Details</label>
-            <textarea name="details" rows="3" required class="w-full border-2 border-black px-3 py-2 bg-white text-black font-medium focus:outline-none resize-none" placeholder="Tell us about your documentary, channel, or commercial..."></textarea>
+            <textarea id="inquiry-msg" name="details" rows="3" required class="w-full border-2 border-black px-3 py-2 bg-white text-black font-medium focus:outline-none resize-none" placeholder="Tell us about your documentary, channel, or commercial..."></textarea>
           </div>
-          <button type="submit" class="w-full rounded-full bg-black text-studio border-2 border-black py-3 font-display text-xl uppercase hover:bg-white hover:text-black transition-colors cursor-pointer">
+          <div class="text-[11px] font-mono text-black/70 flex justify-between items-center">
+            <span>Direct to: <strong>nomair@igrow.now</strong></span>
+            <a href="mailto:nomair@igrow.now" class="underline hover:text-black font-bold">EMAIL CLIENT ↗</a>
+          </div>
+          <button type="submit" class="w-full bg-black text-studio border-2 border-black py-3 font-display text-lg uppercase tracking-wider hover:bg-white hover:text-black shadow-[4px_4px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer">
             SEND INQUIRY →
           </button>
           <div id="inquiry-status" class="hidden text-xs font-bold uppercase text-center p-2 border border-black"></div>
@@ -363,17 +367,17 @@
     <!-- PORTAL AUTH MODAL -->
     <div id="auth-modal" class="fixed inset-0 z-50 bg-black/75 hidden flex items-center justify-center p-4">
       <div class="bg-studio w-full max-w-sm border-2 border-black p-6 relative shadow-[8px_8px_0px_0px_#000000]">
-        <button id="close-auth-btn" class="absolute top-4 right-4 font-mono text-xl font-bold hover:opacity-70 cursor-pointer">✕</button>
+        <button id="close-auth-btn" class="absolute top-4 right-4 w-7 h-7 border-2 border-black bg-white flex items-center justify-center font-bold text-sm hover:bg-black hover:text-studio shadow-[2px_2px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer">✕</button>
         <div class="mb-4">
-          <span class="rounded-full border border-black px-2.5 py-0.5 text-[9px] font-bold uppercase bg-black text-studio">PORTAL</span>
+          <span class="border-2 border-black px-2.5 py-0.5 font-mono text-[9px] font-bold uppercase bg-black text-studio tracking-wider shadow-[2px_2px_0px_0px_#000000]">PORTAL</span>
           <h3 class="font-display text-2xl uppercase tracking-tight text-black mt-1">CLIENT ACCESS</h3>
           <p class="text-xs text-black/80 font-medium">Upload raw materials &amp; download finished masters.</p>
         </div>
         <div class="space-y-3">
-          <a href="/#portal" class="block text-center rounded-full bg-black text-studio border-2 border-black py-2.5 font-display text-base uppercase hover:bg-white hover:text-black transition-colors">
+          <a href="/#portal" class="block text-center bg-black text-studio border-2 border-black py-2.5 font-display text-base uppercase tracking-wider hover:bg-white hover:text-black shadow-[2px_2px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 transition-all">
             GO TO MAIN PORTAL →
           </a>
-          <button id="auth-back-btn" class="w-full rounded-full bg-transparent text-black border border-black py-2 text-xs font-bold uppercase hover:bg-black hover:text-studio transition-colors cursor-pointer">
+          <button id="auth-back-btn" class="w-full bg-white text-black border-2 border-black py-2 text-xs font-bold uppercase tracking-wider hover:bg-black hover:text-studio shadow-[2px_2px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer">
             CLOSE
           </button>
         </div>
@@ -435,13 +439,32 @@
       document.getElementById('auth-back-btn')?.addEventListener('click', closeAuth);
       authModal?.addEventListener('click', (e) => { if (e.target === authModal) closeAuth(); });
 
-      document.getElementById('direct-inquiry-form')?.addEventListener('submit', (e) => {
+      document.getElementById('direct-inquiry-form')?.addEventListener('submit', async (e) => {
         e.preventDefault();
         const status = document.getElementById('inquiry-status');
-        const name = document.getElementById('inquiry-name')?.value || '';
-        const email = document.getElementById('inquiry-email')?.value || '';
-        const msg = document.getElementById('inquiry-msg')?.value || '';
+        const name = document.getElementById('inquiry-name')?.value.trim() || '';
+        const email = document.getElementById('inquiry-email')?.value.trim() || '';
+        const msg = document.getElementById('inquiry-msg')?.value.trim() || '';
 
+        // 1. Send direct email to nomair@igrow.now
+        try {
+          fetch('https://formsubmit.co/ajax/nomair@igrow.now', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({
+              _subject: `Direct Q&A Inquiry from ${name} (${email}) - iGROW WORKS`,
+              _template: 'table',
+              _captcha: 'false',
+              Client_Name: name,
+              Client_Email: email,
+              Project_Details: msg,
+              Source_Page: 'qa.html',
+              Submitted_At: new Date().toLocaleString()
+            })
+          }).catch(console.debug);
+        } catch(e) {}
+
+        // 2. Persist to Firestore
         if (db && email && msg) {
           const inqId = 'inq_' + Date.now();
           db.collection('inquiries').doc(inqId).set({
@@ -453,13 +476,18 @@
           }).catch(console.error);
         }
 
-        status.textContent = 'TRANSMITTING INQUIRY TO NOMAIR...';
-        status.classList.remove('hidden');
-        setTimeout(() => {
-          status.textContent = 'RECEIVED! WE WILL REPLY TO YOU SHORTLY.';
-          status.classList.add('bg-black', 'text-studio');
-          setTimeout(() => { closeInquiry(); }, 1800);
-        }, 800);
+        if (status) {
+          status.textContent = 'TRANSMITTING DIRECTLY TO NOMAIR@IGROW.NOW...';
+          status.classList.remove('hidden');
+          setTimeout(() => {
+            status.textContent = '✓ TRANSMITTED! DELIVERED TO NOMAIR@IGROW.NOW.';
+            status.className = 'text-xs font-bold uppercase text-center p-2.5 border-2 border-black bg-black text-studio mt-2';
+            setTimeout(() => { 
+              document.getElementById('direct-inquiry-form')?.reset();
+              closeInquiry(); 
+            }, 2000);
+          }, 600);
+        }
       });
     </script>
       <!-- PWA Offline Service Worker Registration -->

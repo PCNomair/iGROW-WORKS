@@ -128,10 +128,15 @@
           "description": "Contact email",
           "maxLength": 128
         },
+        "channel": {
+          "type": "string",
+          "description": "YouTube channel link or portfolio URL",
+          "maxLength": 300
+        },
         "message": {
           "type": "string",
           "description": "Project overview message",
-          "maxLength": 2000
+          "maxLength": 3000
         },
         "createdAt": {
           "type": "string",
