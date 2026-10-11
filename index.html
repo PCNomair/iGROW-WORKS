@@ -939,6 +939,29 @@
             <input type="password" id="auth-password" required minlength="6" placeholder="••••••••" class="w-full bg-white border-2 border-black p-2 text-xs font-bold text-black outline-none focus:ring-1 focus:ring-black" />
           </div>
 
+          <!-- AUTHORIZED KEY (REQUIRED FOR REGISTRATION / CREATE ACCOUNT) -->
+          <div id="auth-key-group" class="hidden">
+            <div class="flex items-center justify-between mb-1">
+              <label class="block text-[10px] font-bold uppercase tracking-wider text-black flex items-center gap-1">
+                <span>Authorized Key</span>
+                <span class="text-red-600 font-bold">*</span>
+              </label>
+              <span class="text-[9px] font-mono text-black/60 font-bold uppercase">INVITATION ONLY</span>
+            </div>
+            <div class="relative">
+              <input type="password" id="auth-key" placeholder="Enter studio key from Nomair..." class="w-full bg-white border-2 border-black p-2 text-xs font-mono font-bold text-black outline-none focus:ring-1 focus:ring-black pr-16" />
+              <button type="button" id="toggle-key-visibility-btn" class="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] font-mono font-bold uppercase text-black/70 hover:text-black cursor-pointer px-1">
+                SHOW
+              </button>
+            </div>
+            <div class="flex items-center justify-between text-[10px] font-mono text-black/70 mt-1">
+              <span>Passkey required to register.</span>
+              <button type="button" id="request-key-btn" class="underline hover:text-black font-bold cursor-pointer">
+                Request Key →
+              </button>
+            </div>
+          </div>
+
           <div id="auth-error" class="hidden bg-red-600 text-white p-2 text-[11px] font-bold"></div>
           <div id="auth-success" class="hidden bg-black text-studio p-2 text-[11px] font-bold"></div>
 
@@ -1362,7 +1385,7 @@
         closeAuthModal();
         openPortalModal();
         listenToProjects();
-        showToast(successMsg || ("مرحباً بك " + (accountData.displayName || "صانع المحتوى") + "! تم فتح البوابة."), "success");
+        showToast(successMsg || ("Welcome " + (accountData.displayName || "Creator") + "! Portal unlocked."), "success");
         return accountData;
       }
 
@@ -1376,7 +1399,7 @@
           role: isAdmin ? 'admin' : 'client',
           _isLocal: true
         };
-        return loginUser(fallbackUser, "مرحباً بك " + fallbackUser.displayName + "!");
+        return loginUser(fallbackUser, "Welcome " + fallbackUser.displayName + "!");
       }
 
       let currentUser = getSavedLocalUser();
@@ -1979,13 +2002,35 @@
           }
         });
 
-        // Auth Tabs
+        // Auth Tabs & Authorized Key Controller
         const tabSignIn = document.getElementById('tab-signin');
         const tabSignUp = document.getElementById('tab-signup');
         const modalTitle = document.getElementById('modal-title');
         const modalDesc = document.getElementById('modal-desc');
         const nameGroup = document.getElementById('name-field-group');
+        const authKeyGroup = document.getElementById('auth-key-group');
+        const authKeyInput = document.getElementById('auth-key');
+        const toggleKeyBtn = document.getElementById('toggle-key-visibility-btn');
+        const requestKeyBtn = document.getElementById('request-key-btn');
         const submitBtn = document.getElementById('auth-submit-btn');
+
+        // Toggle Key Visibility (Show / Hide)
+        toggleKeyBtn?.addEventListener('click', () => {
+          if (!authKeyInput) return;
+          if (authKeyInput.type === 'password') {
+            authKeyInput.type = 'text';
+            toggleKeyBtn.textContent = 'HIDE';
+          } else {
+            authKeyInput.type = 'password';
+            toggleKeyBtn.textContent = 'SHOW';
+          }
+        });
+
+        // Request Key opens Direct Inquiry Modal
+        requestKeyBtn?.addEventListener('click', () => {
+          closeAuthModal();
+          openInquiryModal();
+        });
 
         tabSignIn?.addEventListener('click', () => {
           isSignUpMode = false;
@@ -1993,7 +2038,8 @@
           tabSignUp.className = 'flex-1 py-1.5 font-display text-xs uppercase tracking-wider bg-transparent text-black cursor-pointer';
           modalTitle.textContent = 'SIGN IN';
           modalDesc.textContent = 'Access your private editing pipeline and submit footage.';
-          nameGroup.classList.add('hidden');
+          nameGroup?.classList.add('hidden');
+          authKeyGroup?.classList.add('hidden');
           submitBtn.textContent = 'Sign In →';
         });
 
@@ -2002,8 +2048,9 @@
           tabSignUp.className = 'flex-1 py-1.5 font-display text-xs uppercase tracking-wider bg-black text-studio cursor-pointer';
           tabSignIn.className = 'flex-1 py-1.5 font-display text-xs uppercase tracking-wider bg-transparent text-black cursor-pointer';
           modalTitle.textContent = 'CREATE ACCOUNT';
-          modalDesc.textContent = 'Register to collaborate on narrative & documentary cuts.';
-          nameGroup.classList.remove('hidden');
+          modalDesc.textContent = 'Register with your Studio Authorized Key to collaborate on cuts.';
+          nameGroup?.classList.remove('hidden');
+          authKeyGroup?.classList.remove('hidden');
           submitBtn.textContent = 'Create Account →';
         });
 
@@ -2024,7 +2071,7 @@
 
           if (!email || !password) {
             if (errBox) {
-              errBox.textContent = 'الرجاء إدخال البريد الإلكتروني وكلمة المرور.';
+              errBox.textContent = 'Please enter both your email address and password.';
               errBox.classList.remove('hidden');
             }
             return;
@@ -2032,23 +2079,37 @@
 
           if (password.length < 6) {
             if (errBox) {
-              errBox.textContent = 'يجب أن تتكون كلمة المرور من 6 أحرف أو أرقام على الأقل.';
+              errBox.textContent = 'Password must be at least 6 characters.';
               errBox.classList.remove('hidden');
             }
             return;
           }
 
-          submitBtn.textContent = isSignUpMode ? 'جاري إنشاء الحساب...' : 'جاري تسجيل الدخول...';
+          submitBtn.textContent = isSignUpMode ? 'Creating Account...' : 'Signing In...';
 
           const registeredAccounts = getRegisteredAccounts();
           const lowerEmail = email.toLowerCase();
           const isAdmin = lowerEmail === ADMIN_EMAIL.toLowerCase();
 
           if (isSignUpMode) {
+            // Validate Studio Authorized Key
+            const enteredKey = (authKeyInput?.value || '').trim();
+            const normalizedEntered = enteredKey.toLowerCase().replace(/\s+/g, ' ');
+            const REQUIRED_STUDIO_KEY = 'till infinite and beyond';
+
+            if (normalizedEntered !== REQUIRED_STUDIO_KEY) {
+              if (errBox) {
+                errBox.textContent = 'Invalid Authorized Key. Registration is restricted to creators with an invitation key provided by Nomair (nomair@igrow.now).';
+                errBox.classList.remove('hidden');
+              }
+              submitBtn.textContent = 'Create Account →';
+              return;
+            }
+
             // Check if account already exists
             if (registeredAccounts[lowerEmail]) {
               if (errBox) {
-                errBox.textContent = 'هذا البريد الإلكتروني مسجل مسبقاً. يمكنك تسجيل الدخول به مباشرةً.';
+                errBox.textContent = 'This email is already registered. Please switch to Sign In.';
                 errBox.classList.remove('hidden');
               }
               submitBtn.textContent = 'Create Account →';
@@ -2060,7 +2121,7 @@
             const newAccount = {
               uid: newUid,
               email: lowerEmail,
-              displayName: name || (lowerEmail.split('@')[0]) || 'صانع محتوى',
+              displayName: name || (lowerEmail.split('@')[0]) || 'Creator',
               role: isAdmin ? 'admin' : 'client',
               passwordHash: btoa(password), // simple client store hash
               createdAt: new Date().toISOString()
@@ -2091,8 +2152,9 @@
 
             // Clear inputs
             if (passInput) passInput.value = '';
+            if (authKeyInput) authKeyInput.value = '';
             submitBtn.textContent = 'Create Account →';
-            loginUser(newAccount, `تم إنشاء حسابك بنجاح! مرحباً بك يا ${newAccount.displayName}.`);
+            loginUser(newAccount, `Account created successfully! Welcome, ${newAccount.displayName}.`);
             switchPortalTab('submit');
           } else {
             // Sign In Mode: Verify account or establish session
@@ -2102,7 +2164,7 @@
               // Verify password
               if (existingAccount.passwordHash && existingAccount.passwordHash !== btoa(password)) {
                 if (errBox) {
-                  errBox.textContent = 'كلمة المرور غير صحيحة. يرجى المحاولة مرة أخرى.';
+                  errBox.textContent = 'Incorrect password. Please try again.';
                   errBox.classList.remove('hidden');
                 }
                 submitBtn.textContent = 'Sign In →';
@@ -2117,29 +2179,31 @@
               }
               if (passInput) passInput.value = '';
               submitBtn.textContent = 'Sign In →';
-              loginUser(existingAccount, `تم تسجيل الدخول بنجاح! أهلاً بك مجدداً ${existingAccount.displayName}.`);
-            } else {
-              // First time signing in with this email: register it dynamically
-              const generatedUid = 'usr_' + btoa(lowerEmail).replace(/[^a-zA-Z0-9]/g, '').slice(0, 16);
-              const dynamicAccount = {
-                uid: generatedUid,
+              loginUser(existingAccount, `Signed in successfully! Welcome back, ${existingAccount.displayName}.`);
+            } else if (isAdmin) {
+              // Studio Director Master Sign-In
+              const adminAccount = {
+                uid: 'usr_admin_nomair',
                 email: lowerEmail,
-                displayName: (lowerEmail.split('@')[0]) || (isAdmin ? 'Nomair' : 'Client'),
-                role: isAdmin ? 'admin' : 'client',
+                displayName: 'Nomair',
+                role: 'admin',
                 passwordHash: btoa(password),
                 createdAt: new Date().toISOString()
               };
-              saveAccountToDb(dynamicAccount);
-
+              saveAccountToDb(adminAccount);
               if (auth) {
-                try {
-                  auth.signInWithEmailAndPassword(email, password).catch(() => {});
-                } catch (e) {}
+                try { auth.signInWithEmailAndPassword(email, password).catch(() => {}); } catch (e) {}
               }
-
               if (passInput) passInput.value = '';
               submitBtn.textContent = 'Sign In →';
-              loginUser(dynamicAccount, `تم تفعيل حسابك وتسجيل الدخول! مرحباً ${dynamicAccount.displayName}.`);
+              loginUser(adminAccount, `Director access granted. Welcome Nomair.`);
+            } else {
+              // Not registered yet - must register with Authorized Key
+              if (errBox) {
+                errBox.textContent = 'Account not found with this email. Please switch to "Create Account" and enter your Authorized Key to register.';
+                errBox.classList.remove('hidden');
+              }
+              submitBtn.textContent = 'Sign In →';
             }
           }
         });
