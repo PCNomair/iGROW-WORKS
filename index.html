@@ -1977,11 +1977,12 @@
 
           let loggedIn = false;
           try {
-            const provider = new firebase.auth.GoogleAuthProvider();
-            provider.addScope('profile');
-            provider.addScope('email');
+            // Use unified Google Auth helper from authoritative bundle
+            const signInFn = (typeof window.signInWithGoogle === 'function')
+              ? window.signInWithGoogle
+              : () => auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
 
-            const result = await auth.signInWithPopup(provider);
+            const result = await signInFn();
 
             if (result && result.user) {
               const u = result.user;
@@ -2002,18 +2003,9 @@
           } catch (err) {
             console.error("Firebase Google Auth Error:", err);
             if (errBox) {
-              const errCode = err.code || 'unknown';
-              const errMsg = err.message || '';
-              
-              if (errCode === 'auth/popup-blocked') {
-                errBox.textContent = 'المتصفح حظر النافذة المنبثقة لـ Google. يرجى السماح بالنوافذ المنبثقة (Popups) أو التسجيل بالبريد أدناه.';
-              } else if (errCode === 'auth/unauthorized-domain') {
-                errBox.textContent = 'هذا النطاق غير مصرح به في Firebase. يرجى إضافة النطاق في Authorized Domains في لوحة Firebase.';
-              } else if (errCode === 'auth/internal-error') {
-                errBox.textContent = 'Firebase Internal Error (' + (errMsg || errCode) + '). يرجى التحقق من لوحة Firebase أو التسجيل المباشر بالبريد أدناه.';
-              } else {
-                errBox.textContent = 'خطأ (' + errCode + '): ' + (errMsg || 'تعذر تسجيل الدخول عبر Google. يمكنك استخدام البريد وكلمة المرور أدناه.');
-              }
+              const errCode = (err && err.code) ? err.code : 'unknown';
+              const errMsg = (err && err.message) ? err.message : String(err);
+              errBox.textContent = `[${errCode}]: ${errMsg}`;
               errBox.classList.remove('hidden');
             }
           }
