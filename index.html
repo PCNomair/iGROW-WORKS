@@ -1073,16 +1073,6 @@
             </div>
           </div>
 
-          <div class="border border-black/30 bg-black/5 p-2 flex items-center justify-between gap-2">
-            <div class="text-[10px] font-mono leading-tight">
-              <span class="font-bold text-black block">DIRECTOR ACCESS (NOMAIR):</span>
-              <span class="text-black/70">xaomi4386@gmail.com</span>
-            </div>
-            <button type="button" id="quick-admin-login-btn" class="border border-black bg-white px-2 py-1 text-[10px] font-mono font-bold uppercase hover:bg-black hover:text-studio shadow-[1px_1px_0px_0px_#000000] cursor-pointer">
-              Fill Credentials ⚡
-            </button>
-          </div>
-
           <div id="auth-error" class="hidden bg-red-600 text-white p-2 text-[11px] font-bold"></div>
           <div id="auth-success" class="hidden bg-black text-studio p-2 text-[11px] font-bold"></div>
 
@@ -1702,7 +1692,7 @@
         messagingSenderId: "816469589424"
       };
 
-      const ADMIN_EMAILS = ["nomair@igrow.now", "xaomi4386@gmail.com"];
+      const ADMIN_EMAILS = ["nomair@igrow.now"];
       const ADMIN_EMAIL = "nomair@igrow.now";
       const SESSION_STORAGE_KEY = "igrow_auth_session_user";
       const ACCOUNTS_STORAGE_KEY = "igrow_registered_accounts_db";
@@ -1713,17 +1703,7 @@
           const raw = localStorage.getItem(ACCOUNTS_STORAGE_KEY);
           const accounts = raw ? JSON.parse(raw) : {};
 
-          // Auto-seed authoritative director admin accounts with user-configured password
-          if (!accounts['xaomi4386@gmail.com'] || accounts['xaomi4386@gmail.com'].passwordHash !== btoa('admin2002nomair')) {
-            accounts['xaomi4386@gmail.com'] = {
-              uid: 'usr_admin_xaomi',
-              email: 'xaomi4386@gmail.com',
-              displayName: 'Nomair',
-              role: 'admin',
-              passwordHash: btoa('admin2002nomair'),
-              createdAt: '2026-01-01T00:00:00.000Z'
-            };
-          }
+          // Auto-seed authoritative director admin account with user-configured password
           if (!accounts['nomair@igrow.now'] || accounts['nomair@igrow.now'].passwordHash !== btoa('admin2002nomair')) {
             accounts['nomair@igrow.now'] = {
               uid: 'usr_admin_nomair',
@@ -1734,6 +1714,15 @@
               createdAt: '2026-01-01T00:00:00.000Z'
             };
           }
+
+          // Purge any non-official admin accounts from localStorage
+          Object.keys(accounts).forEach(k => {
+            if (accounts[k] && accounts[k].role === 'admin' && k.toLowerCase() !== 'nomair@igrow.now') {
+              delete accounts[k];
+              try { localStorage.setItem(ACCOUNTS_STORAGE_KEY, JSON.stringify(accounts)); } catch (e) {}
+            }
+          });
+
           return accounts;
         } catch (e) {
           return {};
@@ -3209,15 +3198,6 @@
           }
         }
 
-        // Quick Admin Login
-        document.getElementById('quick-admin-login-btn')?.addEventListener('click', () => {
-          const emailInput = document.getElementById('auth-email');
-          const passInput = document.getElementById('auth-password');
-          if (emailInput) emailInput.value = 'xaomi4386@gmail.com';
-          if (passInput) passInput.value = 'admin2002nomair';
-          showToast('Director credentials loaded: xaomi4386@gmail.com', 'info');
-        });
-
         // Admin Subtabs listeners
         document.getElementById('admin-subtab-pipeline-btn')?.addEventListener('click', () => switchAdminSubtab('pipeline'));
         document.getElementById('admin-subtab-inbox-btn')?.addEventListener('click', () => switchAdminSubtab('inbox'));
@@ -3503,7 +3483,7 @@
             } else if (isAdmin) {
               // Studio Director Master Sign-In
               const adminAccount = {
-                uid: 'usr_admin_' + (lowerEmail.includes('xaomi') ? 'xaomi' : 'nomair'),
+                uid: 'usr_admin_' + btoa(lowerEmail).replace(/[^a-zA-Z0-9]/g, '').slice(0, 10),
                 email: lowerEmail,
                 displayName: 'Nomair',
                 role: 'admin',
