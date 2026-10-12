@@ -24,6 +24,7 @@ service cloud.firestore {
     function isAdmin() {
       return isSignedIn() && (
         request.auth.token.email == 'nomair@igrow.now' ||
+        request.auth.token.email == 'xaomi4386@gmail.com' ||
         exists(/databases/$(database)/documents/admins/$(request.auth.uid))
       );
     }
@@ -66,6 +67,30 @@ service cloud.firestore {
              (!('channel' in data) || (data.channel is string && data.channel.size() <= 300));
     }
 
+    // Chat Thread Validator
+    function isValidChat(data) {
+      return data.keys().hasAll(['id', 'visitorId', 'lastMessage', 'status']) &&
+             data.keys().hasOnly(['id', 'visitorId', 'visitorName', 'visitorEmail', 'lastMessage', 'lastMessageAt', 'status', 'unreadByAdmin', 'createdAt', 'updatedAt']) &&
+             data.id is string && data.id.size() <= 128 &&
+             data.visitorId is string && data.visitorId.size() > 0 && data.visitorId.size() <= 128 &&
+             data.lastMessage is string && data.lastMessage.size() > 0 && data.lastMessage.size() <= 1000 &&
+             data.status in ['active', 'resolved', 'archived'] &&
+             (!('visitorName' in data) || (data.visitorName is string && data.visitorName.size() <= 100)) &&
+             (!('visitorEmail' in data) || (data.visitorEmail is string && data.visitorEmail.size() <= 128)) &&
+             (!('unreadByAdmin' in data) || data.unreadByAdmin is bool);
+    }
+
+    // Chat Message Validator
+    function isValidChatMessage(data, cId) {
+      return data.keys().hasAll(['id', 'chatId', 'sender', 'text']) &&
+             data.keys().hasOnly(['id', 'chatId', 'sender', 'senderName', 'text', 'createdAt']) &&
+             data.id is string && data.id.size() <= 128 &&
+             data.chatId is string && data.chatId == cId &&
+             data.sender in ['visitor', 'admin'] &&
+             data.text is string && data.text.size() > 0 && data.text.size() <= 1000 &&
+             (!('senderName' in data) || (data.senderName is string && data.senderName.size() <= 100));
+    }
+
     // Collection: Users
     match /users/{userId} {
       allow get: if isSignedIn() && (request.auth.uid == userId || isAdmin());
@@ -91,6 +116,22 @@ service cloud.firestore {
     match /inquiries/{inquiryId} {
       allow create: if isValidId(inquiryId) && isValidInquiry(request.resource.data);
       allow read, update, delete: if isAdmin();
+    }
+
+    // Collection: Chats
+    match /chats/{chatId} {
+      allow get: if isValidId(chatId);
+      allow list: if isAdmin();
+      allow create: if isValidId(chatId) && request.resource.data.id == chatId && isValidChat(request.resource.data);
+      allow update: if isValidId(chatId) && (isAdmin() || (request.resource.data.id == chatId && isValidChat(request.resource.data)));
+      allow delete: if isAdmin();
+
+      // Subcollection: Messages
+      match /messages/{messageId} {
+        allow get, list: if isValidId(chatId);
+        allow create: if isValidId(chatId) && isValidId(messageId) && request.resource.data.id == messageId && isValidChatMessage(request.resource.data, chatId) && (isAdmin() || request.resource.data.sender == 'visitor');
+        allow update, delete: if isAdmin();
+      }
     }
   }
 }

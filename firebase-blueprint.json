@@ -145,6 +145,103 @@
         }
       },
       "required": ["id", "email", "message"]
+    },
+    "chat": {
+      "title": "Chat",
+      "description": "Visitor live conversation thread initiated with Director Nomair",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Chat thread ID",
+          "maxLength": 128
+        },
+        "visitorId": {
+          "type": "string",
+          "description": "Unique visitor session identifier",
+          "maxLength": 128
+        },
+        "visitorName": {
+          "type": "string",
+          "description": "Visitor display name or guest title",
+          "maxLength": 100
+        },
+        "visitorEmail": {
+          "type": "string",
+          "description": "Optional contact email or phone provided by visitor",
+          "maxLength": 128
+        },
+        "lastMessage": {
+          "type": "string",
+          "description": "Preview of the most recent message in the thread",
+          "maxLength": 1000
+        },
+        "lastMessageAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp of the last sent message"
+        },
+        "status": {
+          "type": "string",
+          "description": "Conversation state (active, resolved, archived)",
+          "enum": ["active", "resolved", "archived"],
+          "maxLength": 30
+        },
+        "unreadByAdmin": {
+          "type": "boolean",
+          "description": "Whether this thread has unread messages for the director"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Creation timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last update timestamp"
+        }
+      },
+      "required": ["id", "visitorId", "lastMessage", "status"]
+    },
+    "chatMessage": {
+      "title": "ChatMessage",
+      "description": "Individual message inside a chat thread",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Message identifier",
+          "maxLength": 128
+        },
+        "chatId": {
+          "type": "string",
+          "description": "Parent chat thread ID",
+          "maxLength": 128
+        },
+        "sender": {
+          "type": "string",
+          "description": "Role of the sender",
+          "enum": ["visitor", "admin"],
+          "maxLength": 20
+        },
+        "senderName": {
+          "type": "string",
+          "description": "Display name of sender",
+          "maxLength": 100
+        },
+        "text": {
+          "type": "string",
+          "description": "Message text content",
+          "maxLength": 1000
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when message was posted"
+        }
+      },
+      "required": ["id", "chatId", "sender", "text"]
     }
   },
   "firestore": {
@@ -159,6 +256,14 @@
     "/inquiries/{inquiryId}": {
       "schema": "inquiry",
       "description": "Direct customer inquiries submitted to the studio"
+    },
+    "/chats/{chatId}": {
+      "schema": "chat",
+      "description": "Live visitor chat threads with Director Nomair"
+    },
+    "/chats/{chatId}/messages/{messageId}": {
+      "schema": "chatMessage",
+      "description": "Live messages belonging to a visitor chat thread"
     }
   }
 }
