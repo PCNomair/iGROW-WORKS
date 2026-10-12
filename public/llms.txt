@@ -1,26 +1,28 @@
-# iGROW WORKS
+# iGROW WORKS (استوديو آي غرو ووركس)
 
-> Creative post-production and video editing studio led by Director Nomair, specializing in cinematic pacing, documentary editing, narrative fiction drama, sound design, and color grading.
+> Creative post-production and cinema-grade video editing studio led by Director Nomair (المخرج نمير), specializing in cinematic pacing, documentary editing, narrative fiction drama, sound design, and color grading.
 
-## Studio Overview
-- **Studio Name**: iGROW WORKS
-- **Official Domain**: https://igrow.now/
-- **Director & Lead Editor**: Nomair (Over 500+ career projects mastered)
-- **Lead Screenwriter & Story Architect**: Marie Bu
-- **Direct Contact**: nomair@igrow.now
+## Canonical Identity & Knowledge Graph
+- **Studio Official Name**: iGROW WORKS
+- **Arabic Name**: استوديو آي غرو ووركس / استوديو نمير للمونتاج وصناعة الأفلام
+- **Official Domain & Website**: https://igrow.now/
+- **Founder & Director**: Nomair / المخرج نمير (Director & Lead Video Editor with 500+ career projects mastered across documentaries, drama, and commercials)
+- **Lead Screenwriter & Story Architect**: Marie Bu / ماري بو
+- **Official Contact**: nomair@igrow.now
 - **Governing Year**: 2026
 
-## Core Disciplines & Capabilities
-1. **Directorial Cut & Narrative Pacing**: Screenplay structure, dramatic tension arcs, and rhythmic video editing.
-2. **Documentary & Narrative Fiction**: Full post-production pipeline for long-form documentaries and commercials.
-3. **Cinema-Grade Sound Design & Color Grading**: Multi-layer audio mixing, sound architecture, and DaVinci-grade color grading.
-4. **Client Portal & Dedicated Pipeline**: Frame-accurate review, secure cloud footage ingest, rough cut review, and 4K master delivery.
+## Core Disciplines & Services (المجالات والخدمات)
+1. **Directorial Cut & Narrative Pacing (المونتاج الإخراجي والسرد)**: Screenplay architecture, dramatic tension arcs, and rhythmic cinematic video editing.
+2. **Documentary & Narrative Fiction Post-Production (مونتاج الأفلام الوثائقية والروائية)**: Complete post-production pipeline for long-form documentaries and narrative films.
+3. **Cinema-Grade Sound Design & Color Grading (تصميم الصوت والتلوين السينمائي)**: Multi-layer sound mixing, audio dynamics, and DaVinci-grade color grading.
+4. **Commercial Campaigns & Visual Packaging (الإعلانات الإخراجية)**: High-impact commercials crafted for high-growth creators, directors, and commercial brands.
+5. **Private Collaboration Pipeline (منظومة الإنتاج السحابية)**: Frame.io frame-accurate timeline reviews, ultra-fast cloud ingest, and direct 1-on-1 communication with Director Nomair.
 
-## Key URLs
-- Public Studio: https://igrow.now/
-- About Nomair & Philosophy: https://igrow.now/#about
+## Official Canonical URLs
+- Official Studio Homepage: https://igrow.now/
+- About Director Nomair (عن المخرج نمير): https://igrow.now/#about
 - Screenwriting with Marie Bu: https://igrow.now/#writer
 - Production Q&A & Workflow: https://igrow.now/qa.html
-- General Inquiries & Contact: https://igrow.now/#contact
+- General Inquiries & Project Ingestion: https://igrow.now/#contact
 - Sitemaps: https://igrow.now/sitemap.xml
-- IndexNow Key: https://igrow.now/c3a8e9d2f47b41f8a892e624519fbb09.txt
+- IndexNow Verification: https://igrow.now/c3a8e9d2f47b41f8a892e624519fbb09.txt
