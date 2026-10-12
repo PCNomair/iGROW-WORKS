@@ -1,8 +1,49 @@
+# Default / All Web Crawlers
 User-agent: *
 Allow: /
 
-# Host
-Host: https://igrow.now
+# OpenAI (ChatGPT Search, GPTBot, ChatGPT-User)
+User-agent: OAI-SearchBot
+User-agent: GPTBot
+User-agent: ChatGPT-User
+Allow: /
 
-# Sitemaps
+# Anthropic (ClaudeBot, Claude-Web)
+User-agent: ClaudeBot
+User-agent: anthropic-ai
+User-agent: Claude-Web
+Allow: /
+
+# xAI (Grok)
+User-agent: GrokBot
+User-agent: xAI-Bot
+Allow: /
+
+# Perplexity AI
+User-agent: PerplexityBot
+Allow: /
+
+# Google & Gemini AI
+User-agent: Googlebot
+User-agent: Google-Extended
+Allow: /
+
+# Apple Intelligence & Meta AI
+User-agent: Applebot
+User-agent: Applebot-Extended
+User-agent: Meta-ExternalAgent
+Allow: /
+
+# Microsoft Bing & Copilot
+User-agent: Bingbot
+User-agent: msnbot
+User-agent: BingPreview
+Allow: /
+
+# IndexNow Instant Search Engine Indexing (Bing, Yandex, Copilot)
+# Key: c3a8e9d2f47b41f8a892e624519fbb09
+# Key Location: https://igrow.now/c3a8e9d2f47b41f8a892e624519fbb09.txt
+
+# Sitemap & Host
 Sitemap: https://igrow.now/sitemap.xml
+Host: https://igrow.now

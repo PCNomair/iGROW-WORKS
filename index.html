@@ -11,8 +11,15 @@
     <meta name="theme-color" content="#EDDD5A" />
     <link rel="canonical" href="https://igrow.now/" />
 
-    <!-- Google Search Console Site Verification -->
+    <!-- Search Engines & Webmaster Verification (Google, Bing, Copilot) -->
     <meta name="google-site-verification" content="ngqvmFXZrCFhyzCv8Uaf6KOarwHNHa7cSpSekiav2NE" />
+    <meta name="msvalidate.01" content="" />
+
+    <!-- IndexNow Instant Search Engine Indexing (Bing, Yandex, Copilot) -->
+    <link rel="indexnow" href="https://igrow.now/c3a8e9d2f47b41f8a892e624519fbb09.txt" />
+
+    <!-- AI & LLM Search Engine Documentation -->
+    <link rel="help" type="text/markdown" href="/llms.txt" title="LLM Documentation" />
 
     <!-- Favicon & PWA Icons for Google Search Results & Browsers -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -212,6 +219,42 @@
               }
             }
           ]
+        },
+        {
+          "@type": "VideoObject",
+          "@id": "https://igrow.now/#directorial-showreel",
+          "name": "iGROW WORKS - Directorial Showreel & Narrative Montage (2026)",
+          "description": "Cinematic visual storytelling, documentary assembly, dramatic rhythm, and DaVinci color grading directed by Nomair. Mastered at iGROW WORKS studio.",
+          "thumbnailUrl": "https://igrow.now/nomair.jpg",
+          "uploadDate": "2026-01-15T00:00:00+00:00",
+          "duration": "PT3M00S",
+          "contentUrl": "https://igrow.now/",
+          "embedUrl": "https://igrow.now/",
+          "inLanguage": "en",
+          "author": {
+            "@id": "https://igrow.now/#founder"
+          },
+          "director": {
+            "@type": "Person",
+            "name": "Nomair",
+            "jobTitle": "Director & Lead Video Editor"
+          },
+          "productionCompany": {
+            "@id": "https://igrow.now/#organization"
+          }
+        },
+        {
+          "@type": "CreativeWork",
+          "@id": "https://igrow.now/#creative-pipeline",
+          "name": "iGROW WORKS Documentary & Dramatic Post-Production Pipeline",
+          "headline": "Screenplay Architecture, Directorial Assembly, and Cinema-Grade Finishing",
+          "description": "Integrated editorial workflow led by Director Nomair and Lead Writer Marie Bu, delivering narrative documentaries, dramatic fiction, and high-impact commercial campaigns.",
+          "creator": {
+            "@id": "https://igrow.now/#founder"
+          },
+          "dateCreated": "2026-01-01",
+          "dateModified": "2026-10-11",
+          "inLanguage": ["en", "ar"]
         }
       ]
     }
@@ -708,7 +751,7 @@
             </a>
           </div>
 
-          <!-- ACTION BUTTONS: START A PROJECT (OPENS FORM) & Q&A -->
+          <!-- ACTION BUTTONS: START A PROJECT (OPENS FORM) & Q&A & SHARE -->
           <div class="pt-2 flex flex-wrap justify-center gap-4">
             <button id="open-inquiry-footer-btn" class="border-2 border-black bg-black text-studio px-8 py-3 font-display text-base sm:text-lg uppercase tracking-wider hover:bg-white hover:text-black shadow-[4px_4px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer">
               START A PROJECT →
@@ -716,6 +759,9 @@
             <a href="/qa.html" id="footer-qa-btn" class="border-2 border-black bg-white text-black px-8 py-3 font-display text-base sm:text-lg uppercase tracking-wider hover:bg-black hover:text-studio shadow-[4px_4px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 transition-all inline-block cursor-pointer">
               VIEW Q&amp;A
             </a>
+            <button id="share-studio-btn" class="border-2 border-black bg-white text-black px-8 py-3 font-display text-base sm:text-lg uppercase tracking-wider hover:bg-black hover:text-studio shadow-[4px_4px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 transition-all inline-flex items-center gap-2 cursor-pointer">
+              <span>SHARE STUDIO ↗</span>
+            </button>
           </div>
 
           <!-- THE DUAL PARALLEL LINES SECTION (CAREERS & CREW) -->
@@ -2457,6 +2503,35 @@
         document.getElementById('close-careers-btn')?.addEventListener('click', closeCareersModal);
         document.getElementById('careers-modal')?.addEventListener('click', (e) => {
           if (e.target.id === 'careers-modal') closeCareersModal();
+        });
+
+        // Share Studio & Directorial Reel (Web Share API with Clipboard Fallback)
+        document.getElementById('share-studio-btn')?.addEventListener('click', async () => {
+          const shareData = {
+            title: 'iGROW WORKS | Post-Production & Video Editing',
+            text: 'Creative post-production studio led by director Nomair. Specialized in documentaries, narrative drama, and commercial cuts.',
+            url: 'https://igrow.now/'
+          };
+          if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
+            try {
+              await navigator.share(shareData);
+              showToast('Shared successfully!', 'success');
+              return;
+            } catch (err) {
+              if (err.name === 'AbortError') return;
+            }
+          }
+          // Clipboard fallback
+          try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              await navigator.clipboard.writeText('https://igrow.now/');
+              showToast('✓ Link copied to clipboard! (https://igrow.now)', 'success');
+            } else {
+              showToast('Studio link: https://igrow.now/', 'info');
+            }
+          } catch (e) {
+            showToast('Studio link: https://igrow.now/', 'info');
+          }
         });
 
         // Legal Modal Controllers (2026)
