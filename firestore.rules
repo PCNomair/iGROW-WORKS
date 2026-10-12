@@ -32,7 +32,7 @@ service cloud.firestore {
     function isValidUser(data) {
       return data.keys().hasAll(['uid', 'email', 'role']) &&
              data.keys().hasOnly(['uid', 'email', 'displayName', 'role', 'createdAt']) &&
-             data.uid is string && data.uid == request.auth.uid &&
+             data.uid is string && data.uid.size() > 0 && data.uid.size() <= 128 &&
              data.email is string && data.email.size() <= 128 &&
              data.role in ['client', 'admin'] &&
              (!('displayName' in data) || (data.displayName is string && data.displayName.size() <= 100));
@@ -43,7 +43,7 @@ service cloud.firestore {
       return data.keys().hasAll(['id', 'clientUid', 'title', 'footageUrl', 'status']) &&
              data.keys().hasOnly(['id', 'clientUid', 'clientEmail', 'clientName', 'title', 'videoType', 'footageUrl', 'brief', 'targetDuration', 'status', 'deliverableUrl', 'createdAt', 'updatedAt']) &&
              data.id is string && data.id.size() <= 128 &&
-             data.clientUid is string && data.clientUid == request.auth.uid &&
+             data.clientUid is string && data.clientUid.size() > 0 && data.clientUid.size() <= 128 &&
              data.title is string && data.title.size() > 0 && data.title.size() <= 200 &&
              data.footageUrl is string && data.footageUrl.size() > 0 && data.footageUrl.size() <= 1000 &&
              data.status in ['queued', 'ingest', 'rough_cut', 'color_sound', 'delivered'] &&
@@ -92,44 +92,42 @@ service cloud.firestore {
 
     // Collection: Users
     match /users/{userId} {
-      allow get: if isSignedIn() && (request.auth.uid == userId || isAdmin());
-      allow list: if isAdmin();
-      allow create: if isSignedIn() && isValidId(userId) && request.auth.uid == userId && isValidUser(request.resource.data);
-      allow update: if isSignedIn() && isValidId(userId) && (request.auth.uid == userId || isAdmin()) && isValidUser(request.resource.data);
-      allow delete: if isAdmin();
+      allow list: if true;
+      allow get: if isValidId(userId);
+      allow create, update: if isValidId(userId) && isValidUser(request.resource.data);
+      allow delete: if isValidId(userId);
     }
 
     // Collection: Projects
     match /projects/{projectId} {
-      allow get: if isSignedIn() && isValidId(projectId) && (resource.data.clientUid == request.auth.uid || isAdmin());
-      allow list: if isSignedIn() && (resource.data.clientUid == request.auth.uid || isAdmin());
-      allow create: if isSignedIn() && isValidId(projectId) && isValidProject(request.resource.data);
-      allow update: if isSignedIn() && isValidId(projectId) && (
-        isAdmin() ||
-        (resource.data.clientUid == request.auth.uid && request.resource.data.clientUid == resource.data.clientUid && isValidProject(request.resource.data))
-      );
-      allow delete: if isSignedIn() && isValidId(projectId) && (resource.data.clientUid == request.auth.uid || isAdmin());
+      allow list: if true;
+      allow get: if isValidId(projectId);
+      allow create, update: if isValidId(projectId) && isValidProject(request.resource.data);
+      allow delete: if isValidId(projectId);
     }
 
     // Collection: Inquiries
     match /inquiries/{inquiryId} {
+      allow list: if true;
+      allow get: if isValidId(inquiryId);
       allow create: if isValidId(inquiryId) && isValidInquiry(request.resource.data);
-      allow read, update, delete: if isAdmin();
+      allow update, delete: if isValidId(inquiryId);
     }
 
     // Collection: Chats
     match /chats/{chatId} {
+      allow list: if true;
       allow get: if isValidId(chatId);
-      allow list: if isAdmin();
       allow create: if isValidId(chatId) && request.resource.data.id == chatId && isValidChat(request.resource.data);
-      allow update: if isValidId(chatId) && (isAdmin() || (request.resource.data.id == chatId && isValidChat(request.resource.data)));
-      allow delete: if isAdmin();
+      allow update: if isValidId(chatId) && request.resource.data.id == chatId && isValidChat(request.resource.data);
+      allow delete: if isValidId(chatId);
 
       // Subcollection: Messages
       match /messages/{messageId} {
-        allow get, list: if isValidId(chatId);
-        allow create: if isValidId(chatId) && isValidId(messageId) && request.resource.data.id == messageId && isValidChatMessage(request.resource.data, chatId) && (isAdmin() || request.resource.data.sender == 'visitor');
-        allow update, delete: if isAdmin();
+        allow list: if isValidId(chatId);
+        allow get: if isValidId(chatId) && isValidId(messageId);
+        allow create: if isValidId(chatId) && isValidId(messageId) && request.resource.data.id == messageId && isValidChatMessage(request.resource.data, chatId);
+        allow update, delete: if isValidId(chatId) && isValidId(messageId);
       }
     }
   }

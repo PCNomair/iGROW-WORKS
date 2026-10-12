@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, interactive-widget=resizes-content" />
     <title>iGROW WORKS | Post-Production &amp; Video Editing | المخرج نمير</title>
     <meta name="description" content="Creative post-production studio led by director Nomair (المخرج نمير), specializing in visual storytelling, documentaries, drama, and narrative commercials." />
     <meta name="keywords" content="talking head video editor, talking head editing, video editor, documentary editing, narrative film editing, nomair, director nomair, post production studio, cinematic pacing, sound design, color grading, creative direction, igrow works, igrow now, video editing agency, commercial video editor, المخرج نمير, نمير, استوديو نمير, استوديو iGROW WORKS, مونتاج توكينج هيد, مونتاج وثائقي, إخراج سينمائي, مونتاج أفلام" />
@@ -1076,7 +1076,7 @@
           <div id="auth-error" class="hidden bg-red-600 text-white p-2 text-[11px] font-bold"></div>
           <div id="auth-success" class="hidden bg-black text-studio p-2 text-[11px] font-bold"></div>
 
-          <button type="submit" id="auth-submit-btn" class="w-full bg-black text-studio py-2.5 font-display text-sm uppercase tracking-wider hover:bg-white hover:text-black border-2 border-black transition-colors cursor-pointer">
+          <button type="submit" id="auth-submit-btn" class="w-full bg-black text-studio py-2.5 font-display text-sm uppercase tracking-wider hover:bg-white hover:text-black border-2 border-black transition-colors cursor-pointer shadow-[2px_2px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5">
             Sign In →
           </button>
         </form>
@@ -1577,7 +1577,7 @@
     <div id="visitor-chat-container">
       
       <!-- Floating Trigger Button -->
-      <button id="visitor-chat-btn" aria-label="Chat with Nomair" class="fixed bottom-6 right-6 z-40 border-2 border-black bg-black text-studio px-4 py-3 flex items-center gap-3 shadow-[4px_4px_0px_0px_#000000] hover:bg-studio hover:text-black cursor-pointer transition-all active:translate-x-0.5 active:translate-y-0.5 group">
+      <button id="visitor-chat-btn" aria-label="Chat with Nomair" class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 border-2 border-black bg-black text-studio px-3.5 py-2.5 sm:px-4 sm:py-3 flex items-center gap-2.5 sm:gap-3 shadow-[4px_4px_0px_0px_#000000] hover:bg-studio hover:text-black cursor-pointer transition-all active:translate-x-0.5 active:translate-y-0.5 touch-manipulation group">
         <span class="relative flex h-3 w-3">
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
           <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
@@ -1587,10 +1587,10 @@
       </button>
 
       <!-- Chat Window -->
-      <div id="visitor-chat-window" class="fixed bottom-6 right-4 sm:right-6 z-50 w-[94vw] sm:w-[410px] max-h-[85vh] sm:max-h-[580px] h-[540px] flex flex-col border-3 border-black bg-studio shadow-[8px_8px_0px_0px_#000000] hidden">
+      <div id="visitor-chat-window" class="fixed bottom-2 right-2 sm:bottom-6 sm:right-6 z-50 w-[calc(100vw-1rem)] sm:w-[420px] h-[78vh] sm:h-[550px] max-h-[92dvh] sm:max-h-[590px] flex flex-col border-3 border-black bg-studio shadow-[6px_6px_0px_0px_#000000] sm:shadow-[8px_8px_0px_0px_#000000] hidden overscroll-contain transition-all">
         
         <!-- Header -->
-        <div class="bg-black text-studio px-4 py-3 border-b-2 border-black flex items-center justify-between shrink-0">
+        <div class="bg-black text-studio px-3.5 py-2.5 sm:px-4 sm:py-3 border-b-2 border-black flex items-center justify-between shrink-0">
           <div class="flex items-center gap-2.5">
             <div class="w-8 h-8 rounded-full border border-studio overflow-hidden shrink-0 bg-neutral-800">
               <img src="/golden_ratio.jpg" alt="Nomair" class="w-full h-full object-cover object-center" onerror="this.src='/favicon.svg'" />
@@ -1605,10 +1605,10 @@
           </div>
 
           <div class="flex items-center gap-1">
-            <button id="visitor-chat-minimize-btn" title="Minimize" class="w-7 h-7 border border-studio/40 hover:bg-white hover:text-black text-studio text-xs flex items-center justify-center font-bold cursor-pointer">
+            <button id="visitor-chat-minimize-btn" title="Minimize" class="w-7 h-7 border border-studio/40 hover:bg-white hover:text-black text-studio text-xs flex items-center justify-center font-bold cursor-pointer touch-manipulation">
               _
             </button>
-            <button id="visitor-chat-close-btn" title="Close" class="w-7 h-7 border border-studio/40 hover:bg-red-600 hover:text-white text-studio text-xs flex items-center justify-center font-bold cursor-pointer">
+            <button id="visitor-chat-close-btn" title="Close" class="w-7 h-7 border border-studio/40 hover:bg-red-600 hover:text-white text-studio text-xs flex items-center justify-center font-bold cursor-pointer touch-manipulation">
               ✕
             </button>
           </div>
@@ -1620,7 +1620,7 @@
             <span>Identity:</span>
             <strong id="visitor-current-name-display" class="text-black">Guest Visitor</strong>
           </div>
-          <button id="btn-toggle-visitor-profile" class="text-[10px] underline hover:text-black font-bold uppercase cursor-pointer">
+          <button id="btn-toggle-visitor-profile" class="text-[10px] underline hover:text-black font-bold uppercase cursor-pointer touch-manipulation">
             Edit Info ✎
           </button>
         </div>
@@ -1628,17 +1628,17 @@
         <!-- Hidden Profile Editor Dropdown -->
         <div id="visitor-profile-editor" class="hidden bg-studio/40 border-b-2 border-black p-3 space-y-2 shrink-0">
           <div class="text-[10px] font-mono font-bold uppercase text-black/70">Optional Contact Info:</div>
-          <input type="text" id="visitor-name-input" placeholder="Your name (e.g. Alex or Veritasium)" class="w-full bg-white border border-black p-1.5 text-xs font-bold outline-none" />
-          <input type="text" id="visitor-contact-input" placeholder="Email or WhatsApp (optional)" class="w-full bg-white border border-black p-1.5 text-xs font-medium outline-none" />
+          <input type="text" id="visitor-name-input" placeholder="Your name (e.g. Alex or Veritasium)" class="w-full bg-white border border-black p-2 text-xs font-bold outline-none" />
+          <input type="text" id="visitor-contact-input" placeholder="Email or WhatsApp (optional)" class="w-full bg-white border border-black p-2 text-xs font-medium outline-none" />
           <div class="flex justify-end gap-2">
-            <button id="btn-save-visitor-profile" class="bg-black text-studio px-3 py-1 text-[10px] font-display uppercase tracking-wider border border-black cursor-pointer hover:bg-white hover:text-black">
+            <button id="btn-save-visitor-profile" class="bg-black text-studio px-3 py-1.5 text-[10px] font-display uppercase tracking-wider border border-black cursor-pointer hover:bg-white hover:text-black touch-manipulation">
               Save Identity
             </button>
           </div>
         </div>
 
         <!-- Messages Pane -->
-        <div id="visitor-chat-messages" class="flex-1 overflow-y-auto p-4 space-y-3 bg-white/95 text-xs">
+        <div id="visitor-chat-messages" class="flex-1 min-h-0 overflow-y-auto p-3.5 sm:p-4 space-y-3 bg-white/95 text-xs overscroll-contain">
           <!-- Initial Director message -->
           <div class="flex items-start gap-2 max-w-[88%]">
             <div class="w-6 h-6 rounded-full border border-black overflow-hidden shrink-0 mt-0.5 bg-neutral-900">
@@ -1656,23 +1656,20 @@
         </div>
 
         <!-- Anti-Spam Warning Notice -->
-        <div id="chat-spam-warning" class="hidden bg-red-600 text-white px-3 py-1 text-[11px] font-bold text-center shrink-0">
+        <div id="chat-spam-warning" class="hidden bg-red-600 text-white px-3 py-1.5 text-[11px] font-bold text-center shrink-0">
           ⏳ Please wait a moment before sending another message.
         </div>
 
         <!-- Chat Input Form -->
-        <form id="visitor-chat-form" class="border-t-2 border-black bg-studio p-3 shrink-0">
-          <!-- Bot Honeypot Field (Bots fill this, humans won't see it) -->
-          <input type="text" id="chat-hp-field" name="studio_bot_trap_field" class="hidden" style="display:none !important;" tabindex="-1" autocomplete="off" />
-          
-          <div class="flex gap-2">
-            <input type="text" id="visitor-chat-input" required maxlength="1000" placeholder="Ask a question or describe your project..." class="flex-1 bg-white border-2 border-black p-2.5 text-xs font-medium text-black outline-none focus:ring-1 focus:ring-black" />
-            <button type="submit" id="visitor-chat-send-btn" class="bg-black text-studio px-4 py-2 font-display text-xs uppercase tracking-wider hover:bg-white hover:text-black border-2 border-black transition-colors cursor-pointer shadow-[2px_2px_0px_0px_#000000] shrink-0">
+        <form id="visitor-chat-form" class="border-t-2 border-black bg-studio p-2.5 sm:p-3 shrink-0">
+          <div class="flex gap-2 items-center">
+            <input type="text" id="visitor-chat-input" required maxlength="1000" placeholder="Ask a question or describe your project..." class="flex-1 bg-white border-2 border-black p-2.5 text-sm sm:text-xs font-medium text-black outline-none focus:ring-1 focus:ring-black min-h-[44px]" autocomplete="off" />
+            <button type="submit" id="visitor-chat-send-btn" class="bg-black text-studio px-4 py-2.5 font-display text-xs uppercase tracking-wider hover:bg-white hover:text-black border-2 border-black transition-all cursor-pointer shadow-[2px_2px_0px_0px_#000000] shrink-0 min-h-[44px] touch-manipulation active:scale-95 flex items-center justify-center">
               Send →
             </button>
           </div>
-          <span class="text-[9px] font-mono text-black/60 block text-center mt-1.5">
-            Zero signup required • Instant transmission
+          <span class="text-[9px] font-mono text-black/60 block text-center mt-1">
+            Zero signup required • Direct with Nomair
           </span>
         </form>
 
@@ -1860,12 +1857,36 @@
         }
       }
 
-      // Check immediately and on bundle ready
-      initFirebaseServices();
-      window.addEventListener('firebase-bundle-ready', () => {
+      function syncFirebaseServicesAndListeners() {
         initFirebaseServices();
         updateAuthUI();
-      });
+        if (typeof setupVisitorChatListener === 'function') {
+          setupVisitorChatListener();
+        }
+        if (currentUser && typeof listenToProjects === 'function') {
+          listenToProjects();
+          if (isUserAdmin() && typeof listenToAdminInbox === 'function') {
+            listenToAdminInbox();
+            if (typeof renderAdminAccounts === 'function') renderAdminAccounts();
+          }
+        }
+      }
+
+      // Check immediately and on bundle ready
+      initFirebaseServices();
+      window.addEventListener('firebase-bundle-ready', syncFirebaseServicesAndListeners);
+
+      // Mobile resilience timer: ensure Firebase connects even if module load is delayed
+      let initRetryCount = 0;
+      const initRetryTimer = setInterval(() => {
+        initRetryCount++;
+        if (window.db && !db) {
+          syncFirebaseServicesAndListeners();
+        }
+        if (isFirebaseReady || initRetryCount > 15) {
+          clearInterval(initRetryTimer);
+        }
+      }, 350);
 
       // Standard Firestore Error Formatter per SKILL.md
       function handleFirestoreError(error, operationType, path) {
@@ -1919,15 +1940,17 @@
         if (!bar) return;
 
         if (currentUser) {
-          const displayName = currentUser.displayName || currentUser.email?.split('@')[0] || "CREATOR";
+          const isAdmin = isUserAdmin();
+          const label = isAdmin ? "COMMAND ROOM" : "CLIENT PORTAL";
+          const count = isAdmin ? allAdminChats.filter(c => c.unreadByAdmin).length : allLoadedProjects.length;
           bar.innerHTML = `
-            <div class="flex items-center gap-2">
-              <button id="open-portal-btn" class="flex items-center gap-2 border-2 border-black px-3.5 py-1 bg-black text-studio text-xs font-bold uppercase hover:bg-white hover:text-black shadow-[2px_2px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer">
-                <span class="w-2 h-2 bg-green-400 animate-pulse"></span>
-                <span>CLIENT PORTAL</span>
-                <span id="nav-project-counter" class="ml-1 bg-studio text-black text-[10px] px-1.5 py-0.5 font-mono font-bold border border-black">${allLoadedProjects.length}</span>
+            <div class="flex items-center gap-1.5 sm:gap-2">
+              <button id="open-portal-btn" class="flex items-center gap-1.5 sm:gap-2 border-2 border-black px-2.5 sm:px-3.5 py-1 bg-black text-studio text-[11px] sm:text-xs font-bold uppercase hover:bg-white hover:text-black shadow-[2px_2px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer touch-manipulation">
+                <span class="w-2 h-2 rounded-full ${isAdmin ? 'bg-green-400' : 'bg-studio'} animate-pulse shrink-0"></span>
+                <span>${label}</span>
+                ${count > 0 ? `<span id="nav-project-counter" class="ml-1 ${isAdmin ? 'bg-red-600 text-white animate-bounce' : 'bg-studio text-black'} text-[10px] px-1.5 py-0.2 font-mono font-bold border border-black">${count}</span>` : ''}
               </button>
-              <button id="logout-btn" title="Sign Out" class="border-2 border-black bg-white px-2.5 py-1 text-[11px] font-bold uppercase hover:bg-black hover:text-studio shadow-[2px_2px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer">
+              <button id="logout-btn" title="Sign Out" class="border-2 border-black bg-white px-2 sm:px-2.5 py-1 text-[10px] sm:text-[11px] font-bold uppercase hover:bg-black hover:text-studio shadow-[2px_2px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer touch-manipulation">
                 EXIT
               </button>
             </div>
@@ -2929,41 +2952,14 @@
           const text = (input?.value || '').trim();
           if (!text) return;
 
-          // 1. Bot Honeypot Check
-          const honeypot = document.getElementById('chat-hp-field')?.value;
-          if (honeypot) {
-            console.warn('Bot detected and silenced.');
-            if (input) input.value = '';
-            return;
-          }
-
-          // 2. Anti-Spam Rate Limiter (2 seconds minimum between messages)
+          // Prevent rapid double-tap submission
           const now = Date.now();
-          if (now - lastVisitorMessageSentAt < 2000) {
-            showSpamWarning('⏳ Please wait a moment before sending another message.');
+          if (now - lastVisitorMessageSentAt < 400 && text === lastVisitorMessageText) {
             return;
           }
 
-          // 3. Throttle (max 6 messages per 2 minutes)
-          if (now - lastVisitorMessageSentAt < 120000) {
-            visitorMessageCountRecent++;
-            if (visitorMessageCountRecent > 6) {
-              showSpamWarning('⏳ Message speed limit reached. Please wait a minute.');
-              return;
-            }
-          } else {
-            visitorMessageCountRecent = 1;
-          }
-
-          // 4. Duplicate Message Check
-          if (text === lastVisitorMessageText && (now - lastVisitorMessageSentAt < 15000)) {
-            showSpamWarning('⚠️ Duplicate message detected.');
-            return;
-          }
-
-          // 5. Message length bounds
-          if (text.length < 2 || text.length > 1000) {
-            showSpamWarning('Message length must be between 2 and 1000 characters.');
+          if (text.length > 1000) {
+            showSpamWarning('Message length exceeds 1000 characters.');
             return;
           }
 
@@ -2973,6 +2969,8 @@
 
           sendVisitorMessage(text);
           if (input) input.value = '';
+          const messagesBox = document.getElementById('visitor-chat-messages');
+          if (messagesBox) messagesBox.scrollTop = messagesBox.scrollHeight;
         });
       }
 
@@ -2987,7 +2985,9 @@
           badgeEl?.classList.add('hidden');
           const messagesBox = document.getElementById('visitor-chat-messages');
           if (messagesBox) messagesBox.scrollTop = messagesBox.scrollHeight;
-          document.getElementById('visitor-chat-input')?.focus();
+          setTimeout(() => {
+            document.getElementById('visitor-chat-input')?.focus();
+          }, 100);
         } else {
           windowEl.classList.add('hidden');
         }
@@ -3008,6 +3008,7 @@
       }
 
       function sendVisitorMessage(text) {
+        if (!db && window.db) db = window.db;
         const msgId = 'msg_' + Date.now();
         const now = new Date().toISOString();
 
@@ -3059,6 +3060,7 @@
 
       function setupVisitorChatListener() {
         if (!visitorChatId) return;
+        if (!db && window.db) db = window.db;
 
         // Render any cached messages first
         try {
@@ -3067,6 +3069,11 @@
         } catch (e) {}
 
         if (!db) return;
+
+        if (unsubscribeVisitorChat) {
+          unsubscribeVisitorChat();
+          unsubscribeVisitorChat = null;
+        }
 
         try {
           unsubscribeVisitorChat = db.collection('chats').doc(visitorChatId).collection('messages').orderBy('createdAt', 'asc').onSnapshot((snapshot) => {
@@ -3189,6 +3196,16 @@
         initFirebaseServices();
         updateAuthUI();
         initVisitorChat();
+
+        // Responsive mobile viewport adjustment on virtual keyboard open/close
+        if (window.visualViewport) {
+          window.visualViewport.addEventListener('resize', () => {
+            const container = document.getElementById('visitor-chat-messages');
+            if (container && isVisitorChatOpen) {
+              setTimeout(() => { container.scrollTop = container.scrollHeight; }, 50);
+            }
+          });
+        }
 
         if (currentUser) {
           listenToProjects();
@@ -3386,8 +3403,9 @@
           submitBtn.textContent = isSignUpMode ? 'Creating Account...' : 'Signing In...';
 
           const registeredAccounts = getRegisteredAccounts();
-          const lowerEmail = email.toLowerCase().trim();
-          const isAdmin = ADMIN_EMAILS.some(a => a.toLowerCase() === lowerEmail);
+          let lowerEmail = email.toLowerCase().trim();
+          if (lowerEmail === 'nomair') lowerEmail = 'nomair@igrow.now';
+          const isAdmin = ADMIN_EMAILS.some(a => a.toLowerCase() === lowerEmail) || lowerEmail === 'nomair@igrow.now';
 
           if (isSignUpMode) {
             // Validate Studio Authorized Key
@@ -3482,18 +3500,23 @@
               loginUser(existingAccount, `Signed in successfully! Welcome back, ${existingAccount.displayName}.`);
             } else if (isAdmin) {
               // Studio Director Master Sign-In
+              if (password !== 'admin2002nomair') {
+                if (errBox) {
+                  errBox.textContent = 'Incorrect password. Please try again.';
+                  errBox.classList.remove('hidden');
+                }
+                submitBtn.textContent = 'Sign In →';
+                return;
+              }
               const adminAccount = {
-                uid: 'usr_admin_' + btoa(lowerEmail).replace(/[^a-zA-Z0-9]/g, '').slice(0, 10),
-                email: lowerEmail,
+                uid: 'usr_admin_nomair',
+                email: 'nomair@igrow.now',
                 displayName: 'Nomair',
                 role: 'admin',
-                passwordHash: btoa(password),
-                createdAt: new Date().toISOString()
+                passwordHash: btoa('admin2002nomair'),
+                createdAt: '2026-01-01T00:00:00.000Z'
               };
               saveAccountToDb(adminAccount);
-              if (auth) {
-                try { auth.signInWithEmailAndPassword(email, password).catch(() => {}); } catch (e) {}
-              }
               if (passInput) passInput.value = '';
               submitBtn.textContent = 'Sign In →';
               loginUser(adminAccount, `Director access granted. Welcome Nomair.`);
