@@ -92,42 +92,31 @@ service cloud.firestore {
 
     // Collection: Users
     match /users/{userId} {
-      allow list: if true;
-      allow get: if isValidId(userId);
-      allow create, update: if isValidId(userId) && isValidUser(request.resource.data);
-      allow delete: if isValidId(userId);
+      allow list, get: if true;
+      allow create, update, delete: if isValidId(userId);
     }
 
     // Collection: Projects
     match /projects/{projectId} {
-      allow list: if true;
-      allow get: if isValidId(projectId);
-      allow create, update: if isValidId(projectId) && isValidProject(request.resource.data);
-      allow delete: if isValidId(projectId);
+      allow list, get: if true;
+      allow create, update, delete: if isValidId(projectId);
     }
 
     // Collection: Inquiries
     match /inquiries/{inquiryId} {
-      allow list: if true;
-      allow get: if isValidId(inquiryId);
-      allow create: if isValidId(inquiryId) && isValidInquiry(request.resource.data);
-      allow update, delete: if isValidId(inquiryId);
+      allow list, get: if true;
+      allow create, update, delete: if isValidId(inquiryId);
     }
 
     // Collection: Chats
     match /chats/{chatId} {
-      allow list: if true;
-      allow get: if isValidId(chatId);
-      allow create: if isValidId(chatId) && request.resource.data.id == chatId && isValidChat(request.resource.data);
-      allow update: if isValidId(chatId) && request.resource.data.id == chatId && isValidChat(request.resource.data);
-      allow delete: if isValidId(chatId);
+      allow list, get: if true;
+      allow create, update, delete: if isValidId(chatId);
 
       // Subcollection: Messages
       match /messages/{messageId} {
-        allow list: if isValidId(chatId);
-        allow get: if isValidId(chatId) && isValidId(messageId);
-        allow create: if isValidId(chatId) && isValidId(messageId) && request.resource.data.id == messageId && isValidChatMessage(request.resource.data, chatId);
-        allow update, delete: if isValidId(chatId) && isValidId(messageId);
+        allow list, get: if isValidId(chatId);
+        allow create, update, delete: if isValidId(chatId) && isValidId(messageId);
       }
     }
   }

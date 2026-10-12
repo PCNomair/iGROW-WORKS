@@ -1934,36 +1934,52 @@
         }, 3500);
       }
 
-      // Update Navigation Bar UI
+      // Update Navigation Bar & Floating Button UI
       function updateAuthUI() {
         const bar = document.getElementById('auth-profile-bar');
-        if (!bar) return;
+        const visitorBtn = document.getElementById('visitor-chat-btn');
+        const visitorBtnText = visitorBtn?.querySelector('.font-display');
+        const visitorBtnBadge = document.getElementById('visitor-chat-unread-badge');
 
         if (currentUser) {
           const isAdmin = isUserAdmin();
           const label = isAdmin ? "COMMAND ROOM" : "CLIENT PORTAL";
           const count = isAdmin ? allAdminChats.filter(c => c.unreadByAdmin).length : allLoadedProjects.length;
-          bar.innerHTML = `
-            <div class="flex items-center gap-1.5 sm:gap-2">
-              <button id="open-portal-btn" class="flex items-center gap-1.5 sm:gap-2 border-2 border-black px-2.5 sm:px-3.5 py-1 bg-black text-studio text-[11px] sm:text-xs font-bold uppercase hover:bg-white hover:text-black shadow-[2px_2px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer touch-manipulation">
-                <span class="w-2 h-2 rounded-full ${isAdmin ? 'bg-green-400' : 'bg-studio'} animate-pulse shrink-0"></span>
-                <span>${label}</span>
-                ${count > 0 ? `<span id="nav-project-counter" class="ml-1 ${isAdmin ? 'bg-red-600 text-white animate-bounce' : 'bg-studio text-black'} text-[10px] px-1.5 py-0.2 font-mono font-bold border border-black">${count}</span>` : ''}
-              </button>
-              <button id="logout-btn" title="Sign Out" class="border-2 border-black bg-white px-2 sm:px-2.5 py-1 text-[10px] sm:text-[11px] font-bold uppercase hover:bg-black hover:text-studio shadow-[2px_2px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer touch-manipulation">
-                EXIT
-              </button>
-            </div>
-          `;
-          document.getElementById('open-portal-btn')?.addEventListener('click', openPortalModal);
-          document.getElementById('logout-btn')?.addEventListener('click', handleLogout);
+
+          if (visitorBtnText) {
+            visitorBtnText.textContent = isAdmin ? 'DIRECTOR INBOX' : 'Chat with Nomair';
+          }
+          if (visitorBtnBadge && isAdmin) {
+            visitorBtnBadge.textContent = count;
+            visitorBtnBadge.classList.toggle('hidden', count === 0);
+          }
+
+          if (bar) {
+            bar.innerHTML = `
+              <div class="flex items-center gap-1.5 sm:gap-2">
+                <button id="open-portal-btn" class="flex items-center gap-1.5 sm:gap-2 border-2 border-black px-2.5 sm:px-3.5 py-1 bg-black text-studio text-[11px] sm:text-xs font-bold uppercase hover:bg-white hover:text-black shadow-[2px_2px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer touch-manipulation">
+                  <span class="w-2 h-2 rounded-full ${isAdmin ? 'bg-green-400' : 'bg-studio'} animate-pulse shrink-0"></span>
+                  <span>${label}</span>
+                  ${count > 0 ? `<span id="nav-project-counter" class="ml-1 ${isAdmin ? 'bg-red-600 text-white animate-bounce' : 'bg-studio text-black'} text-[10px] px-1.5 py-0.2 font-mono font-bold border border-black">${count}</span>` : ''}
+                </button>
+                <button id="logout-btn" title="Sign Out" class="border-2 border-black bg-white px-2 sm:px-2.5 py-1 text-[10px] sm:text-[11px] font-bold uppercase hover:bg-black hover:text-studio shadow-[2px_2px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer touch-manipulation">
+                  EXIT
+                </button>
+              </div>
+            `;
+            document.getElementById('open-portal-btn')?.addEventListener('click', openPortalModal);
+            document.getElementById('logout-btn')?.addEventListener('click', handleLogout);
+          }
         } else {
-          bar.innerHTML = `
-            <button id="open-auth-btn" class="border-2 border-black bg-white px-3.5 py-1 text-xs font-bold uppercase tracking-wider hover:bg-black hover:text-studio shadow-[2px_2px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer">
-              Sign In
-            </button>
-          `;
-          document.getElementById('open-auth-btn')?.addEventListener('click', openAuthModal);
+          if (visitorBtnText) visitorBtnText.textContent = 'Chat with Nomair';
+          if (bar) {
+            bar.innerHTML = `
+              <button id="open-auth-btn" class="border-2 border-black bg-white px-3.5 py-1 text-xs font-bold uppercase tracking-wider hover:bg-black hover:text-studio shadow-[2px_2px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer">
+                Sign In
+              </button>
+            `;
+            document.getElementById('open-auth-btn')?.addEventListener('click', openAuthModal);
+          }
         }
       }
 
@@ -1971,6 +1987,10 @@
         if (unsubscribeProjects) {
           unsubscribeProjects();
           unsubscribeProjects = null;
+        }
+        if (unsubscribeAdminChats) {
+          unsubscribeAdminChats();
+          unsubscribeAdminChats = null;
         }
         if (auth) {
           try { auth.signOut().catch(() => {}); } catch (e) {}
@@ -2032,15 +2052,16 @@
           roleBadge.textContent = "STUDIO DIRECTOR (ADMIN)";
           roleBadge.className = "border border-black px-2.5 py-1 text-[10px] font-bold uppercase bg-red-600 text-white font-mono";
           adminTab?.classList.remove('hidden');
+          updatePortalMetrics(allLoadedProjects);
+          switchPortalTab("admin");
+          switchAdminSubtab("inbox");
         } else {
           roleBadge.textContent = "VERIFIED CLIENT";
           roleBadge.className = "border border-black px-2.5 py-1 text-[10px] font-bold uppercase bg-white text-black font-mono";
           adminTab?.classList.add('hidden');
+          updatePortalMetrics(allLoadedProjects);
+          switchPortalTab(activePortalTab || "projects");
         }
-
-
-        updatePortalMetrics(allLoadedProjects);
-        switchPortalTab(activePortalTab || "projects");
       }
 
       function closePortalModal() {
@@ -2454,8 +2475,12 @@
         }
       }
 
+      let prevAdminUnreadCount = 0;
+
       function listenToAdminInbox() {
         if (!isUserAdmin()) return;
+        const firestore = window.db || db;
+
         if (unsubscribeAdminChats) {
           unsubscribeAdminChats();
           unsubscribeAdminChats = null;
@@ -2470,13 +2495,13 @@
           }
         } catch (e) {}
 
-        if (!db) {
+        if (!firestore) {
           renderAdminThreadsList();
           return;
         }
 
         try {
-          unsubscribeAdminChats = db.collection('chats').orderBy('updatedAt', 'desc').onSnapshot((snapshot) => {
+          unsubscribeAdminChats = firestore.collection('chats').orderBy('updatedAt', 'desc').onSnapshot((snapshot) => {
             const chats = [];
             snapshot.forEach(doc => {
               chats.push({ id: doc.id, ...doc.data() });
@@ -2490,6 +2515,26 @@
             const unreadCount = chats.filter(c => c.unreadByAdmin).length;
             const counterEl = document.getElementById('admin-inbox-counter');
             if (counterEl) counterEl.textContent = unreadCount;
+
+            const navCounter = document.getElementById('nav-project-counter');
+            if (navCounter) {
+              navCounter.textContent = unreadCount;
+              navCounter.style.display = unreadCount > 0 ? 'inline-block' : 'none';
+            }
+
+            const visitorBtnBadge = document.getElementById('visitor-chat-unread-badge');
+            if (visitorBtnBadge && isUserAdmin()) {
+              visitorBtnBadge.textContent = unreadCount;
+              visitorBtnBadge.classList.toggle('hidden', unreadCount === 0);
+            }
+
+            // Audio chime & notification on incoming message from visitor
+            if (unreadCount > prevAdminUnreadCount) {
+              playNotificationChime();
+              const latest = chats.find(c => c.unreadByAdmin);
+              showToast(`💬 New message from ${latest?.visitorName || 'Visitor'}: "${latest?.lastMessage || ''}"`, 'success');
+            }
+            prevAdminUnreadCount = unreadCount;
 
             renderAdminThreadsList();
 
@@ -2574,12 +2619,18 @@
         placeholder?.classList.add('hidden');
         activePane?.classList.remove('hidden');
 
+        // Smooth scroll to conversation on mobile viewports
+        if (window.innerWidth < 1024) {
+          activePane?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
         const chat = allAdminChats.find(c => c.id === chatId);
+        const firestore = window.db || db;
         if (chat) {
           updateActiveChatHeader(chat);
           // Mark thread as read by admin
-          if (chat.unreadByAdmin && db) {
-            db.collection('chats').doc(chatId).update({ unreadByAdmin: false }).catch(() => {});
+          if (chat.unreadByAdmin && firestore) {
+            firestore.collection('chats').doc(chatId).update({ unreadByAdmin: false }).catch(() => {});
             chat.unreadByAdmin = false;
           }
         }
@@ -2599,9 +2650,9 @@
           `;
         }
 
-        if (db) {
+        if (firestore) {
           try {
-            unsubscribeActiveThread = db.collection('chats').doc(chatId).collection('messages').orderBy('createdAt', 'asc').onSnapshot((snapshot) => {
+            unsubscribeActiveThread = firestore.collection('chats').doc(chatId).collection('messages').orderBy('createdAt', 'asc').onSnapshot((snapshot) => {
               const messages = [];
               snapshot.forEach(doc => {
                 messages.push({ id: doc.id, ...doc.data() });
@@ -2681,9 +2732,10 @@
         const cleanText = text.trim();
         const msgId = 'msg_' + Date.now();
         const now = new Date().toISOString();
+        const firestore = window.db || db;
 
-        if (db) {
-          const chatRef = db.collection('chats').doc(activeAdminChatId);
+        if (firestore) {
+          const chatRef = firestore.collection('chats').doc(activeAdminChatId);
           chatRef.collection('messages').doc(msgId).set({
             id: msgId,
             chatId: activeAdminChatId,
@@ -2698,12 +2750,12 @@
               unreadByAdmin: false,
               updatedAt: now
             });
-            showToast('Reply transmitted to visitor!', 'success');
+            showToast('Directorial reply delivered to visitor!', 'success');
           }).catch(err => {
             handleFirestoreError(err, 'create', `chats/${activeAdminChatId}/messages/${msgId}`);
           });
         } else {
-          showToast('Reply saved locally', 'info');
+          showToast('Database syncing... please retry.', 'info');
         }
       }
 
@@ -2882,27 +2934,66 @@
       }
 
       // ==========================================
-      // 7. VISITOR LIVE CHAT WIDGET ENGINE
+      // 7. VISITOR LIVE CHAT WIDGET ENGINE (REAL-TIME CROSS-DEVICE SYNC)
       // ==========================================
       let visitorChatId = null;
       let visitorChatName = null;
       let visitorChatContact = null;
       let isVisitorChatOpen = false;
       let lastVisitorMessageSentAt = 0;
-      let visitorMessageCountRecent = 0;
       let lastVisitorMessageText = '';
       let unsubscribeVisitorChat = null;
+      let prevVisitorMsgsCount = 0;
+      const pendingVisitorMessages = [];
+      let isSyncingVisitorQueue = false;
+
+      // Studio Chime Notification (Web Audio API - zero network assets required)
+      function playNotificationChime() {
+        try {
+          const ctx = new (window.AudioContext || window.webkitAudioContext)();
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(587.33, ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.12);
+          gain.gain.setValueAtTime(0.2, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start();
+          osc.stop(ctx.currentTime + 0.35);
+        } catch (e) {}
+      }
+
+      function ensureVisitorIdentity() {
+        if (!visitorChatId) {
+          try {
+            visitorChatId = localStorage.getItem('igrow_visitor_chat_id');
+          } catch (e) {}
+        }
+        if (!visitorChatId || !/^[a-zA-Z0-9_\-]+$/.test(visitorChatId)) {
+          visitorChatId = 'guest_' + Math.random().toString(36).substring(2, 9);
+          try {
+            localStorage.setItem('igrow_visitor_chat_id', visitorChatId);
+          } catch (e) {}
+        }
+        if (!visitorChatName) {
+          try {
+            visitorChatName = localStorage.getItem('igrow_visitor_chat_name') || ('Visitor #' + visitorChatId.slice(-4));
+          } catch (e) {
+            visitorChatName = 'Visitor #' + visitorChatId.slice(-4);
+          }
+        }
+        if (!visitorChatContact) {
+          try {
+            visitorChatContact = localStorage.getItem('igrow_visitor_chat_contact') || '';
+          } catch (e) {}
+        }
+        return visitorChatId;
+      }
 
       function initVisitorChat() {
-        // Retrieve or generate visitor identity
-        visitorChatId = localStorage.getItem('igrow_visitor_chat_id');
-        if (!visitorChatId) {
-          visitorChatId = 'guest_' + Math.random().toString(36).substring(2, 9);
-          localStorage.setItem('igrow_visitor_chat_id', visitorChatId);
-        }
-
-        visitorChatName = localStorage.getItem('igrow_visitor_chat_name') || ('Visitor #' + visitorChatId.slice(-4));
-        visitorChatContact = localStorage.getItem('igrow_visitor_chat_contact') || '';
+        ensureVisitorIdentity();
 
         const nameDisplay = document.getElementById('visitor-current-name-display');
         const nameInput = document.getElementById('visitor-name-input');
@@ -2911,8 +3002,15 @@
         if (nameInput) nameInput.value = visitorChatName;
         if (contactInput) contactInput.value = visitorChatContact;
 
-        // Toggle chat open / close
-        document.getElementById('visitor-chat-btn')?.addEventListener('click', () => toggleVisitorChat(true));
+        // Toggle chat open / close or redirect director to Inbox
+        document.getElementById('visitor-chat-btn')?.addEventListener('click', () => {
+          if (currentUser && isUserAdmin()) {
+            openPortalModal();
+            switchAdminSubtab('inbox');
+          } else {
+            toggleVisitorChat(true);
+          }
+        });
         document.getElementById('visitor-chat-minimize-btn')?.addEventListener('click', () => toggleVisitorChat(false));
         document.getElementById('visitor-chat-close-btn')?.addEventListener('click', () => toggleVisitorChat(false));
 
@@ -2927,14 +3025,17 @@
           const newContact = (document.getElementById('visitor-contact-input')?.value || '').trim();
           if (newName) visitorChatName = newName;
           visitorChatContact = newContact;
-          localStorage.setItem('igrow_visitor_chat_name', visitorChatName);
-          localStorage.setItem('igrow_visitor_chat_contact', visitorChatContact);
+          try {
+            localStorage.setItem('igrow_visitor_chat_name', visitorChatName);
+            localStorage.setItem('igrow_visitor_chat_contact', visitorChatContact);
+          } catch (e) {}
           if (nameDisplay) nameDisplay.textContent = visitorChatName;
           document.getElementById('visitor-profile-editor')?.classList.add('hidden');
           showToast('Identity updated for Nomair', 'info');
-          // Update Firestore chat doc with new name/contact
-          if (db && visitorChatId) {
-            db.collection('chats').doc(visitorChatId).set({
+
+          const firestore = window.db || db;
+          if (firestore && visitorChatId) {
+            firestore.collection('chats').doc(visitorChatId).set({
               visitorName: visitorChatName,
               visitorEmail: visitorChatContact,
               updatedAt: new Date().toISOString()
@@ -2946,9 +3047,11 @@
         setupVisitorChatListener();
 
         // Message send form
-        document.getElementById('visitor-chat-form')?.addEventListener('submit', (e) => {
+        const form = document.getElementById('visitor-chat-form');
+        const input = document.getElementById('visitor-chat-input');
+
+        form?.addEventListener('submit', (e) => {
           e.preventDefault();
-          const input = document.getElementById('visitor-chat-input');
           const text = (input?.value || '').trim();
           if (!text) return;
 
@@ -2971,6 +3074,14 @@
           if (input) input.value = '';
           const messagesBox = document.getElementById('visitor-chat-messages');
           if (messagesBox) messagesBox.scrollTop = messagesBox.scrollHeight;
+        });
+
+        // Enter key to submit on mobile and desktop
+        input?.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            form?.dispatchEvent(new Event('submit', { cancelable: true }));
+          }
         });
       }
 
@@ -3007,68 +3118,103 @@
         document.getElementById('chat-spam-warning')?.classList.add('hidden');
       }
 
+      function flushPendingVisitorMessages() {
+        const firestore = window.db || db;
+        if (!firestore || isSyncingVisitorQueue || pendingVisitorMessages.length === 0) return;
+        isSyncingVisitorQueue = true;
+
+        const item = pendingVisitorMessages[0];
+        const chatRef = firestore.collection('chats').doc(item.chatId);
+
+        chatRef.set({
+          id: item.chatId,
+          visitorId: item.chatId,
+          visitorName: item.senderName,
+          visitorEmail: visitorChatContact || '',
+          lastMessage: item.text,
+          lastMessageAt: item.createdAt,
+          status: 'active',
+          unreadByAdmin: true,
+          updatedAt: item.createdAt
+        }, { merge: true })
+        .then(() => {
+          return chatRef.collection('messages').doc(item.id).set({
+            id: item.id,
+            chatId: item.chatId,
+            sender: 'visitor',
+            senderName: item.senderName,
+            text: item.text,
+            createdAt: item.createdAt
+          });
+        })
+        .then(() => {
+          pendingVisitorMessages.shift();
+          isSyncingVisitorQueue = false;
+          const statusEl = document.getElementById('status_' + item.id);
+          if (statusEl) {
+            statusEl.textContent = 'Delivered ✓';
+            statusEl.className = 'text-[9px] font-mono text-green-600 font-bold';
+          }
+          if (pendingVisitorMessages.length > 0) {
+            setTimeout(flushPendingVisitorMessages, 50);
+          }
+        })
+        .catch(err => {
+          console.warn('Sync retry notice:', err);
+          isSyncingVisitorQueue = false;
+          setTimeout(flushPendingVisitorMessages, 1500);
+        });
+      }
+
       function sendVisitorMessage(text) {
-        if (!db && window.db) db = window.db;
-        const msgId = 'msg_' + Date.now();
+        ensureVisitorIdentity();
+        const firestore = window.db || db;
+        const msgId = 'msg_' + Date.now() + '_' + Math.random().toString(36).substring(2, 6);
         const now = new Date().toISOString();
 
-        // Optimistically render message in visitor UI
+        // 1. Optimistically render message in visitor UI
         appendVisitorMessageToUI({
           id: msgId,
           sender: 'visitor',
           senderName: visitorChatName,
           text: text,
-          createdAt: now
+          createdAt: now,
+          status: firestore ? 'Delivered ✓' : 'Sending ⏳'
         });
 
-        // Cache locally
+        // 2. Cache locally
         try {
           const cached = JSON.parse(localStorage.getItem('igrow_visitor_msgs_' + visitorChatId) || '[]');
           cached.push({ id: msgId, sender: 'visitor', text: text, createdAt: now });
           localStorage.setItem('igrow_visitor_msgs_' + visitorChatId, JSON.stringify(cached));
         } catch (e) {}
 
-        // Push to Firestore
-        if (db) {
-          const chatRef = db.collection('chats').doc(visitorChatId);
-          chatRef.set({
-            id: visitorChatId,
-            visitorId: visitorChatId,
-            visitorName: visitorChatName,
-            visitorEmail: visitorChatContact || '',
-            lastMessage: text,
-            lastMessageAt: now,
-            status: 'active',
-            unreadByAdmin: true,
-            updatedAt: now
-          }, { merge: true }).catch(err => {
-            handleFirestoreError(err, 'write', `chats/${visitorChatId}`);
-          });
+        // 3. Queue and flush to Firestore
+        pendingVisitorMessages.push({
+          id: msgId,
+          chatId: visitorChatId,
+          senderName: visitorChatName,
+          text: text,
+          createdAt: now
+        });
 
-          chatRef.collection('messages').doc(msgId).set({
-            id: msgId,
-            chatId: visitorChatId,
-            sender: 'visitor',
-            senderName: visitorChatName,
-            text: text,
-            createdAt: now
-          }).catch(err => {
-            handleFirestoreError(err, 'create', `chats/${visitorChatId}/messages/${msgId}`);
-          });
-        }
+        flushPendingVisitorMessages();
       }
 
       function setupVisitorChatListener() {
-        if (!visitorChatId) return;
-        if (!db && window.db) db = window.db;
+        ensureVisitorIdentity();
+        const firestore = window.db || db;
 
-        // Render any cached messages first
+        // Render cached messages first
         try {
           const cached = JSON.parse(localStorage.getItem('igrow_visitor_msgs_' + visitorChatId) || '[]');
-          cached.forEach(m => appendVisitorMessageToUI(m, false));
+          const box = document.getElementById('visitor-chat-messages');
+          if (cached.length > 0 && box && box.children.length <= 1) {
+            cached.forEach(m => appendVisitorMessageToUI(m, false));
+          }
         } catch (e) {}
 
-        if (!db) return;
+        if (!firestore) return;
 
         if (unsubscribeVisitorChat) {
           unsubscribeVisitorChat();
@@ -3076,7 +3222,7 @@
         }
 
         try {
-          unsubscribeVisitorChat = db.collection('chats').doc(visitorChatId).collection('messages').orderBy('createdAt', 'asc').onSnapshot((snapshot) => {
+          unsubscribeVisitorChat = firestore.collection('chats').doc(visitorChatId).collection('messages').orderBy('createdAt', 'asc').onSnapshot((snapshot) => {
             const msgs = [];
             let hasNewAdminMsg = false;
             snapshot.forEach(doc => {
@@ -3088,11 +3234,16 @@
             // Re-render chat messages pane
             renderAllVisitorMessages(msgs);
 
-            // If new message from Director arrives and chat is minimized, show unread badge
-            if (hasNewAdminMsg && !isVisitorChatOpen) {
-              const badge = document.getElementById('visitor-chat-unread-badge');
-              badge?.classList.remove('hidden');
+            // If new message from Director arrives, chime and alert
+            if (hasNewAdminMsg && msgs.length > prevVisitorMsgsCount) {
+              playNotificationChime();
+              if (!isVisitorChatOpen) {
+                const badge = document.getElementById('visitor-chat-unread-badge');
+                badge?.classList.remove('hidden');
+                showToast("Director Nomair replied to your message!", "info");
+              }
             }
+            prevVisitorMsgsCount = msgs.length;
           }, (err) => {
             console.debug('Visitor chat stream:', err);
           });
@@ -3103,7 +3254,7 @@
         const container = document.getElementById('visitor-chat-messages');
         if (!container) return;
 
-        // Keep the initial welcome message always at the top
+        // Keep initial welcome message at the top
         const welcomeHtml = `
           <div class="flex items-start gap-2 max-w-[88%]">
             <div class="w-6 h-6 rounded-full border border-black overflow-hidden shrink-0 mt-0.5 bg-neutral-900">
@@ -3145,7 +3296,10 @@
                 <div class="max-w-[85%] bg-black text-studio p-3 border-2 border-black shadow-[2px_2px_0px_0px_#000000]">
                   <p class="leading-relaxed whitespace-pre-wrap">${msg.text}</p>
                 </div>
-                <span class="text-[9px] font-mono text-black/50 mt-1">${time}</span>
+                <div class="flex items-center gap-1.5 mt-1">
+                  <span id="status_${msg.id}" class="text-[9px] font-mono text-green-700 font-bold">Delivered ✓</span>
+                  <span class="text-[9px] font-mono text-black/50">${time}</span>
+                </div>
               </div>
             `;
           }
@@ -3184,7 +3338,10 @@
             <div class="max-w-[85%] bg-black text-studio p-3 border-2 border-black shadow-[2px_2px_0px_0px_#000000]">
               <p class="leading-relaxed whitespace-pre-wrap">${msg.text}</p>
             </div>
-            <span class="text-[9px] font-mono text-black/50 mt-1">${time}</span>
+            <div class="flex items-center gap-1.5 mt-1">
+              <span id="status_${msg.id}" class="text-[9px] font-mono text-green-700 font-bold">${msg.status || 'Delivered ✓'}</span>
+              <span class="text-[9px] font-mono text-black/50">${time}</span>
+            </div>
           `;
         }
 
@@ -3267,13 +3424,23 @@
         document.getElementById('btn-admin-delete-chat')?.addEventListener('click', handleAdminDeleteChat);
 
         // Admin reply submit
-        document.getElementById('admin-reply-form')?.addEventListener('submit', (e) => {
+        const adminReplyForm = document.getElementById('admin-reply-form');
+        const adminReplyInput = document.getElementById('admin-reply-input');
+
+        adminReplyForm?.addEventListener('submit', (e) => {
           e.preventDefault();
-          const input = document.getElementById('admin-reply-input');
-          const text = (input?.value || '').trim();
+          const text = (adminReplyInput?.value || '').trim();
           if (text) {
             sendAdminReply(text);
-            if (input) input.value = '';
+            if (adminReplyInput) adminReplyInput.value = '';
+          }
+        });
+
+        // Press Enter to transmit reply (Shift+Enter for new line)
+        adminReplyInput?.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            adminReplyForm?.dispatchEvent(new Event('submit', { cancelable: true }));
           }
         });
 
