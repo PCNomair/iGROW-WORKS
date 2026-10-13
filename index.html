@@ -1397,12 +1397,12 @@
 
             <!-- Admin Sub-navigation Tabs -->
             <div class="flex flex-wrap gap-2 mt-5 border-t border-studio/20 pt-4">
-              <button id="admin-subtab-pipeline-btn" class="border-2 border-black px-4 py-2 font-display text-xs uppercase tracking-wider bg-studio text-black shadow-[2px_2px_0px_0px_#000000] cursor-pointer">
-                🎬 Productions Pipeline
-              </button>
-              <button id="admin-subtab-inbox-btn" class="border-2 border-black px-4 py-2 font-display text-xs uppercase tracking-wider bg-white text-black hover:bg-studio shadow-[2px_2px_0px_0px_#000000] cursor-pointer flex items-center gap-1.5">
+              <button id="admin-subtab-inbox-btn" class="border-2 border-black px-4 py-2 font-display text-xs uppercase tracking-wider bg-studio text-black shadow-[2px_2px_0px_0px_#000000] cursor-pointer flex items-center gap-1.5">
                 <span>💬 Visitor Chats &amp; Inquiries</span>
                 <span id="admin-inbox-counter" class="bg-red-600 text-white text-[10px] px-1.5 py-0.2 font-mono font-bold">0</span>
+              </button>
+              <button id="admin-subtab-pipeline-btn" class="border-2 border-black px-4 py-2 font-display text-xs uppercase tracking-wider bg-white text-black hover:bg-studio shadow-[2px_2px_0px_0px_#000000] cursor-pointer">
+                🎬 Productions Pipeline
               </button>
               <button id="admin-subtab-accounts-btn" class="border-2 border-black px-4 py-2 font-display text-xs uppercase tracking-wider bg-white text-black hover:bg-studio shadow-[2px_2px_0px_0px_#000000] cursor-pointer flex items-center gap-1.5">
                 <span>👥 Registered Accounts</span>
@@ -1412,14 +1412,14 @@
           </div>
 
           <!-- ADMIN SUBVIEW 1: PRODUCTIONS PIPELINE -->
-          <div id="admin-subview-pipeline" class="space-y-6">
+          <div id="admin-subview-pipeline" class="hidden space-y-6">
             <div id="admin-projects-list" class="space-y-6">
               <!-- Populated for admin -->
             </div>
           </div>
 
           <!-- ADMIN SUBVIEW 2: VISITOR CHAT INBOX & INQUIRIES -->
-          <div id="admin-subview-inbox" class="hidden space-y-6">
+          <div id="admin-subview-inbox" class="space-y-6">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
               
               <!-- Threads list (Left Column: 5 cols) -->
@@ -1464,12 +1464,17 @@
                 <div id="admin-thread-active-pane" class="hidden flex-1 flex flex-col justify-between">
                   <!-- Header -->
                   <div class="border-b-2 border-black pb-3 mb-3 flex flex-wrap items-center justify-between gap-2">
-                    <div>
-                      <div class="flex items-center gap-2">
-                        <h4 id="admin-active-visitor-name" class="font-display text-lg uppercase tracking-tight text-black">Visitor Name</h4>
-                        <span id="admin-active-status-badge" class="text-[9px] font-mono px-2 py-0.5 border border-black bg-green-200 font-bold uppercase">ACTIVE</span>
+                    <div class="flex items-center gap-2">
+                      <button id="btn-admin-mobile-back" class="lg:hidden border-2 border-black bg-studio px-2 py-1 text-[10px] font-mono font-bold uppercase hover:bg-black hover:text-studio cursor-pointer shrink-0">
+                        ← Threads
+                      </button>
+                      <div>
+                        <div class="flex items-center gap-2">
+                          <h4 id="admin-active-visitor-name" class="font-display text-lg uppercase tracking-tight text-black">Visitor Name</h4>
+                          <span id="admin-active-status-badge" class="text-[9px] font-mono px-2 py-0.5 border border-black bg-green-200 font-bold uppercase">ACTIVE</span>
+                        </div>
+                        <p id="admin-active-visitor-meta" class="text-xs font-mono text-black/70 mt-0.5">Contact: Not provided • ID: guest_123</p>
                       </div>
-                      <p id="admin-active-visitor-meta" class="text-xs font-mono text-black/70 mt-0.5">Contact: Not provided • ID: guest_123</p>
                     </div>
 
                     <div class="flex items-center gap-1.5 text-[10px] font-mono">
@@ -2103,6 +2108,11 @@
         viewProjects?.classList.toggle('hidden', tab !== 'projects');
         viewSubmit?.classList.toggle('hidden', tab !== 'submit');
         if (viewAdmin) viewAdmin.classList.toggle('hidden', tab !== 'admin');
+
+        if (tab === 'admin') {
+          switchAdminSubtab('inbox');
+          listenToAdminInbox();
+        }
       }
 
       // Real-time Firestore Projects Listener + Offline Persistence Fallback
@@ -2432,7 +2442,7 @@
       // ==========================================
       // DIRECTOR COMMAND ROOM (ADMIN OPERATIONS)
       // ==========================================
-      let activeAdminSubtab = 'pipeline';
+      let activeAdminSubtab = 'inbox';
       let allAdminChats = [];
       let activeAdminChatId = null;
       let unsubscribeAdminChats = null;
@@ -2488,65 +2498,98 @@
           unsubscribeAdminChats = null;
         }
 
-        // Check local storage cached chats first
+        // Check local storage cached chats first so UI is never blank
         try {
           const localChats = JSON.parse(localStorage.getItem('igrow_admin_chats_cache') || '[]');
           if (localChats.length > 0) {
             allAdminChats = localChats;
             renderAdminThreadsList();
+            if (!activeAdminChatId && allAdminChats.length > 0) {
+              selectAdminThread(allAdminChats[0].id);
+            }
           }
         } catch (e) {}
 
         if (!firestore) {
           renderAdminThreadsList();
+          // Auto retry when Firebase initializes
+          setTimeout(() => {
+            if (window.db || db) listenToAdminInbox();
+          }, 800);
           return;
         }
 
+        function processChatsSnapshot(snapshot) {
+          const chats = [];
+          snapshot.forEach(doc => {
+            chats.push({ id: doc.id, ...doc.data() });
+          });
+          // Resilient in-memory sort by newest timestamp (never drops documents with missing updatedAt)
+          chats.sort((a, b) => {
+            const timeA = new Date(a.updatedAt || a.lastMessageAt || a.createdAt || 0).getTime();
+            const timeB = new Date(b.updatedAt || b.lastMessageAt || b.createdAt || 0).getTime();
+            return timeB - timeA;
+          });
+          allAdminChats = chats;
+          try {
+            localStorage.setItem('igrow_admin_chats_cache', JSON.stringify(chats));
+          } catch (e) {}
+
+          // Update unread badge counter
+          const unreadCount = chats.filter(c => c.unreadByAdmin).length;
+          const counterEl = document.getElementById('admin-inbox-counter');
+          if (counterEl) counterEl.textContent = unreadCount;
+
+          const navCounter = document.getElementById('nav-project-counter');
+          if (navCounter) {
+            navCounter.textContent = unreadCount;
+            navCounter.style.display = unreadCount > 0 ? 'inline-block' : 'none';
+          }
+
+          const visitorBtnBadge = document.getElementById('visitor-chat-unread-badge');
+          if (visitorBtnBadge && isUserAdmin()) {
+            visitorBtnBadge.textContent = unreadCount;
+            visitorBtnBadge.classList.toggle('hidden', unreadCount === 0);
+          }
+
+          // Audio chime & notification on incoming message from visitor
+          if (unreadCount > prevAdminUnreadCount) {
+            playNotificationChime();
+            const latest = chats.find(c => c.unreadByAdmin);
+            showToast(`💬 New message from ${latest?.visitorName || 'Visitor'}: "${latest?.lastMessage || ''}"`, 'success');
+          }
+          prevAdminUnreadCount = unreadCount;
+
+          renderAdminThreadsList();
+
+          // Auto-select first thread if none is selected, so messages are immediately visible
+          if (!activeAdminChatId && chats.length > 0) {
+            selectAdminThread(chats[0].id);
+          } else if (activeAdminChatId) {
+            const activeDoc = chats.find(c => c.id === activeAdminChatId);
+            if (activeDoc) {
+              updateActiveChatHeader(activeDoc);
+            } else if (chats.length > 0) {
+              selectAdminThread(chats[0].id);
+            }
+          }
+        }
+
+        // 1. Immediate direct fetch for instantaneous rendering
+        firestore.collection('chats').get().then(snap => {
+          if (snap.size > 0 || (snap.docs && snap.docs.length > 0)) {
+            processChatsSnapshot(snap);
+          }
+        }).catch(err => {
+          console.warn('Direct chats fetch note:', err);
+        });
+
+        // 2. Real-time live listener (without orderBy to avoid dropping any documents)
         try {
-          unsubscribeAdminChats = firestore.collection('chats').orderBy('updatedAt', 'desc').onSnapshot((snapshot) => {
-            const chats = [];
-            snapshot.forEach(doc => {
-              chats.push({ id: doc.id, ...doc.data() });
-            });
-            allAdminChats = chats;
-            try {
-              localStorage.setItem('igrow_admin_chats_cache', JSON.stringify(chats));
-            } catch (e) {}
-
-            // Update unread badge counter
-            const unreadCount = chats.filter(c => c.unreadByAdmin).length;
-            const counterEl = document.getElementById('admin-inbox-counter');
-            if (counterEl) counterEl.textContent = unreadCount;
-
-            const navCounter = document.getElementById('nav-project-counter');
-            if (navCounter) {
-              navCounter.textContent = unreadCount;
-              navCounter.style.display = unreadCount > 0 ? 'inline-block' : 'none';
-            }
-
-            const visitorBtnBadge = document.getElementById('visitor-chat-unread-badge');
-            if (visitorBtnBadge && isUserAdmin()) {
-              visitorBtnBadge.textContent = unreadCount;
-              visitorBtnBadge.classList.toggle('hidden', unreadCount === 0);
-            }
-
-            // Audio chime & notification on incoming message from visitor
-            if (unreadCount > prevAdminUnreadCount) {
-              playNotificationChime();
-              const latest = chats.find(c => c.unreadByAdmin);
-              showToast(`💬 New message from ${latest?.visitorName || 'Visitor'}: "${latest?.lastMessage || ''}"`, 'success');
-            }
-            prevAdminUnreadCount = unreadCount;
-
-            renderAdminThreadsList();
-
-            // If active chat is still selected, re-highlight
-            if (activeAdminChatId) {
-              const activeDoc = chats.find(c => c.id === activeAdminChatId);
-              if (activeDoc) updateActiveChatHeader(activeDoc);
-            }
+          unsubscribeAdminChats = firestore.collection('chats').onSnapshot((snapshot) => {
+            processChatsSnapshot(snapshot);
           }, (err) => {
-            console.debug('Chats listener note:', err);
+            console.warn('Chats listener note:', err);
             renderAdminThreadsList();
           });
         } catch (e) {
@@ -2564,7 +2607,7 @@
         if (activeChatFilter === 'unread') {
           filtered = filtered.filter(c => c.unreadByAdmin);
         } else if (activeChatFilter === 'active') {
-          filtered = filtered.filter(c => c.status === 'active');
+          filtered = filtered.filter(c => (c.status || 'active') === 'active');
         } else if (activeChatFilter === 'archived') {
           filtered = filtered.filter(c => c.status === 'archived' || c.status === 'resolved');
         }
@@ -2644,7 +2687,7 @@
         }
 
         const msgList = document.getElementById('admin-active-messages-list');
-        if (msgList) {
+        if (msgList && (!msgList.children || msgList.children.length === 0)) {
           msgList.innerHTML = `
             <div class="text-center py-8 text-black/60 text-xs font-mono">
               <span>Loading dialogue...</span>
@@ -2653,15 +2696,31 @@
         }
 
         if (firestore) {
+          // 1. Direct immediate fetch for instant message rendering
+          firestore.collection('chats').doc(chatId).collection('messages').get().then(snap => {
+            const messages = [];
+            snap.forEach(doc => {
+              messages.push({ id: doc.id, ...doc.data() });
+            });
+            messages.sort((a, b) => new Date(a.createdAt || 0).getTime() - new Date(b.createdAt || 0).getTime());
+            if (messages.length > 0) {
+              renderAdminThreadMessages(messages);
+            }
+          }).catch(err => {
+            console.warn('Direct messages fetch note:', err);
+          });
+
+          // 2. Real-time snapshot listener
           try {
-            unsubscribeActiveThread = firestore.collection('chats').doc(chatId).collection('messages').orderBy('createdAt', 'asc').onSnapshot((snapshot) => {
+            unsubscribeActiveThread = firestore.collection('chats').doc(chatId).collection('messages').onSnapshot((snapshot) => {
               const messages = [];
               snapshot.forEach(doc => {
                 messages.push({ id: doc.id, ...doc.data() });
               });
+              messages.sort((a, b) => new Date(a.createdAt || 0).getTime() - new Date(b.createdAt || 0).getTime());
               renderAdminThreadMessages(messages);
             }, (err) => {
-              console.debug('Messages query:', err);
+              console.warn('Messages snapshot notice:', err);
             });
           } catch (e) {}
         }
@@ -3455,6 +3514,9 @@
         document.getElementById('btn-admin-mark-resolved')?.addEventListener('click', () => handleAdminChatStatus('resolved'));
         document.getElementById('btn-admin-archive-chat')?.addEventListener('click', () => handleAdminChatStatus('archived'));
         document.getElementById('btn-admin-delete-chat')?.addEventListener('click', handleAdminDeleteChat);
+        document.getElementById('btn-admin-mobile-back')?.addEventListener('click', () => {
+          document.getElementById('admin-threads-container')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
 
         // Admin reply submit
         const adminReplyForm = document.getElementById('admin-reply-form');
